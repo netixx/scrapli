@@ -1837,6 +1837,7 @@ class BaseTransportArgs:
     port: int = 22
     timeout_socket: float = 10.0
     timeout_transport: float = 30.0
+    logging_uid: str = ""
 
 
 @dataclass()
@@ -1852,6 +1853,7 @@ class BaseTransport(ABC):
             instance_name="scrapli.transport",
             host=self._base_transport_args.host,
             port=self._base_transport_args.port,
+            uid=self._base_transport_args.logging_uid,
         )
 
     @abstractmethod
@@ -1992,6 +1994,7 @@ class BaseTransport(ABC):
             instance_name="scrapli.transport",
             host=self._base_transport_args.host,
             port=self._base_transport_args.port,
+            uid=self._base_transport_args.logging_uid,
         )
 
     @abstractmethod
@@ -2140,7 +2143,7 @@ Raises:
 </code></pre></div>
 
 <h3 id="basetransportargs">BaseTransportArgs<a class="headerlink" href="#basetransportargs" title="Permanent link">&para;</a></h3>
-<div class="text codehilite"><pre><span></span><code>BaseTransportArgs(transport_options: Dict[str, Any], host: str, port: int = 22, timeout_socket: float = 10.0, timeout_transport: float = 30.0)
+<div class="text codehilite"><pre><span></span><code>BaseTransportArgs(transport_options: Dict[str, Any], host: str, port: int = 22, timeout_socket: float = 10.0, timeout_transport: float = 30.0, logging_uid: str = &#39;&#39;)
 </code></pre></div>
 
 <details class="source">
@@ -2155,12 +2158,14 @@ class BaseTransportArgs:
     port: int = 22
     timeout_socket: float = 10.0
     timeout_transport: float = 30.0
+    logging_uid: str = ""
         </code>
     </pre>
 </details>
 
 <h4 id="class-variables">Class variables<a class="headerlink" href="#class-variables" title="Permanent link">&para;</a></h4>
 <p><code>host: str</code></p>
+<p><code>logging_uid: str</code></p>
 <p><code>port: int</code></p>
 <p><code>timeout_socket: float</code></p>
 <p><code>timeout_transport: float</code></p>

@@ -1382,8 +1382,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#2021xxxx" class="md-nav__link">
-    2021.XX.XX
+  <a href="#20210130" class="md-nav__link">
+    2021.01.30
   </a>
   
 </li>
@@ -1667,8 +1667,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#2021xxxx" class="md-nav__link">
-    2021.XX.XX
+  <a href="#20210130" class="md-nav__link">
+    2021.01.30
   </a>
   
 </li>
@@ -1785,7 +1785,7 @@
                 
                 
                 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
-<h2 id="2021xxxx">2021.XX.XX<a class="headerlink" href="#2021xxxx" title="Permanent link">&para;</a></h2>
+<h2 id="20210130">2021.01.30<a class="headerlink" href="#20210130" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>BREAKING CHANGE</em> <code>PrivilegeLevel</code> import location changed -- this will break things! </li>
 <li><code>timeout_exit</code> deprecated; will always close connection on timeout now</li>
@@ -1803,8 +1803,16 @@
   confusion about where to update what timeout/value</li>
 <li><code>Response._record_response</code> is now public but only for linting reasons, people generally should ignore this anyway!</li>
 <li>Python 3.6 will now require dataclasses backport</li>
+<li>All driver methods now have only the "main" argument as an allowable positional argument, the rest of the 
+  arguments are keyword-only! For example, <code>send_command</code> you can pass a positional argument for <code>command</code>, but 
+  <code>strip_prompt</code> and any additional arguments <em>must</em> be keyword arguments!</li>
 <li><em>BREAKING CHANGE</em> <code>Scrape</code>/<code>AsyncScrape</code> renamed --&gt; <code>Driver</code>/<code>AsyncDriver</code> -- given most folks should not be using 
   these directly there will be no alias for this, just a hard change!</li>
+<li>More improvements to IOSXE tclsh pattern handling; handles tclsh in exec or privilege exec mode now</li>
+<li><code>read_until_prompt_or_time</code> now supports regex patterns in the <code>channel_outputs</code> list (pass as a string, will be 
+  compiled for you)</li>
+<li>Big improvements to Factory for users of IDEs -- factories now have proper typing data so you will have nice auto 
+  completion things there/typing will be much happier</li>
 </ul>
 <h2 id="20201231">2020.12.31<a class="headerlink" href="#20201231" title="Permanent link">&para;</a></h2>
 <ul>

@@ -1718,6 +1718,7 @@
         <code class="python">
 """scrapli.driver.core.arista_eos.async_driver"""
 from copy import deepcopy
+from io import BytesIO
 from typing import Any, Callable, Dict, List, Optional, Union
 
 from scrapli.driver import AsyncNetworkDriver
@@ -1788,8 +1789,9 @@ class AsyncEOSDriver(AsyncNetworkDriver, EOSDriverBase):
         on_close: Optional[Callable[..., Any]] = None,
         transport: str = "system",
         transport_options: Optional[Dict[str, Any]] = None,
-        channel_log: Union[str, bool] = False,
+        channel_log: Union[str, bool, BytesIO] = False,
         channel_lock: bool = False,
+        logging_uid: str = "",
         auth_secondary: str = "",
         failed_when_contains: Optional[List[str]] = None,
         textfsm_platform: str = "arista_eos",
@@ -1872,6 +1874,7 @@ class AsyncEOSDriver(AsyncNetworkDriver, EOSDriverBase):
             transport_options=transport_options,
             channel_log=channel_log,
             channel_lock=channel_lock,
+            logging_uid=logging_uid,
             privilege_levels=privilege_levels,
             default_desired_privilege_level=default_desired_privilege_level,
             auth_secondary=auth_secondary,
@@ -1985,8 +1988,9 @@ class AsyncEOSDriver(AsyncNetworkDriver, EOSDriverBase):
         on_close: Optional[Callable[..., Any]] = None,
         transport: str = "system",
         transport_options: Optional[Dict[str, Any]] = None,
-        channel_log: Union[str, bool] = False,
+        channel_log: Union[str, bool, BytesIO] = False,
         channel_lock: bool = False,
+        logging_uid: str = "",
         auth_secondary: str = "",
         failed_when_contains: Optional[List[str]] = None,
         textfsm_platform: str = "arista_eos",
@@ -2069,6 +2073,7 @@ class AsyncEOSDriver(AsyncNetworkDriver, EOSDriverBase):
             transport_options=transport_options,
             channel_log=channel_log,
             channel_lock=channel_lock,
+            logging_uid=logging_uid,
             privilege_levels=privilege_levels,
             default_desired_privilege_level=default_desired_privilege_level,
             auth_secondary=auth_secondary,
@@ -2130,6 +2135,7 @@ class AsyncEOSDriver(AsyncNetworkDriver, EOSDriverBase):
 <p><code>auth_secondary: str</code></p>
 <p><code>failed_when_contains: List[str]</code></p>
 <p><code>genie_platform: str</code></p>
+<p><code>logger: logging.LoggerAdapter</code></p>
 <p><code>privilege_levels: Dict[str, scrapli.driver.network.base_driver.PrivilegeLevel]</code></p>
 <p><code>textfsm_platform: str</code></p>
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>

@@ -1851,12 +1851,14 @@ class Channel(BaseChannel):
         """
         buf = self.transport.read()
         buf = buf.replace(b"\r", b"")
-        self.buf += buf
 
         self.logger.debug(f"read: {repr(buf)}")
 
         if self.channel_log:
             self.channel_log.write(buf)
+
+        if self._base_channel_args.comms_ansi:
+            buf = self._strip_ansi(buf=buf)
 
         return buf
 
@@ -1885,9 +1887,6 @@ class Channel(BaseChannel):
         while True:
             buf += self.read()
 
-            if self._base_channel_args.comms_ansi:
-                buf = self._strip_ansi(buf=buf)
-
             # replace any backspace chars (particular problem w/ junos), and remove any added spaces
             # this is just for comparison of the inputs to what was read from channel
             if processed_channel_input in b"".join(buf.lower().replace(b"\x08", b"").split()):
@@ -1914,9 +1913,6 @@ class Channel(BaseChannel):
 
         while True:
             buf += self.read()
-
-            if self._base_channel_args.comms_ansi:
-                buf = self._strip_ansi(buf=buf)
 
             channel_match = re.search(
                 pattern=search_pattern,
@@ -1960,6 +1956,8 @@ class Channel(BaseChannel):
         if read_duration is None:
             read_duration = 2.5
 
+        regex_channel_outputs_pattern = self._join_and_compile(channel_outputs=channel_outputs)
+
         _transport_args = self.transport._base_transport_args  # pylint: disable=W0212
         previous_timeout_transport = _transport_args.timeout_transport
         _transport_args.timeout_transport = int(read_duration)
@@ -1971,12 +1969,11 @@ class Channel(BaseChannel):
             except ScrapliTimeout:
                 pass
 
-            if self._base_channel_args.comms_ansi:
-                buf = self._strip_ansi(buf=buf)
-
             if (time.time() - start) > read_duration:
                 break
             if any([channel_output in buf for channel_output in channel_outputs]):
+                break
+            if re.search(pattern=regex_channel_outputs_pattern, string=buf):
                 break
             if re.search(pattern=search_pattern, string=buf):
                 break
@@ -2018,7 +2015,11 @@ class Channel(BaseChannel):
             while True:
                 buf = self.read()
 
-                if self._base_channel_args.comms_ansi:
+                # if user sets comms_ansi *or* if we see an escape char, strip ansi... at least eos
+                # tends to have one escape char in the login output that will break things; other
+                # than this and telnet login, stripping ansi will only ever be governed by the users
+                # comms_ansi setting
+                if self._base_channel_args.comms_ansi or b"\x1B" in buf:
                     buf = self._strip_ansi(buf=buf)
 
                 authenticate_buf += buf.lower()
@@ -2099,7 +2100,9 @@ class Channel(BaseChannel):
             while True:
                 buf = self.read()
 
-                if self._base_channel_args.comms_ansi:
+                # telnet auth *probably* wont have ansi chars, but strip them if they do exist so
+                # we can at least get past auth
+                if self._base_channel_args.comms_ansi or b"\x1B" in buf:
                     buf = self._strip_ansi(buf=buf)
 
                 if not buf:
@@ -2169,9 +2172,6 @@ class Channel(BaseChannel):
             while True:
                 buf += self.read()
 
-                if self._base_channel_args.comms_ansi:
-                    buf = self._strip_ansi(buf=buf)
-
                 channel_match = re.search(
                     pattern=search_pattern,
                     string=buf,
@@ -2210,6 +2210,10 @@ class Channel(BaseChannel):
 
         buf = b""
         bytes_channel_input = channel_input.encode()
+
+        self.logger.info(
+            f"sending channel input: {channel_input}; strip_prompt: {strip_prompt}; eager: {eager}"
+        )
 
         with self._channel_lock():
             self.write(channel_input=channel_input)
@@ -2251,12 +2255,18 @@ class Channel(BaseChannel):
             N/A
 
         """
-        buf = self._pre_send_input(channel_input=channel_input)
+        self._pre_send_input(channel_input=channel_input)
 
+        buf = b""
         bytes_channel_input = channel_input.encode()
         bytes_channel_outputs = [
             channel_output.encode() for channel_output in expected_outputs or []
         ]
+
+        self.logger.info(
+            f"sending channel input and read: {channel_input}; strip_prompt: {strip_prompt}; "
+            f"expected_outputs: {expected_outputs}; read_duration: {read_duration}"
+        )
 
         with self._channel_lock():
             self.write(channel_input=channel_input)
@@ -2352,6 +2362,13 @@ class Channel(BaseChannel):
                     hidden_input = interact_event[2]
                 except IndexError:
                     hidden_input = False
+
+                _channel_input = channel_input if not hidden_input else "REDACTED"
+                self.logger.info(
+                    f"sending interactive input: {_channel_input}; "
+                    f"expecting: {channel_response}; "
+                    f"hidden_input: {hidden_input}"
+                )
 
                 self.write(channel_input=channel_input)
                 if not channel_response or hidden_input is True:
@@ -2447,12 +2464,14 @@ class Channel(BaseChannel):
         """
         buf = self.transport.read()
         buf = buf.replace(b"\r", b"")
-        self.buf += buf
 
         self.logger.debug(f"read: {repr(buf)}")
 
         if self.channel_log:
             self.channel_log.write(buf)
+
+        if self._base_channel_args.comms_ansi:
+            buf = self._strip_ansi(buf=buf)
 
         return buf
 
@@ -2481,9 +2500,6 @@ class Channel(BaseChannel):
         while True:
             buf += self.read()
 
-            if self._base_channel_args.comms_ansi:
-                buf = self._strip_ansi(buf=buf)
-
             # replace any backspace chars (particular problem w/ junos), and remove any added spaces
             # this is just for comparison of the inputs to what was read from channel
             if processed_channel_input in b"".join(buf.lower().replace(b"\x08", b"").split()):
@@ -2510,9 +2526,6 @@ class Channel(BaseChannel):
 
         while True:
             buf += self.read()
-
-            if self._base_channel_args.comms_ansi:
-                buf = self._strip_ansi(buf=buf)
 
             channel_match = re.search(
                 pattern=search_pattern,
@@ -2556,6 +2569,8 @@ class Channel(BaseChannel):
         if read_duration is None:
             read_duration = 2.5
 
+        regex_channel_outputs_pattern = self._join_and_compile(channel_outputs=channel_outputs)
+
         _transport_args = self.transport._base_transport_args  # pylint: disable=W0212
         previous_timeout_transport = _transport_args.timeout_transport
         _transport_args.timeout_transport = int(read_duration)
@@ -2567,12 +2582,11 @@ class Channel(BaseChannel):
             except ScrapliTimeout:
                 pass
 
-            if self._base_channel_args.comms_ansi:
-                buf = self._strip_ansi(buf=buf)
-
             if (time.time() - start) > read_duration:
                 break
             if any([channel_output in buf for channel_output in channel_outputs]):
+                break
+            if re.search(pattern=regex_channel_outputs_pattern, string=buf):
                 break
             if re.search(pattern=search_pattern, string=buf):
                 break
@@ -2614,7 +2628,11 @@ class Channel(BaseChannel):
             while True:
                 buf = self.read()
 
-                if self._base_channel_args.comms_ansi:
+                # if user sets comms_ansi *or* if we see an escape char, strip ansi... at least eos
+                # tends to have one escape char in the login output that will break things; other
+                # than this and telnet login, stripping ansi will only ever be governed by the users
+                # comms_ansi setting
+                if self._base_channel_args.comms_ansi or b"\x1B" in buf:
                     buf = self._strip_ansi(buf=buf)
 
                 authenticate_buf += buf.lower()
@@ -2695,7 +2713,9 @@ class Channel(BaseChannel):
             while True:
                 buf = self.read()
 
-                if self._base_channel_args.comms_ansi:
+                # telnet auth *probably* wont have ansi chars, but strip them if they do exist so
+                # we can at least get past auth
+                if self._base_channel_args.comms_ansi or b"\x1B" in buf:
                     buf = self._strip_ansi(buf=buf)
 
                 if not buf:
@@ -2765,9 +2785,6 @@ class Channel(BaseChannel):
             while True:
                 buf += self.read()
 
-                if self._base_channel_args.comms_ansi:
-                    buf = self._strip_ansi(buf=buf)
-
                 channel_match = re.search(
                     pattern=search_pattern,
                     string=buf,
@@ -2806,6 +2823,10 @@ class Channel(BaseChannel):
 
         buf = b""
         bytes_channel_input = channel_input.encode()
+
+        self.logger.info(
+            f"sending channel input: {channel_input}; strip_prompt: {strip_prompt}; eager: {eager}"
+        )
 
         with self._channel_lock():
             self.write(channel_input=channel_input)
@@ -2847,12 +2868,18 @@ class Channel(BaseChannel):
             N/A
 
         """
-        buf = self._pre_send_input(channel_input=channel_input)
+        self._pre_send_input(channel_input=channel_input)
 
+        buf = b""
         bytes_channel_input = channel_input.encode()
         bytes_channel_outputs = [
             channel_output.encode() for channel_output in expected_outputs or []
         ]
+
+        self.logger.info(
+            f"sending channel input and read: {channel_input}; strip_prompt: {strip_prompt}; "
+            f"expected_outputs: {expected_outputs}; read_duration: {read_duration}"
+        )
 
         with self._channel_lock():
             self.write(channel_input=channel_input)
@@ -2948,6 +2975,13 @@ class Channel(BaseChannel):
                     hidden_input = interact_event[2]
                 except IndexError:
                     hidden_input = False
+
+                _channel_input = channel_input if not hidden_input else "REDACTED"
+                self.logger.info(
+                    f"sending interactive input: {_channel_input}; "
+                    f"expecting: {channel_response}; "
+                    f"hidden_input: {hidden_input}"
+                )
 
                 self.write(channel_input=channel_input)
                 if not channel_response or hidden_input is True:

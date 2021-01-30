@@ -1686,9 +1686,12 @@ available.</p>
 </li>
 <li><strong>channel_lock</strong>: True/False to lock the channel (threading.Lock/asyncio.Lock) during any channel operations, defaults 
   to False</li>
-<li><strong>channel_log</strong>: True/False, or a string path to a file of where to write out channel logs -- these are not "logs" in 
-  the normal logging module sense, but only the output that is read from the channel. In other words, the output of 
-  the channel log should look similar to what you would see as a human connecting to a device</li>
+<li><strong>channel_log</strong>: True/False, a string path to a file of where to write out channel logs, or a BytesIO object to 
+  write to -- these are not "logs" in the normal logging module sense, but only the output that is read from the 
+  channel. In other words, the output of the channel log should look similar to what you would see as a human 
+  connecting to a device </li>
+<li><strong>logging_uid</strong>: unique identifier (string) to associate to log messages; useful if you have multiple connections 
+  to the same device (i.e. one console, one ssh, or one to each supervisor module, etc.)</li>
 </ul>
 <h2 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h2>
 <ul>

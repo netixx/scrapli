@@ -1756,6 +1756,7 @@
 import re
 from dataclasses import dataclass
 from functools import lru_cache
+from io import BytesIO
 from typing import BinaryIO, List, Optional, Pattern, Tuple, Union
 
 from scrapli.exceptions import ScrapliAuthenticationFailed, ScrapliTypeError
@@ -1791,7 +1792,7 @@ class BaseChannelArgs:
     comms_return_char: str = "\n"
     comms_ansi: bool = False
     timeout_ops: float = 30.0
-    channel_log: Union[str, bool] = False
+    channel_log: Union[str, bool, BytesIO] = False
     channel_lock: bool = False
 
 
@@ -1822,19 +1823,21 @@ class BaseChannel:
             instance_name="scrapli.channel",
             host=self.transport._base_transport_args.host,
             port=self.transport._base_transport_args.port,
+            uid=self.transport._base_transport_args.logging_uid,
         )
 
         self.channel_log: Optional[BinaryIO] = None
         if self._base_channel_args.channel_log:
-            channel_log_destination = "scrapli_channel.log"
-            if isinstance(self._base_channel_args.channel_log, str):
-                channel_log_destination = self._base_channel_args.channel_log
-            self.logger.info(
-                f"channel log enabled, logging channel output to '{channel_log_destination}'"
-            )
-            self.channel_log = open(channel_log_destination, "wb")
-
-        self.buf = b""
+            if isinstance(self._base_channel_args.channel_log, BytesIO):
+                self.channel_log = self._base_channel_args.channel_log
+            else:
+                channel_log_destination = "scrapli_channel.log"
+                if isinstance(self._base_channel_args.channel_log, str):
+                    channel_log_destination = self._base_channel_args.channel_log
+                self.logger.info(
+                    f"channel log enabled, logging channel output to '{channel_log_destination}'"
+                )
+                self.channel_log = open(channel_log_destination, "wb")
 
     def write(self, channel_input: str, redacted: bool = False) -> None:
         """
@@ -1871,6 +1874,30 @@ class BaseChannel:
 
         """
         self.write(channel_input=self._base_channel_args.comms_return_char)
+
+    @staticmethod
+    def _join_and_compile(channel_outputs: Optional[List[bytes]]) -> Pattern[bytes]:
+        """
+        Convenience method for read_until_prompt_or_time to join channel inputs into a regex pattern
+
+        Args:
+            channel_outputs: list of bytes channel inputs to join into a regex pattern
+
+        Returns:
+            Pattern: joined regex pattern or an empty pattern (empty bytes)
+
+        Raises:
+            N/A
+
+        """
+        regex_channel_outputs = b""
+        if channel_outputs:
+            regex_channel_outputs = b"|".join(
+                [b"(" + channel_output + b")" for channel_output in channel_outputs]
+            )
+        regex_channel_outputs_pattern = re.compile(pattern=regex_channel_outputs, flags=re.I | re.M)
+
+        return regex_channel_outputs_pattern
 
     def _ssh_message_handler(self, output: bytes) -> None:  # noqa: C901
         """
@@ -2002,7 +2029,8 @@ class BaseChannel:
         buf = re.sub(pattern=ansi_escape_pattern, repl=b"", string=buf)
         return buf
 
-    def _pre_send_input(self, channel_input: str) -> bytes:
+    @staticmethod
+    def _pre_send_input(channel_input: str) -> None:
         """
         Handle pre "send_input" tasks for consistency between sync/async versions
 
@@ -2020,7 +2048,6 @@ class BaseChannel:
             raise ScrapliTypeError(
                 f"`send_input` expects a single string, got {type(channel_input)}."
             )
-        return self.buf
 
     @staticmethod
     def _pre_send_inputs_interact(interact_events: List[Tuple[str, str, Optional[bool]]]) -> None:
@@ -2091,19 +2118,21 @@ class BaseChannel:
             instance_name="scrapli.channel",
             host=self.transport._base_transport_args.host,
             port=self.transport._base_transport_args.port,
+            uid=self.transport._base_transport_args.logging_uid,
         )
 
         self.channel_log: Optional[BinaryIO] = None
         if self._base_channel_args.channel_log:
-            channel_log_destination = "scrapli_channel.log"
-            if isinstance(self._base_channel_args.channel_log, str):
-                channel_log_destination = self._base_channel_args.channel_log
-            self.logger.info(
-                f"channel log enabled, logging channel output to '{channel_log_destination}'"
-            )
-            self.channel_log = open(channel_log_destination, "wb")
-
-        self.buf = b""
+            if isinstance(self._base_channel_args.channel_log, BytesIO):
+                self.channel_log = self._base_channel_args.channel_log
+            else:
+                channel_log_destination = "scrapli_channel.log"
+                if isinstance(self._base_channel_args.channel_log, str):
+                    channel_log_destination = self._base_channel_args.channel_log
+                self.logger.info(
+                    f"channel log enabled, logging channel output to '{channel_log_destination}'"
+                )
+                self.channel_log = open(channel_log_destination, "wb")
 
     def write(self, channel_input: str, redacted: bool = False) -> None:
         """
@@ -2140,6 +2169,30 @@ class BaseChannel:
 
         """
         self.write(channel_input=self._base_channel_args.comms_return_char)
+
+    @staticmethod
+    def _join_and_compile(channel_outputs: Optional[List[bytes]]) -> Pattern[bytes]:
+        """
+        Convenience method for read_until_prompt_or_time to join channel inputs into a regex pattern
+
+        Args:
+            channel_outputs: list of bytes channel inputs to join into a regex pattern
+
+        Returns:
+            Pattern: joined regex pattern or an empty pattern (empty bytes)
+
+        Raises:
+            N/A
+
+        """
+        regex_channel_outputs = b""
+        if channel_outputs:
+            regex_channel_outputs = b"|".join(
+                [b"(" + channel_output + b")" for channel_output in channel_outputs]
+            )
+        regex_channel_outputs_pattern = re.compile(pattern=regex_channel_outputs, flags=re.I | re.M)
+
+        return regex_channel_outputs_pattern
 
     def _ssh_message_handler(self, output: bytes) -> None:  # noqa: C901
         """
@@ -2271,7 +2324,8 @@ class BaseChannel:
         buf = re.sub(pattern=ansi_escape_pattern, repl=b"", string=buf)
         return buf
 
-    def _pre_send_input(self, channel_input: str) -> bytes:
+    @staticmethod
+    def _pre_send_input(channel_input: str) -> None:
         """
         Handle pre "send_input" tasks for consistency between sync/async versions
 
@@ -2289,7 +2343,6 @@ class BaseChannel:
             raise ScrapliTypeError(
                 f"`send_input` expects a single string, got {type(channel_input)}."
             )
-        return self.buf
 
     @staticmethod
     def _pre_send_inputs_interact(interact_events: List[Tuple[str, str, Optional[bool]]]) -> None:
@@ -2401,7 +2454,7 @@ class BaseChannelArgs:
     comms_return_char: str = "\n"
     comms_ansi: bool = False
     timeout_ops: float = 30.0
-    channel_log: Union[str, bool] = False
+    channel_log: Union[str, bool, BytesIO] = False
     channel_lock: bool = False
         </code>
     </pre>
@@ -2409,7 +2462,7 @@ class BaseChannelArgs:
 
 <h4 id="class-variables">Class variables<a class="headerlink" href="#class-variables" title="Permanent link">&para;</a></h4>
 <p><code>channel_lock: bool</code></p>
-<p><code>channel_log: Union[str, bool]</code></p>
+<p><code>channel_log: Union[str, bool, _io.BytesIO]</code></p>
 <p><code>comms_ansi: bool</code></p>
 <p><code>comms_prompt_pattern: str</code></p>
 <p><code>comms_return_char: str</code></p>
