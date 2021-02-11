@@ -1135,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../transport/base/socket/" class="md-nav__link">
+      <a href="../transport/base/base_socket/" class="md-nav__link">
         Socket
       </a>
     </li>
@@ -1303,9 +1303,86 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Helper
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Helper
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#format_user_warning" class="md-nav__link">
+    format_user_warning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#genie_parse" class="md-nav__link">
+    genie_parse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resolve_file" class="md-nav__link">
+    resolve_file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#textfsm_parse" class="md-nav__link">
+    textfsm_parse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ttp_parse" class="md-nav__link">
+    ttp_parse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user_warning" class="md-nav__link">
+    user_warning
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1534,6 +1611,69 @@
   
     
   
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#format_user_warning" class="md-nav__link">
+    format_user_warning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#genie_parse" class="md-nav__link">
+    genie_parse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resolve_file" class="md-nav__link">
+    resolve_file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#textfsm_parse" class="md-nav__link">
+    textfsm_parse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ttp_parse" class="md-nav__link">
+    ttp_parse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user_warning" class="md-nav__link">
+    user_warning
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1853,6 +1993,99 @@ def user_warning(title: str, message: str) -> None:
         </code>
     </pre>
 </details>
+
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<h4 id="format_user_warning">format_user_warning<a class="headerlink" href="#format_user_warning" title="Permanent link">&para;</a></h4>
+<p><code>format_user_warning(title: str, message: str) ‑&gt; str</code></p>
+<div class="text codehilite"><pre><span></span><code>Nicely format a warning message for users
+
+Args:
+    title: title of the warning message
+    message: actual message body
+
+Returns:
+    str: nicely formatted warning
+
+Raises:
+    N/A
+</code></pre></div>
+
+<h4 id="genie_parse">genie_parse<a class="headerlink" href="#genie_parse" title="Permanent link">&para;</a></h4>
+<p><code>genie_parse(platform: str, command: str, output: str) ‑&gt; Union[List[Any], Dict[str, Any]]</code></p>
+<div class="text codehilite"><pre><span></span><code>Parse output with Cisco genie parsers, try to return structured output
+
+Args:
+    platform: genie device type; i.e. iosxe, iosxr, etc.
+    command: string of command that was executed (to find appropriate parser)
+    output: unstructured output from device to parse
+
+Returns:
+    output: structured data
+
+Raises:
+    N/A
+</code></pre></div>
+
+<h4 id="resolve_file">resolve_file<a class="headerlink" href="#resolve_file" title="Permanent link">&para;</a></h4>
+<p><code>resolve_file(file: str) ‑&gt; str</code></p>
+<div class="text codehilite"><pre><span></span><code>Resolve file from provided string
+
+Args:
+    file: string path to file
+
+Returns:
+    str: string path to file
+
+Raises:
+    ScrapliValueError: if file cannot be resolved
+</code></pre></div>
+
+<h4 id="textfsm_parse">textfsm_parse<a class="headerlink" href="#textfsm_parse" title="Permanent link">&para;</a></h4>
+<p><code>textfsm_parse(template: Union[str, _io.TextIOWrapper], output: str, to_dict: bool = True) ‑&gt; Union[List[Any], Dict[str, Any]]</code></p>
+<div class="text codehilite"><pre><span></span><code>Parse output with TextFSM and ntc-templates, try to return structured output
+
+Args:
+    template: TextIOWrapper or string path to template to use to parse data
+    output: unstructured output from device to parse
+    to_dict: convert textfsm output from list of lists to list of dicts -- basically create dict
+        from header and row data so it is easier to read/parse the output
+
+Returns:
+    output: structured data
+
+Raises:
+    N/A
+</code></pre></div>
+
+<h4 id="ttp_parse">ttp_parse<a class="headerlink" href="#ttp_parse" title="Permanent link">&para;</a></h4>
+<p><code>ttp_parse(template: Union[str, _io.TextIOWrapper], output: str) ‑&gt; Union[List[Any], Dict[str, Any]]</code></p>
+<div class="text codehilite"><pre><span></span><code>Parse output with TTP, try to return structured output
+
+Args:
+    template: TextIOWrapper or string path to template to use to parse data
+    output: unstructured output from device to parse
+
+Returns:
+    output: structured data
+
+Raises:
+    N/A
+</code></pre></div>
+
+<h4 id="user_warning">user_warning<a class="headerlink" href="#user_warning" title="Permanent link">&para;</a></h4>
+<p><code>user_warning(title: str, message: str) ‑&gt; NoneType</code></p>
+<div class="text codehilite"><pre><span></span><code>Nicely raise warning messages for users
+
+Args:
+    title: title of the warning message
+    message: actual message body
+
+Returns:
+    None
+
+Raises:
+    N/A
+</code></pre></div>
                 
               
               
