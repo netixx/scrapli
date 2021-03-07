@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://github.com/carlmontanari/scrapli/api_docs/decorators/">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.4">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.15aa0b43.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.77f3fd56.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.75751829.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.7fa14f5b.min.css">
         
           
           
@@ -41,7 +41,7 @@
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
       
     
     
@@ -80,24 +80,24 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://github.com/carlmontanari/scrapli" title="Scrapli" class="md-header-nav__button md-logo" aria-label="Scrapli">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://github.com/carlmontanari/scrapli" title="Scrapli" class="md-header__button md-logo" aria-label="Scrapli">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
 
     </a>
-    <label class="md-header-nav__button md-icon" for="__drawer">
+    <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
-    <div class="md-header-nav__title" data-md-component="header-title">
-      <div class="md-header-nav__ellipsis">
-        <div class="md-header-nav__topic">
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
           <span class="md-ellipsis">
             Scrapli
           </span>
         </div>
-        <div class="md-header-nav__topic">
+        <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
               Decorators
@@ -106,9 +106,12 @@
         </div>
       </div>
     </div>
+    <div class="md-header__options">
+      
+    </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
       
 <div class="md-search" data-md-component="search" role="dialog">
@@ -117,10 +120,10 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
@@ -138,9 +141,9 @@
 </div>
     
     
-      <div class="md-header-nav__source">
+      <div class="md-header__source">
         
-<a href="https://github.com/carlmontanari/scrapli" title="Go to repository" class="md-source">
+<a href="https://github.com/carlmontanari/scrapli" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
@@ -164,7 +167,7 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -177,7 +180,7 @@
     <a href="https://github.com/carlmontanari/scrapli" title="Scrapli" class="md-nav__button md-logo" aria-label="Scrapli">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
 
     </a>
     Scrapli
@@ -185,7 +188,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/carlmontanari/scrapli" title="Go to repository" class="md-source">
+<a href="https://github.com/carlmontanari/scrapli" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
@@ -202,7 +205,6 @@
       
       
 
-
   
   
   
@@ -218,7 +220,6 @@
       
       
 
-
   
   
   
@@ -226,19 +227,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
-      <label class="md-nav__link" for="nav-2">
+      <label class="md-nav__link" for="__nav_2">
         User Guide
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="User Guide" data-md-level="1">
-        <label class="md-nav__title" for="nav-2">
+        <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           User Guide
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -346,7 +346,6 @@
       
       
 
-
   
   
     
@@ -356,19 +355,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
-      <label class="md-nav__link" for="nav-3">
+      <label class="md-nav__link" for="__nav_3">
         API Docs
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="API Docs" data-md-level="1">
-        <label class="md-nav__title" for="nav-3">
+        <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           API Docs
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -390,19 +388,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
       
-      <label class="md-nav__link" for="nav-3-2">
+      <label class="md-nav__link" for="__nav_3_2">
         Driver
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Driver" data-md-level="2">
-        <label class="md-nav__title" for="nav-3-2">
+        <label class="md-nav__title" for="__nav_3_2">
           <span class="md-nav__icon md-icon"></span>
           Driver
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -448,19 +445,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2-4" type="checkbox" id="nav-3-2-4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_4" type="checkbox" id="__nav_3_2_4" >
       
-      <label class="md-nav__link" for="nav-3-2-4">
+      <label class="md-nav__link" for="__nav_3_2_4">
         Base
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Base" data-md-level="3">
-        <label class="md-nav__title" for="nav-3-2-4">
+        <label class="md-nav__title" for="__nav_3_2_4">
           <span class="md-nav__icon md-icon"></span>
           Base
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -512,19 +508,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2-5" type="checkbox" id="nav-3-2-5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_5" type="checkbox" id="__nav_3_2_5" >
       
-      <label class="md-nav__link" for="nav-3-2-5">
+      <label class="md-nav__link" for="__nav_3_2_5">
         Generic
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Generic" data-md-level="3">
-        <label class="md-nav__title" for="nav-3-2-5">
+        <label class="md-nav__title" for="__nav_3_2_5">
           <span class="md-nav__icon md-icon"></span>
           Generic
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -576,19 +571,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2-6" type="checkbox" id="nav-3-2-6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_6" type="checkbox" id="__nav_3_2_6" >
       
-      <label class="md-nav__link" for="nav-3-2-6">
+      <label class="md-nav__link" for="__nav_3_2_6">
         Network
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Network" data-md-level="3">
-        <label class="md-nav__title" for="nav-3-2-6">
+        <label class="md-nav__title" for="__nav_3_2_6">
           <span class="md-nav__icon md-icon"></span>
           Network
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -640,19 +634,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2-7" type="checkbox" id="nav-3-2-7" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_7" type="checkbox" id="__nav_3_2_7" >
       
-      <label class="md-nav__link" for="nav-3-2-7">
+      <label class="md-nav__link" for="__nav_3_2_7">
         Core
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Core" data-md-level="3">
-        <label class="md-nav__title" for="nav-3-2-7">
+        <label class="md-nav__title" for="__nav_3_2_7">
           <span class="md-nav__icon md-icon"></span>
           Core
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -662,19 +655,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2-7-1" type="checkbox" id="nav-3-2-7-1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_7_1" type="checkbox" id="__nav_3_2_7_1" >
       
-      <label class="md-nav__link" for="nav-3-2-7-1">
+      <label class="md-nav__link" for="__nav_3_2_7_1">
         Arista EOS
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Arista EOS" data-md-level="4">
-        <label class="md-nav__title" for="nav-3-2-7-1">
+        <label class="md-nav__title" for="__nav_3_2_7_1">
           <span class="md-nav__icon md-icon"></span>
           Arista EOS
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -726,19 +718,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2-7-2" type="checkbox" id="nav-3-2-7-2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_7_2" type="checkbox" id="__nav_3_2_7_2" >
       
-      <label class="md-nav__link" for="nav-3-2-7-2">
+      <label class="md-nav__link" for="__nav_3_2_7_2">
         Cisco IOSXE
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Cisco IOSXE" data-md-level="4">
-        <label class="md-nav__title" for="nav-3-2-7-2">
+        <label class="md-nav__title" for="__nav_3_2_7_2">
           <span class="md-nav__icon md-icon"></span>
           Cisco IOSXE
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -790,19 +781,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2-7-3" type="checkbox" id="nav-3-2-7-3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_7_3" type="checkbox" id="__nav_3_2_7_3" >
       
-      <label class="md-nav__link" for="nav-3-2-7-3">
+      <label class="md-nav__link" for="__nav_3_2_7_3">
         Cisco IOSXR
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Cisco IOSXR" data-md-level="4">
-        <label class="md-nav__title" for="nav-3-2-7-3">
+        <label class="md-nav__title" for="__nav_3_2_7_3">
           <span class="md-nav__icon md-icon"></span>
           Cisco IOSXR
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -854,19 +844,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2-7-4" type="checkbox" id="nav-3-2-7-4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_7_4" type="checkbox" id="__nav_3_2_7_4" >
       
-      <label class="md-nav__link" for="nav-3-2-7-4">
+      <label class="md-nav__link" for="__nav_3_2_7_4">
         Cisco NXOS
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Cisco NXOS" data-md-level="4">
-        <label class="md-nav__title" for="nav-3-2-7-4">
+        <label class="md-nav__title" for="__nav_3_2_7_4">
           <span class="md-nav__icon md-icon"></span>
           Cisco NXOS
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -918,19 +907,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2-7-5" type="checkbox" id="nav-3-2-7-5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_7_5" type="checkbox" id="__nav_3_2_7_5" >
       
-      <label class="md-nav__link" for="nav-3-2-7-5">
+      <label class="md-nav__link" for="__nav_3_2_7_5">
         Juniper Junos
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Juniper Junos" data-md-level="4">
-        <label class="md-nav__title" for="nav-3-2-7-5">
+        <label class="md-nav__title" for="__nav_3_2_7_5">
           <span class="md-nav__icon md-icon"></span>
           Juniper Junos
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -994,19 +982,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
       
-      <label class="md-nav__link" for="nav-3-3">
+      <label class="md-nav__link" for="__nav_3_3">
         Channel
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Channel" data-md-level="2">
-        <label class="md-nav__title" for="nav-3-3">
+        <label class="md-nav__title" for="__nav_3_3">
           <span class="md-nav__icon md-icon"></span>
           Channel
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -1058,19 +1045,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
       
-      <label class="md-nav__link" for="nav-3-4">
+      <label class="md-nav__link" for="__nav_3_4">
         Transports
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Transports" data-md-level="2">
-        <label class="md-nav__title" for="nav-3-4">
+        <label class="md-nav__title" for="__nav_3_4">
           <span class="md-nav__icon md-icon"></span>
           Transports
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -1080,19 +1066,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4-1" type="checkbox" id="nav-3-4-1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4_1" type="checkbox" id="__nav_3_4_1" >
       
-      <label class="md-nav__link" for="nav-3-4-1">
+      <label class="md-nav__link" for="__nav_3_4_1">
         Base
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Base" data-md-level="3">
-        <label class="md-nav__title" for="nav-3-4-1">
+        <label class="md-nav__title" for="__nav_3_4_1">
           <span class="md-nav__icon md-icon"></span>
           Base
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -1156,19 +1141,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4-2" type="checkbox" id="nav-3-4-2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4_2" type="checkbox" id="__nav_3_4_2" >
       
-      <label class="md-nav__link" for="nav-3-4-2">
+      <label class="md-nav__link" for="__nav_3_4_2">
         Plugins
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Plugins" data-md-level="3">
-        <label class="md-nav__title" for="nav-3-4-2">
+        <label class="md-nav__title" for="__nav_3_4_2">
           <span class="md-nav__icon md-icon"></span>
           Plugins
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -1287,7 +1271,7 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#classes" class="md-nav__link">
@@ -1413,7 +1397,6 @@
       
       
 
-
   
   
   
@@ -1429,7 +1412,6 @@
       
       
 
-
   
   
   
@@ -1437,19 +1419,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
-      <label class="md-nav__link" for="nav-5">
+      <label class="md-nav__link" for="__nav_5">
         More Scrapli
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="More Scrapli" data-md-level="1">
-        <label class="md-nav__title" for="nav-5">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           More Scrapli
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -1509,7 +1490,6 @@
       
       
 
-
   
   
   
@@ -1517,19 +1497,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
       
-      <label class="md-nav__link" for="nav-6">
+      <label class="md-nav__link" for="__nav_6">
         Other
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Other" data-md-level="1">
-        <label class="md-nav__title" for="nav-6">
+        <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           Other
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -1581,7 +1560,7 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1595,7 +1574,7 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#classes" class="md-nav__link">
@@ -1639,7 +1618,7 @@
               </div>
             
           
-          <div class="md-content">
+          <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
@@ -2087,7 +2066,7 @@ class TimeoutOpsModifier:
 
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <h3 id="channeltimeout">ChannelTimeout<a class="headerlink" href="#channeltimeout" title="Permanent link">&para;</a></h3>
-<div class="text codehilite"><pre><span></span><code>Channel timeout decorator
+<div class="codehilite"><pre><span></span><code>Channel timeout decorator
 
 Args:
     message: accepts message from decorated function to add context to any timeout
@@ -2351,7 +2330,7 @@ class TimeoutOpsModifier:
 </details>
 
 <h3 id="transporttimeout">TransportTimeout<a class="headerlink" href="#transporttimeout" title="Permanent link">&para;</a></h3>
-<div class="text codehilite"><pre><span></span><code>Transport timeout decorator
+<div class="codehilite"><pre><span></span><code>Transport timeout decorator
 
 Args:
     message: accepts message from decorated function to add context to any timeout
@@ -2558,40 +2537,38 @@ class TransportTimeout:
         
 <footer class="md-footer">
   
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
-        
-          <a href="../transport/plugins/telnet/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../transport/plugins/telnet/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Telnet
             </div>
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                Telnet
-              </div>
+          </div>
+        </a>
+      
+      
+        <a href="../exceptions/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Exceptions
             </div>
-          </a>
-        
-        
-          <a href="../exceptions/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Exceptions
-              </div>
-            </div>
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -2648,19 +2625,13 @@ class TransportTimeout:
 </footer>
       
     </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.fb4a9340.min.js", "version": null}</script>
     
-      <script src="../../assets/javascripts/vendor.93c04032.min.js"></script>
-      <script src="../../assets/javascripts/bundle.83e5331e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
-      
-      <script>
-        app = initialize({
-          base: "../..",
-          features: [],
-          search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.8c7e0a7e.min.js"
-          }, typeof search !== "undefined" && search)
-        })
-      </script>
+    
+      <script src="../../assets/javascripts/bundle.9b151c6a.min.js"></script>
       
     
   </body>
