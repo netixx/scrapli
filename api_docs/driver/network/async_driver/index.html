@@ -2396,7 +2396,85 @@ class AsyncNetworkDriver(AsyncGenericDriver, BaseNetworkDriver):
 
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <h3 id="asyncnetworkdriver">AsyncNetworkDriver<a class="headerlink" href="#asyncnetworkdriver" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>BaseDriver Object
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>BaseDriver Object
 
 BaseDriver is the root for all Scrapli driver classes. The synchronous and asyncio driver
 base driver classes can be used to provide a semi-pexpect like experience over top of
@@ -2476,7 +2554,7 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -3102,7 +3180,17 @@ class AsyncNetworkDriver(AsyncGenericDriver, BaseNetworkDriver):
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
 <h5 id="acquire_priv">acquire_priv<a class="headerlink" href="#acquire_priv" title="Permanent link">&para;</a></h5>
 <p><code>acquire_priv(self, desired_priv: str) ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Acquire desired priv level
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Acquire desired priv level
 
 Args:
     desired_priv: string name of desired privilege level see
@@ -3114,10 +3202,26 @@ Returns:
 Raises:
     ScrapliPrivilegeError: if desired_priv cannot be attained
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_command">send_command<a class="headerlink" href="#send_command" title="Permanent link">&para;</a></h5>
-<p><code>send_command(self, command: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, timeout_ops: Union[float, NoneType] = None) ‑&gt; scrapli.response.Response</code></p>
-<div class="codehilite"><pre><span></span><code>Send a command
+<p><code>send_command(self, command: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.Response</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Send a command
 
 Super method will raise TypeError if anything but a string is passed here!
 
@@ -3135,10 +3239,32 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_commands">send_commands<a class="headerlink" href="#send_commands" title="Permanent link">&para;</a></h5>
-<p><code>send_commands(self, commands: List[str], *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, eager: bool = False, timeout_ops: Union[float, NoneType] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
-<div class="codehilite"><pre><span></span><code>Send multiple commands
+<p><code>send_commands(self, commands: List[str], *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, eager: bool = False, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Send multiple commands
 
 Super method will raise TypeError if anything but a list of strings is passed here!
 
@@ -3162,10 +3288,37 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_config">send_config<a class="headerlink" href="#send_config" title="Permanent link">&para;</a></h5>
-<p><code>send_config(self, config: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, privilege_level: str = '', eager: bool = False, timeout_ops: Union[float, NoneType] = None) ‑&gt; scrapli.response.Response</code></p>
-<div class="codehilite"><pre><span></span><code>Send configuration string
+<p><code>send_config(self, config: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, privilege_level: str = '', eager: bool = False, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.Response</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Send configuration string
 
 Args:
     config: string configuration to send to the device, supports sending multi-line strings
@@ -3194,10 +3347,37 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_configs">send_configs<a class="headerlink" href="#send_configs" title="Permanent link">&para;</a></h5>
-<p><code>send_configs(self, configs: List[str], *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, privilege_level: str = '', eager: bool = False, timeout_ops: Union[float, NoneType] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
-<div class="codehilite"><pre><span></span><code>Send configuration(s)
+<p><code>send_configs(self, configs: List[str], *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, privilege_level: str = '', eager: bool = False, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Send configuration(s)
 
 Args:
     configs: list of strings to send to device in config mode
@@ -3226,10 +3406,37 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_configs_from_file">send_configs_from_file<a class="headerlink" href="#send_configs_from_file" title="Permanent link">&para;</a></h5>
-<p><code>send_configs_from_file(self, file: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, privilege_level: str = '', eager: bool = False, timeout_ops: Union[float, NoneType] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
-<div class="codehilite"><pre><span></span><code>Send configuration(s) from a file
+<p><code>send_configs_from_file(self, file: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, privilege_level: str = '', eager: bool = False, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Send configuration(s) from a file
 
 Args:
     file: string path to file
@@ -3258,10 +3465,72 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_interactive">send_interactive<a class="headerlink" href="#send_interactive" title="Permanent link">&para;</a></h5>
-<p><code>send_interactive(self, interact_events: List[Tuple[str, str, Union[bool, NoneType]]], *, failed_when_contains: Union[str, List[str], NoneType] = None, privilege_level: str = '', timeout_ops: Union[float, NoneType] = None) ‑&gt; scrapli.response.Response</code></p>
-<div class="codehilite"><pre><span></span><code>Interact with a device with changing prompts per input.
+<p><code>send_interactive(self, interact_events: List[Tuple[str, str, Optional[bool]]], *, failed_when_contains: Union[str, List[str], NoneType] = None, privilege_level: str = '', timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.Response</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Interact with a device with changing prompts per input.
 
 Used to interact with devices where prompts change per input, and where inputs may be hidden
 such as in the case of a password input. This can be used to respond to challenges from
@@ -3325,6 +3594,7 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
+</td></tr></table>
                 
               
               

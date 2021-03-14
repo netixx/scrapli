@@ -2171,9 +2171,9 @@ class ScrapliPrivilegeError(ScrapliException):
 
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <h3 id="scrapliauthenticationfailed">ScrapliAuthenticationFailed<a class="headerlink" href="#scrapliauthenticationfailed" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Exception for scrapli authentication issues
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Exception for scrapli authentication issues
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2193,9 +2193,9 @@ class ScrapliAuthenticationFailed(ScrapliException):
 <li>builtins.BaseException</li>
 </ul>
 <h3 id="scraplicommandfailure">ScrapliCommandFailure<a class="headerlink" href="#scraplicommandfailure" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Exception for scrapli command/config failures
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Exception for scrapli command/config failures
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2215,9 +2215,9 @@ class ScrapliCommandFailure(ScrapliException):
 <li>builtins.BaseException</li>
 </ul>
 <h3 id="scrapliconnectionerror">ScrapliConnectionError<a class="headerlink" href="#scrapliconnectionerror" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Exception for underlying connection issues
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Exception for underlying connection issues
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2237,7 +2237,18 @@ class ScrapliConnectionError(ScrapliException):
 <li>builtins.BaseException</li>
 </ul>
 <h3 id="scrapliconnectionnotopened">ScrapliConnectionNotOpened<a class="headerlink" href="#scrapliconnectionnotopened" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Exception for trying to operate on a transport which has not been opened
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Exception for trying to operate on a transport which has not been opened
 
 Scrapli connection not opened exception
 
@@ -2250,7 +2261,7 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2296,9 +2307,9 @@ class ScrapliConnectionNotOpened(ScrapliException):
 <li>builtins.BaseException</li>
 </ul>
 <h3 id="scrapliexception">ScrapliException<a class="headerlink" href="#scrapliexception" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Base Exception for all scrapli exceptions
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Base Exception for all scrapli exceptions
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2331,9 +2342,9 @@ class ScrapliException(Exception):
 <li>scrapli.exceptions.ScrapliValueError</li>
 </ul>
 <h3 id="scraplimodulenotfound">ScrapliModuleNotFound<a class="headerlink" href="#scraplimodulenotfound" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>ModuleNotFound but for scrapli related issues
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>ModuleNotFound but for scrapli related issues
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2353,9 +2364,9 @@ class ScrapliModuleNotFound(ScrapliException):
 <li>builtins.BaseException</li>
 </ul>
 <h3 id="scrapliprivilegeerror">ScrapliPrivilegeError<a class="headerlink" href="#scrapliprivilegeerror" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Exception for all privilege related scrapli issues
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Exception for all privilege related scrapli issues
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2375,9 +2386,9 @@ class ScrapliPrivilegeError(ScrapliException):
 <li>builtins.BaseException</li>
 </ul>
 <h3 id="scraplitimeout">ScrapliTimeout<a class="headerlink" href="#scraplitimeout" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Exception for any scrapli timeouts
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Exception for any scrapli timeouts
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2397,9 +2408,9 @@ class ScrapliTimeout(ScrapliException):
 <li>builtins.BaseException</li>
 </ul>
 <h3 id="scraplitransportpluginerror">ScrapliTransportPluginError<a class="headerlink" href="#scraplitransportpluginerror" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Exception for transport plugin issues
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Exception for transport plugin issues
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2419,9 +2430,9 @@ class ScrapliTransportPluginError(ScrapliException):
 <li>builtins.BaseException</li>
 </ul>
 <h3 id="scraplitypeerror">ScrapliTypeError<a class="headerlink" href="#scraplitypeerror" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>TypeError but for scrapli related typing issues
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>TypeError but for scrapli related typing issues
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2441,9 +2452,9 @@ class ScrapliTypeError(ScrapliException):
 <li>builtins.BaseException</li>
 </ul>
 <h3 id="scrapliunsupportedplatform">ScrapliUnsupportedPlatform<a class="headerlink" href="#scrapliunsupportedplatform" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Exception for unsupported platform; i.e. using system transport on windows
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Exception for unsupported platform; i.e. using system transport on windows
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2463,9 +2474,9 @@ class ScrapliUnsupportedPlatform(ScrapliException):
 <li>builtins.BaseException</li>
 </ul>
 <h3 id="scraplivalueerror">ScrapliValueError<a class="headerlink" href="#scraplivalueerror" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>ValueError but for scrapli related value issues
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>ValueError but for scrapli related value issues
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>

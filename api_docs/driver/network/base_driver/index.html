@@ -2738,7 +2738,16 @@ class BaseNetworkDriver:
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
 <h5 id="update_privilege_levels">update_privilege_levels<a class="headerlink" href="#update_privilege_levels" title="Permanent link">&para;</a></h5>
 <p><code>update_privilege_levels(self) ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Re-generate the privilege graph, and update the comms prompt pattern
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Re-generate the privilege graph, and update the comms prompt pattern
 
 Args:
     N/A
@@ -2749,11 +2758,11 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h3 id="privilegeaction">PrivilegeAction<a class="headerlink" href="#privilegeaction" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>An enumeration.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>An enumeration.
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2777,7 +2786,22 @@ class PrivilegeAction(Enum):
 <p><code>ESCALATE</code></p>
 <p><code>NO_ACTION</code></p>
 <h3 id="privilegelevel">PrivilegeLevel<a class="headerlink" href="#privilegelevel" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>PrivilegeLevel Object
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>PrivilegeLevel Object
 
 Args:
     pattern: regex pattern to use to identify this privilege level by the prompt
@@ -2794,7 +2818,7 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2854,32 +2878,33 @@ class PrivilegeLevel:
 
 <h4 id="instance-variables">Instance variables<a class="headerlink" href="#instance-variables" title="Permanent link">&para;</a></h4>
 <p><code>deescalate</code></p>
-<div class="codehilite"><pre><span></span><code>Return an attribute of instance, which is of type owner.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Return an attribute of instance, which is of type owner.
 </code></pre></div>
-
+</td></tr></table>
 <p><code>escalate</code></p>
-<div class="codehilite"><pre><span></span><code>Return an attribute of instance, which is of type owner.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Return an attribute of instance, which is of type owner.
 </code></pre></div>
-
+</td></tr></table>
 <p><code>escalate_auth</code></p>
-<div class="codehilite"><pre><span></span><code>Return an attribute of instance, which is of type owner.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Return an attribute of instance, which is of type owner.
 </code></pre></div>
-
+</td></tr></table>
 <p><code>escalate_prompt</code></p>
-<div class="codehilite"><pre><span></span><code>Return an attribute of instance, which is of type owner.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Return an attribute of instance, which is of type owner.
 </code></pre></div>
-
+</td></tr></table>
 <p><code>name</code></p>
-<div class="codehilite"><pre><span></span><code>Return an attribute of instance, which is of type owner.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Return an attribute of instance, which is of type owner.
 </code></pre></div>
-
+</td></tr></table>
 <p><code>pattern</code></p>
-<div class="codehilite"><pre><span></span><code>Return an attribute of instance, which is of type owner.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Return an attribute of instance, which is of type owner.
 </code></pre></div>
-
+</td></tr></table>
 <p><code>previous_priv</code></p>
-<div class="codehilite"><pre><span></span><code>Return an attribute of instance, which is of type owner.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Return an attribute of instance, which is of type owner.
 </code></pre></div>
+</td></tr></table>
                 
               
               

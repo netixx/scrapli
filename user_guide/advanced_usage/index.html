@@ -1826,7 +1826,21 @@ supported driver arguments:</p>
      may not be "ready" until <em>after</em> your <code>on_open</code> function is executed.</p>
 <p>Below is an example of creating an "on connect" function and passing it to scrapli. Immediately after authentication
  is handled this function will be called and disable paging (in this example):</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 
 <span class="k">def</span> <span class="nf">iosxe_disable_paging</span><span class="p">(</span><span class="n">conn</span><span class="p">):</span>
     <span class="n">conn</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">send_input</span><span class="p">(</span><span class="s2">&quot;term length 0&quot;</span><span class="p">)</span>
@@ -1842,7 +1856,7 @@ supported driver arguments:</p>
 <span class="k">with</span> <span class="n">IOSXEDriver</span><span class="p">(</span><span class="o">**</span><span class="n">my_device</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">get_prompt</span><span class="p">())</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>Note that this section has talked almost exclusively about disabling paging, but any other "things" that need to
  happen in the channel can be handled here. If there is a prompt/banner to accept you should be able to handle it
   here. The goal of this "on connect" function is to allow for lots of flexibility for dealing with whatever needs to
@@ -1901,7 +1915,16 @@ supported driver arguments:</p>
 <p>If you wish to manually enter a privilege level you can use the <code>acquire_priv</code> method, passing in the name of the
  privilege level you would like to enter. In general, you probably won't need this too often though as the driver
   should handle much of this for you.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -1912,12 +1935,21 @@ supported driver arguments:</p>
 <span class="k">with</span> <span class="n">IOSXEDriver</span><span class="p">(</span><span class="o">**</span><span class="n">my_device</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
     <span class="n">conn</span><span class="o">.</span><span class="n">acquire_priv</span><span class="p">(</span><span class="s2">&quot;configuration&quot;</span><span class="p">)</span>
 </code></pre></div>
-
+</td></tr></table>
 <h3 id="configure-exclusive-and-configure-private-iosxrjunos">Configure Exclusive and Configure Private (IOSXR/Junos)<a class="headerlink" href="#configure-exclusive-and-configure-private-iosxrjunos" title="Permanent link">&para;</a></h3>
 <p>IOSXR and Junos platforms have different configuration modes, such as "configure exclusive" or "configure private
 ". These alternate configuration modes are represented as a privilege level just like the "regular" configuration
  mode. You can acquire an "exclusive" configuration session on IOSXR as follows:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXRDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXRDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -1928,9 +1960,18 @@ supported driver arguments:</p>
 <span class="k">with</span> <span class="n">IOSXRDriver</span><span class="p">(</span><span class="o">**</span><span class="n">my_device</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
     <span class="n">conn</span><span class="o">.</span><span class="n">acquire_priv</span><span class="p">(</span><span class="s2">&quot;configuration_exclusive&quot;</span><span class="p">)</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>Of course you can also pass this privilege level name to the <code>send_configs</code> or <code>send_configs_from_file</code> methods as well:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXRDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXRDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -1941,7 +1982,7 @@ supported driver arguments:</p>
 <span class="k">with</span> <span class="n">IOSXRDriver</span><span class="p">(</span><span class="o">**</span><span class="n">my_device</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
     <span class="n">conn</span><span class="o">.</span><span class="n">send_configs</span><span class="p">(</span><span class="n">configs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;configure things&quot;</span><span class="p">],</span> <span class="n">privilege_level</span><span class="o">=</span><span class="s2">&quot;configuration_exclusive&quot;</span><span class="p">)</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>Note that the name of the privilege level is "configuration_exclusive" -- don't forget to write the whole thing out!</p>
 <h3 id="configure-session-eosnxos">Configure Session (EOS/NXOS)<a class="headerlink" href="#configure-session-eosnxos" title="Permanent link">&para;</a></h3>
 <p>EOS and NXOS devices support configuration "sessions", these sessions are a little bit of a special case for scrapli
@@ -1952,7 +1993,20 @@ supported driver arguments:</p>
   . The<code>register_configuration_session</code> method creates a new privilege level for you and updates the transport class
    with the appropriate information internally (see next section). An example of creating a session for an EOS device
     called "my-config-session" can be seen here:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">EOSDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">EOSDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.14&quot;</span><span class="p">,</span>
@@ -1967,12 +2021,14 @@ supported driver arguments:</p>
     <span class="nb">print</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">privilege_levels</span><span class="p">[</span><span class="s2">&quot;my-config-session&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">privilege_levels</span><span class="p">[</span><span class="s2">&quot;my-config-session&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pattern</span><span class="p">)</span>
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;scrapli.driver.network_driver.PrivilegeLevel object at 0x7fca10070820&gt;
+</td></tr></table>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>&lt;scrapli.driver.network_driver.PrivilegeLevel object at 0x7fca10070820&gt;
 my-config-session
 ^[a-z0-9.\-@/:]{1,32}\(config\-s\-my\-con[a-z0-9_.\-@/:]{0,32}\)#\s?$
 </code></pre></div>
-
+</td></tr></table>
 <h3 id="modifying-privilege-levels">Modifying Privilege Levels<a class="headerlink" href="#modifying-privilege-levels" title="Permanent link">&para;</a></h3>
 <p>When creating a configuration session, or modifying a privilege level during runtime, scrapli needs to update some
  internal arguments in order to always have a full "map" of how to escalate/deescalate, as well as to be able to
@@ -1987,7 +2043,18 @@ my-config-session
    provide the same <code>send_command</code>/<code>send_commands</code>/<code>send_configs</code> methods, nor does it disable paging, or handle any
     kind of privilege escalation/de-escalation. <code>Driver</code> is a much more basic "paramiko"-like experience. Below is a
      brief example of using the <code>Driver</code> object directly:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli</span> <span class="kn">import</span> <span class="n">Driver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli</span> <span class="kn">import</span> <span class="n">Driver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -2000,7 +2067,7 @@ my-config-session
     <span class="n">conn</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">send_input</span><span class="p">(</span><span class="s2">&quot;terminal length 0&quot;</span><span class="p">)</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">send_input</span><span class="p">(</span><span class="s2">&quot;show version&quot;</span><span class="p">)</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>Without the <code>send_command</code> and similar methods, you must directly access the <code>Channel</code> object when sending inputs
  with <code>Scrape</code>.</p>
 <h2 id="using-the-genericdriver">Using the <code>GenericDriver</code><a class="headerlink" href="#using-the-genericdriver" title="Permanent link">&para;</a></h2>
@@ -2011,7 +2078,19 @@ my-config-session
     <code>get_prompt</code> methods for a more NetworkDriver-like experience. </p>
 <p>Hopefully this <code>GenericDriver</code> can be used as a starting point for devices that don't fall under the core supported
  platforms list.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver</span> <span class="kn">import</span> <span class="n">GenericDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver</span> <span class="kn">import</span> <span class="n">GenericDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -2025,7 +2104,7 @@ my-config-session
     <span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">send_command</span><span class="p">(</span><span class="s2">&quot;show version&quot;</span><span class="p">)</span>
     <span class="n">responses</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">send_commands</span><span class="p">([</span><span class="s2">&quot;show version&quot;</span><span class="p">,</span> <span class="s2">&quot;show run&quot;</span><span class="p">])</span>
 </code></pre></div>
-
+</td></tr></table>
 <h2 id="using-a-different-transport">Using a Different Transport<a class="headerlink" href="#using-a-different-transport" title="Permanent link">&para;</a></h2>
 <p>scrapli is built to be very flexible, including being flexible enough to use different libraries for "transport
 " -- or the actual Telnet/SSH communication. By default, scrapli uses the "system" transport which quite literally
@@ -2038,7 +2117,18 @@ to use the corresponding transport mechanism. If you are using one of the async 
 <p>While it will be a goal to ensure that these other transport mechanisms are supported and useful, the focus of
  scrapli development will be on the "system" SSH transport.</p>
 <p>Example using <code>paramiko</code> as the transport:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -2051,7 +2141,7 @@ to use the corresponding transport mechanism. If you are using one of the async 
 <span class="k">with</span> <span class="n">IOSXEDriver</span><span class="p">(</span><span class="o">**</span><span class="n">my_device</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">get_prompt</span><span class="p">())</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>Currently, the only reason I can think of to use anything other than "system" as the transport would be to test
  scrapli on a Windows host, to use telnet, to use ssh2 for super speed, or to use asyncio. If there are other good
   reasons please do let me know!</p>
@@ -2074,7 +2164,18 @@ to use the corresponding transport mechanism. If you are using one of the async 
 <p>The scrapli <code>Response</code> and <code>MultiResponse</code> objects both contain a method called <code>raise_for_status</code>. This method's
  purpose is to provide a very simple way to raise an exception if any of the commands or configs sent in a method
   have failed. </p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -2087,10 +2188,17 @@ to use the corresponding transport mechanism. If you are using one of the async 
     <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;show run&quot;</span><span class="p">,</span> <span class="s2">&quot;tacocat&quot;</span><span class="p">,</span> <span class="s2">&quot;show version&quot;</span><span class="p">]</span>
     <span class="n">responses</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">send_commands</span><span class="p">(</span><span class="n">commands</span><span class="o">=</span><span class="n">commands</span><span class="p">)</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>Inspecting the <code>responses</code> object from the above example, we can see that it indeed is marked as <code>Success: False</code>, even
  though the first and last commands were successful:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">responses</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">responses</span>
 <span class="n">MultiResponse</span> <span class="o">&lt;</span><span class="n">Success</span><span class="p">:</span> <span class="kc">False</span><span class="p">;</span> <span class="n">Response</span> <span class="n">Elements</span><span class="p">:</span> <span class="mi">3</span><span class="o">&gt;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">responses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">Response</span> <span class="o">&lt;</span><span class="n">Success</span><span class="p">:</span> <span class="kc">True</span><span class="o">&gt;</span>
@@ -2099,16 +2207,22 @@ to use the corresponding transport mechanism. If you are using one of the async 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">responses</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 <span class="n">Response</span> <span class="o">&lt;</span><span class="n">Success</span><span class="p">:</span> <span class="kc">True</span><span class="o">&gt;</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>Finally, we can all the <code>raise_for_status</code> method to have scrapli raise the <code>ScrapliCommandFailure</code> exception if any
  of the configs/commands failed:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">responses</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">responses</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
   <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
   <span class="n">File</span> <span class="s2">&quot;/Users/carl/dev/github/scrapli/scrapli/response.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">270</span><span class="p">,</span> <span class="ow">in</span> <span class="n">raise_for_status</span>
     <span class="k">raise</span> <span class="n">ScrapliCommandFailure</span><span class="p">()</span>
 <span class="n">scrapli</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ScrapliCommandFailure</span>
 </code></pre></div>
+</td></tr></table>
                 
               
               

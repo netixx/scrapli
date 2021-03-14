@@ -2130,9 +2130,9 @@ class MultiResponse(ScrapliMultiResponse):
 
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <h3 id="multiresponse">MultiResponse<a class="headerlink" href="#multiresponse" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>A more or less complete user-defined wrapper around list objects.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>A more or less complete user-defined wrapper around list objects.
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2250,7 +2250,16 @@ class MultiResponse(ScrapliMultiResponse):
 </ul>
 <h4 id="instance-variables">Instance variables<a class="headerlink" href="#instance-variables" title="Permanent link">&para;</a></h4>
 <p><code>failed: bool</code></p>
-<div class="codehilite"><pre><span></span><code>Determine if any elements of MultiResponse are failed
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Determine if any elements of MultiResponse are failed
 
 Args:
     N/A
@@ -2261,9 +2270,18 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <p><code>result: str</code></p>
-<div class="codehilite"><pre><span></span><code>Build a unified result from all elements of MultiResponse
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Build a unified result from all elements of MultiResponse
 
 Args:
     N/A
@@ -2274,11 +2292,20 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
 <h5 id="raise_for_status">raise_for_status<a class="headerlink" href="#raise_for_status" title="Permanent link">&para;</a></h5>
 <p><code>raise_for_status(self) ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Raise a `ScrapliCommandFailure` if any elements are failed
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Raise a `ScrapliCommandFailure` if any elements are failed
 
 Args:
     N/A
@@ -2289,9 +2316,26 @@ Returns:
 Raises:
     ScrapliCommandFailure: if any elements are failed
 </code></pre></div>
-
+</td></tr></table>
 <h3 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Scrapli Response
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Scrapli Response
 
 Store channel_input, resulting output, and start/end/elapsed time information. Attempt to
 determine if command was successful or not and reflect that in a failed attribute.
@@ -2310,7 +2354,7 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2525,7 +2569,18 @@ class Response:
 <h4 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link">&para;</a></h4>
 <h5 id="genie_parse_output">genie_parse_output<a class="headerlink" href="#genie_parse_output" title="Permanent link">&para;</a></h5>
 <p><code>genie_parse_output(self) ‑&gt; Union[Dict[str, Any], List[Any]]</code></p>
-<div class="codehilite"><pre><span></span><code>Parse results with genie, always return structured data
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Parse results with genie, always return structured data
 
 Returns an empty list if parsing fails!
 
@@ -2538,10 +2593,19 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="raise_for_status_1">raise_for_status<a class="headerlink" href="#raise_for_status_1" title="Permanent link">&para;</a></h5>
 <p><code>raise_for_status(self) ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Raise a `ScrapliCommandFailure` if command/config failed
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Raise a `ScrapliCommandFailure` if command/config failed
 
 Args:
     N/A
@@ -2552,10 +2616,19 @@ Returns:
 Raises:
     ScrapliCommandFailure: if command/config failed
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="record_response">record_response<a class="headerlink" href="#record_response" title="Permanent link">&para;</a></h5>
 <p><code>record_response(self, result: bytes) ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Record channel_input results and elapsed time of channel input/reading output
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Record channel_input results and elapsed time of channel input/reading output
 
 Args:
     result: string result of channel_input
@@ -2566,10 +2639,22 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="textfsm_parse_output">textfsm_parse_output<a class="headerlink" href="#textfsm_parse_output" title="Permanent link">&para;</a></h5>
 <p><code>textfsm_parse_output(self, to_dict: bool = True) ‑&gt; Union[Dict[str, Any], List[Any]]</code></p>
-<div class="codehilite"><pre><span></span><code>Parse results with textfsm, always return structured data
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Parse results with textfsm, always return structured data
 
 Returns an empty list if parsing fails!
 
@@ -2583,10 +2668,21 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="ttp_parse_output">ttp_parse_output<a class="headerlink" href="#ttp_parse_output" title="Permanent link">&para;</a></h5>
 <p><code>ttp_parse_output(self, template: Union[str, _io.TextIOWrapper]) ‑&gt; Union[Dict[str, Any], List[Any]]</code></p>
-<div class="codehilite"><pre><span></span><code>Parse results with ttp, always return structured data
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Parse results with ttp, always return structured data
 
 Returns an empty list if parsing fails!
 
@@ -2599,6 +2695,7 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
+</td></tr></table>
                 
               
               

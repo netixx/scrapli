@@ -1891,10 +1891,11 @@ class AsynctelnetTransport(AsyncTransport):
 
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <h3 id="asynctelnettransport">AsynctelnetTransport<a class="headerlink" href="#asynctelnettransport" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Helper class that provides a standard way to create an ABC using
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Helper class that provides a standard way to create an ABC using
 inheritance.
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2095,15 +2096,16 @@ class AsynctelnetTransport(AsyncTransport):
 <li>abc.ABC</li>
 </ul>
 <h3 id="plugintransportargs">PluginTransportArgs<a class="headerlink" href="#plugintransportargs" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>PluginTransportArgs()
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>PluginTransportArgs()
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
     </summary>
     <pre>
         <code class="python">
+@dataclass()
 class PluginTransportArgs(BasePluginTransportArgs):
     pass
         </code>

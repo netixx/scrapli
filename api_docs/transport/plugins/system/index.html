@@ -1839,15 +1839,16 @@ class SystemTransport(Transport):
 
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <h3 id="plugintransportargs">PluginTransportArgs<a class="headerlink" href="#plugintransportargs" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>PluginTransportArgs(auth_username: str, auth_private_key: str = &#39;&#39;, auth_strict_key: bool = True, ssh_config_file: str = &#39;&#39;, ssh_known_hosts_file: str = &#39;&#39;)
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>PluginTransportArgs(auth_username: str, auth_private_key: str = &#39;&#39;, auth_strict_key: bool = True, ssh_config_file: str = &#39;&#39;, ssh_known_hosts_file: str = &#39;&#39;)
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
     </summary>
     <pre>
         <code class="python">
+@dataclass()
 class PluginTransportArgs(BasePluginTransportArgs):
     auth_username: str
     auth_private_key: str = ""
@@ -1869,10 +1870,11 @@ class PluginTransportArgs(BasePluginTransportArgs):
 <p><code>ssh_config_file: str</code></p>
 <p><code>ssh_known_hosts_file: str</code></p>
 <h3 id="systemtransport">SystemTransport<a class="headerlink" href="#systemtransport" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Helper class that provides a standard way to create an ABC using
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Helper class that provides a standard way to create an ABC using
 inheritance.
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>

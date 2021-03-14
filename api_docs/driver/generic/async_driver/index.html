@@ -2122,34 +2122,53 @@ class AsyncGenericDriver(AsyncDriver, BaseGenericDriver):
 
         An example where we need this sort of capability:
 
-        ```
-        3560CX#copy flash: scp:
-        Source filename []? test1.txt
-        Address or name of remote host []? 172.31.254.100
-        Destination username [carl]?
-        Writing test1.txt
-        Password:
+        <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>3560CX#copy flash: scp:
+Source filename []? test1.txt
+Address or name of remote host []? 172.31.254.100
+Destination username [carl]?
+Writing test1.txt
+Password:
 
-        Password:
-         Sink: C0644 639 test1.txt
-        !
-        639 bytes copied in 12.066 secs (53 bytes/sec)
-        3560CX#
-        ```
+Password:
+ Sink: C0644 639 test1.txt
+!
+639 bytes copied in 12.066 secs (53 bytes/sec)
+3560CX#
+</code></pre></div>
+</td></tr></table>
 
         To accomplish this we can use the following:
 
-        ```
-        interact = conn.channel.send_inputs_interact(
-            [
-                ("copy flash: scp:", "Source filename []?", False),
-                ("test1.txt", "Address or name of remote host []?", False),
-                ("172.31.254.100", "Destination username [carl]?", False),
-                ("carl", "Password:", False),
-                ("super_secure_password", prompt, True),
-            ]
-        )
-        ```
+        <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>interact = conn.channel.send_inputs_interact(
+    [
+        (&quot;copy flash: scp:&quot;, &quot;Source filename []?&quot;, False),
+        (&quot;test1.txt&quot;, &quot;Address or name of remote host []?&quot;, False),
+        (&quot;172.31.254.100&quot;, &quot;Destination username [carl]?&quot;, False),
+        (&quot;carl&quot;, &quot;Password:&quot;, False),
+        (&quot;super_secure_password&quot;, prompt, True),
+    ]
+)
+</code></pre></div>
+</td></tr></table>
 
         If we needed to deal with more prompts we could simply continue adding tuples to the list of
         interact "events".
@@ -2201,7 +2220,85 @@ class AsyncGenericDriver(AsyncDriver, BaseGenericDriver):
 
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <h3 id="asyncgenericdriver">AsyncGenericDriver<a class="headerlink" href="#asyncgenericdriver" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>BaseDriver Object
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>BaseDriver Object
 
 BaseDriver is the root for all Scrapli driver classes. The synchronous and asyncio driver
 base driver classes can be used to provide a semi-pexpect like experience over top of
@@ -2281,7 +2378,7 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2636,34 +2733,53 @@ class AsyncGenericDriver(AsyncDriver, BaseGenericDriver):
 
         An example where we need this sort of capability:
 
-        ```
-        3560CX#copy flash: scp:
-        Source filename []? test1.txt
-        Address or name of remote host []? 172.31.254.100
-        Destination username [carl]?
-        Writing test1.txt
-        Password:
+        <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>3560CX#copy flash: scp:
+Source filename []? test1.txt
+Address or name of remote host []? 172.31.254.100
+Destination username [carl]?
+Writing test1.txt
+Password:
 
-        Password:
-         Sink: C0644 639 test1.txt
-        !
-        639 bytes copied in 12.066 secs (53 bytes/sec)
-        3560CX#
-        ```
+Password:
+ Sink: C0644 639 test1.txt
+!
+639 bytes copied in 12.066 secs (53 bytes/sec)
+3560CX#
+</code></pre></div>
+</td></tr></table>
 
         To accomplish this we can use the following:
 
-        ```
-        interact = conn.channel.send_inputs_interact(
-            [
-                ("copy flash: scp:", "Source filename []?", False),
-                ("test1.txt", "Address or name of remote host []?", False),
-                ("172.31.254.100", "Destination username [carl]?", False),
-                ("carl", "Password:", False),
-                ("super_secure_password", prompt, True),
-            ]
-        )
-        ```
+        <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>interact = conn.channel.send_inputs_interact(
+    [
+        (&quot;copy flash: scp:&quot;, &quot;Source filename []?&quot;, False),
+        (&quot;test1.txt&quot;, &quot;Address or name of remote host []?&quot;, False),
+        (&quot;172.31.254.100&quot;, &quot;Destination username [carl]?&quot;, False),
+        (&quot;carl&quot;, &quot;Password:&quot;, False),
+        (&quot;super_secure_password&quot;, prompt, True),
+    ]
+)
+</code></pre></div>
+</td></tr></table>
 
         If we needed to deal with more prompts we could simply continue adding tuples to the list of
         interact "events".
@@ -2726,7 +2842,16 @@ class AsyncGenericDriver(AsyncDriver, BaseGenericDriver):
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
 <h5 id="get_prompt">get_prompt<a class="headerlink" href="#get_prompt" title="Permanent link">&para;</a></h5>
 <p><code>get_prompt(self) ‑&gt; str</code></p>
-<div class="codehilite"><pre><span></span><code>Convenience method to fetch prompt from the underlying Channel object
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Convenience method to fetch prompt from the underlying Channel object
 
 Args:
     N/A
@@ -2737,10 +2862,33 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_and_read">send_and_read<a class="headerlink" href="#send_and_read" title="Permanent link">&para;</a></h5>
-<p><code>send_and_read(self, channel_input: str, *, expected_outputs: Union[List[str], NoneType] = None, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, timeout_ops: Union[float, NoneType] = None, read_duration: float = 2.5) ‑&gt; scrapli.response.Response</code></p>
-<div class="codehilite"><pre><span></span><code>Send an input and read outputs.
+<p><code>send_and_read(self, channel_input: str, *, expected_outputs: Optional[List[str]] = None, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, timeout_ops: Optional[float] = None, read_duration: float = 2.5) ‑&gt; scrapli.response.Response</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Send an input and read outputs.
 
 Unlike &quot;normal&quot; scrapli behavior this method reads until the prompt(normal) OR until any of
 a list of expected outputs is seen, OR until the read duration is exceeded. This method does
@@ -2765,10 +2913,24 @@ Returns:
 Raises:
     ScrapliValueError: if _base_transport_args is None for some reason
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_command">send_command<a class="headerlink" href="#send_command" title="Permanent link">&para;</a></h5>
-<p><code>send_command(self, command: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, timeout_ops: Union[float, NoneType] = None) ‑&gt; scrapli.response.Response</code></p>
-<div class="codehilite"><pre><span></span><code>Send a command
+<p><code>send_command(self, command: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.Response</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Send a command
 
 Args:
     command: string to send to device in privilege exec mode
@@ -2784,10 +2946,30 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_commands">send_commands<a class="headerlink" href="#send_commands" title="Permanent link">&para;</a></h5>
-<p><code>send_commands(self, commands: List[str], *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, eager: bool = False, timeout_ops: Union[float, NoneType] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
-<div class="codehilite"><pre><span></span><code>Send multiple commands
+<p><code>send_commands(self, commands: List[str], *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, eager: bool = False, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Send multiple commands
 
 Args:
     commands: list of strings to send to device in privilege exec mode
@@ -2809,10 +2991,30 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_commands_from_file">send_commands_from_file<a class="headerlink" href="#send_commands_from_file" title="Permanent link">&para;</a></h5>
-<p><code>send_commands_from_file(self, file: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, eager: bool = False, timeout_ops: Union[float, NoneType] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
-<div class="codehilite"><pre><span></span><code>Send command(s) from file
+<p><code>send_commands_from_file(self, file: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, eager: bool = False, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Send command(s) from file
 
 Args:
     file: string path to file
@@ -2834,10 +3036,20 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_interactive">send_interactive<a class="headerlink" href="#send_interactive" title="Permanent link">&para;</a></h5>
-<p><code>send_interactive(self, interact_events: List[Tuple[str, str, Union[bool, NoneType]]], *, failed_when_contains: Union[str, List[str], NoneType] = None, privilege_level: str = '', timeout_ops: Union[float, NoneType] = None) ‑&gt; scrapli.response.Response</code></p>
-<div class="codehilite"><pre><span></span><code>Interact with a device with changing prompts per input.
+<p><code>send_interactive(self, interact_events: List[Tuple[str, str, Optional[bool]]], *, failed_when_contains: Union[str, List[str], NoneType] = None, privilege_level: str = '', timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.Response</code></p>
+<p><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Interact with a device with changing prompts per input.
 
 Used to interact with devices where prompts change per input, and where inputs may be hidden
 such as in the case of a password input. This can be used to respond to challenges from
@@ -2849,8 +3061,8 @@ the optional third a bool for whether or not the input is &quot;hidden&quot; (i.
 
 An example where we need this sort of capability:
 </code></pre></div>
-
-<p>3560CX#copy flash: scp:
+</td></tr></table>
+3560CX#copy flash: scp:
 Source filename []? test1.txt
 Address or name of remote host []? 172.31.254.100
 Destination username [carl]?
@@ -2860,11 +3072,11 @@ Password:</p>
  Sink: C0644 639 test1.txt
 !
 639 bytes copied in 12.066 secs (53 bytes/sec)
-3560CX#</p>
-<div class="codehilite"><pre><span></span><code>To accomplish this we can use the following:
+3560CX#
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>To accomplish this we can use the following:
 </code></pre></div>
-
-<p>interact = conn.channel.send_inputs_interact(
+</td></tr></table>
+interact = conn.channel.send_inputs_interact(
     [
         ("copy flash: scp:", "Source filename []?", False),
         ("test1.txt", "Address or name of remote host []?", False),
@@ -2872,30 +3084,52 @@ Password:</p>
         ("carl", "Password:", False),
         ("super_secure_password", prompt, True),
     ]
-)</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">If</span> <span class="nt">we</span> <span class="nt">needed</span> <span class="nt">to</span> <span class="nt">deal</span> <span class="nt">with</span> <span class="nt">more</span> <span class="nt">prompts</span> <span class="nt">we</span> <span class="nt">could</span> <span class="nt">simply</span> <span class="nt">continue</span> <span class="nt">adding</span> <span class="nt">tuples</span> <span class="nt">to</span> <span class="nt">the</span> <span class="nt">list</span> <span class="nt">of</span>
-<span class="nt">interact</span> <span class="s2">&quot;events&quot;</span><span class="o">.</span>
+)
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>If we needed to deal with more prompts we could simply continue adding tuples to the list of
+interact &quot;events&quot;.
 
-<span class="nt">Args</span><span class="o">:</span>
-    <span class="nt">interact_events</span><span class="o">:</span> <span class="nt">list</span> <span class="nt">of</span> <span class="nt">tuples</span> <span class="nt">containing</span> <span class="nt">the</span> <span class="s2">&quot;interactions&quot;</span> <span class="nt">with</span> <span class="nt">the</span> <span class="nt">device</span>
-        <span class="nt">each</span> <span class="nt">list</span> <span class="nt">element</span> <span class="nt">must</span> <span class="nt">have</span> <span class="nt">an</span> <span class="nt">input</span> <span class="nt">and</span> <span class="nt">an</span> <span class="nt">expected</span> <span class="nt">response</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">may</span> <span class="nt">have</span> <span class="nt">an</span>
-        <span class="nt">optional</span> <span class="nt">bool</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">third</span> <span class="nt">and</span> <span class="nt">final</span> <span class="nt">element</span> <span class="nt">--</span> <span class="nt">the</span> <span class="nt">optional</span> <span class="nt">bool</span> <span class="nt">specifies</span> <span class="nt">if</span> <span class="nt">the</span>
-        <span class="nt">input</span> <span class="nt">that</span> <span class="nt">is</span> <span class="nt">sent</span> <span class="nt">to</span> <span class="nt">the</span> <span class="nt">device</span> <span class="nt">is</span> <span class="s2">&quot;hidden&quot;</span> <span class="o">(</span><span class="nt">ex</span><span class="o">:</span> <span class="nt">password</span><span class="o">),</span> <span class="nt">if</span> <span class="nt">the</span> <span class="nt">hidden</span> <span class="nt">param</span> <span class="nt">is</span>
-        <span class="nt">not</span> <span class="nt">provided</span> <span class="nt">it</span> <span class="nt">is</span> <span class="nt">assumed</span> <span class="nt">the</span> <span class="nt">input</span> <span class="nt">is</span> <span class="s2">&quot;normal&quot;</span> <span class="o">(</span><span class="nt">not</span> <span class="nt">hidden</span><span class="o">)</span>
-    <span class="nt">failed_when_contains</span><span class="o">:</span> <span class="nt">list</span> <span class="nt">of</span> <span class="nt">strings</span> <span class="nt">that</span><span class="o">,</span> <span class="nt">if</span> <span class="nt">present</span> <span class="nt">in</span> <span class="nt">final</span> <span class="nt">output</span><span class="o">,</span> <span class="nt">represent</span> <span class="nt">a</span>
-        <span class="nt">failed</span> <span class="nt">command</span><span class="o">/</span><span class="nt">interaction</span>
-    <span class="nt">privilege_level</span><span class="o">:</span> <span class="nt">ignored</span> <span class="nt">in</span> <span class="nt">this</span> <span class="nt">base</span> <span class="nt">class</span><span class="o">;</span> <span class="nt">for</span> <span class="nt">LSP</span> <span class="nt">reasons</span> <span class="nt">for</span> <span class="nt">subclasses</span>
-    <span class="nt">timeout_ops</span><span class="o">:</span> <span class="nt">timeout</span> <span class="nt">ops</span> <span class="nt">value</span> <span class="nt">for</span> <span class="nt">this</span> <span class="nt">operation</span><span class="o">;</span> <span class="nt">only</span> <span class="nt">sets</span> <span class="nt">the</span> <span class="nt">timeout_ops</span> <span class="nt">value</span> <span class="nt">for</span>
-        <span class="nt">the</span> <span class="nt">duration</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">operation</span><span class="o">,</span> <span class="nt">value</span> <span class="nt">is</span> <span class="nt">reset</span> <span class="nt">to</span> <span class="nt">initial</span> <span class="nt">value</span> <span class="nt">after</span> <span class="nt">operation</span> <span class="nt">is</span>
-        <span class="nt">completed</span><span class="o">.</span> <span class="nt">Note</span> <span class="nt">that</span> <span class="nt">this</span> <span class="nt">is</span> <span class="nt">the</span> <span class="nt">timeout</span> <span class="nt">value</span> <span class="nt">PER</span> <span class="nt">COMMAND</span> <span class="nt">sent</span><span class="o">,</span> <span class="nt">not</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">total</span>
-        <span class="nt">of</span> <span class="nt">the</span> <span class="nt">commands</span> <span class="nt">being</span> <span class="nt">sent</span><span class="o">!</span>
+Args:
+    interact_events: list of tuples containing the &quot;interactions&quot; with the device
+        each list element must have an input and an expected response, and may have an
+        optional bool for the third and final element -- the optional bool specifies if the
+        input that is sent to the device is &quot;hidden&quot; (ex: password), if the hidden param is
+        not provided it is assumed the input is &quot;normal&quot; (not hidden)
+    failed_when_contains: list of strings that, if present in final output, represent a
+        failed command/interaction
+    privilege_level: ignored in this base class; for LSP reasons for subclasses
+    timeout_ops: timeout ops value for this operation; only sets the timeout_ops value for
+        the duration of the operation, value is reset to initial value after operation is
+        completed. Note that this is the timeout value PER COMMAND sent, not for the total
+        of the commands being sent!
 
-<span class="nt">Returns</span><span class="o">:</span>
-    <span class="nt">Response</span><span class="o">:</span> <span class="nt">scrapli</span> <span class="nt">Response</span> <span class="nt">object</span>
+Returns:
+    Response: scrapli Response object
 
-<span class="nt">Raises</span><span class="o">:</span>
-    <span class="nt">ScrapliValueError</span><span class="o">:</span> <span class="nt">if</span> <span class="nt">_base_transport_args</span> <span class="nt">is</span> <span class="nt">None</span> <span class="nt">for</span> <span class="nt">some</span> <span class="nt">reason</span>
+Raises:
+    ScrapliValueError: if _base_transport_args is None for some reason
 </code></pre></div>
+</td></tr></table></p>
                 
               
               

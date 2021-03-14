@@ -2051,7 +2051,17 @@ class BaseChannel:
 
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <h3 id="basechannel">BaseChannel<a class="headerlink" href="#basechannel" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>BaseChannel Object -- provides convenience methods to both sync and async Channels
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>BaseChannel Object -- provides convenience methods to both sync and async Channels
 
 Args:
     transport: initialized scrapli Transport/AsyncTransport object
@@ -2063,7 +2073,7 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2352,7 +2362,16 @@ class BaseChannel:
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
 <h5 id="send_return">send_return<a class="headerlink" href="#send_return" title="Permanent link">&para;</a></h5>
 <p><code>send_return(self) ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Convenience method to send return char
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Convenience method to send return char
 
 Args:
     N/A
@@ -2363,10 +2382,20 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="write">write<a class="headerlink" href="#write" title="Permanent link">&para;</a></h5>
 <p><code>write(self, channel_input: str, redacted: bool = False) ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Write input to the underlying Transport session
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Write input to the underlying Transport session
 
 Args:
     channel_input: string of input to send
@@ -2378,9 +2407,26 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h3 id="basechannelargs">BaseChannelArgs<a class="headerlink" href="#basechannelargs" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Dataclass for all base Channel arguments
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Dataclass for all base Channel arguments
 
 Args:
     comms_prompt_pattern: comms_prompt_pattern to assign to the channel; should generally be
@@ -2399,13 +2445,14 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
     </summary>
     <pre>
         <code class="python">
+@dataclass()
 class BaseChannelArgs:
     """
     Dataclass for all base Channel arguments

@@ -1930,15 +1930,16 @@ class BaseTransport(ABC):
 
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <h3 id="baseplugintransportargs">BasePluginTransportArgs<a class="headerlink" href="#baseplugintransportargs" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>BasePluginTransportArgs()
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>BasePluginTransportArgs()
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
     </summary>
     <pre>
         <code class="python">
+@dataclass()
 class BasePluginTransportArgs:
     pass
         </code>
@@ -1955,10 +1956,11 @@ class BasePluginTransportArgs:
 <li>scrapli.transport.plugins.telnet.transport.PluginTransportArgs</li>
 </ul>
 <h3 id="basetransport">BaseTransport<a class="headerlink" href="#basetransport" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Helper class that provides a standard way to create an ABC using
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Helper class that provides a standard way to create an ABC using
 inheritance.
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2081,7 +2083,16 @@ class BaseTransport(ABC):
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
 <h5 id="close">close<a class="headerlink" href="#close" title="Permanent link">&para;</a></h5>
 <p><code>close(self) ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Close the transport session
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Close the transport session
 
 Args:
     N/A
@@ -2092,10 +2103,19 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="isalive">isalive<a class="headerlink" href="#isalive" title="Permanent link">&para;</a></h5>
 <p><code>isalive(self) ‑&gt; bool</code></p>
-<div class="codehilite"><pre><span></span><code>Check if transport is alive
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Check if transport is alive
 
 Args:
     N/A
@@ -2106,10 +2126,19 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="write">write<a class="headerlink" href="#write" title="Permanent link">&para;</a></h5>
 <p><code>write(self, channel_input: bytes) ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Write bytes into the transport session
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Write bytes into the transport session
 
 Args:
     channel_input: bytes to write to transport session
@@ -2120,17 +2149,18 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h3 id="basetransportargs">BaseTransportArgs<a class="headerlink" href="#basetransportargs" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>BaseTransportArgs(transport_options: Dict[str, Any], host: str, port: int = 22, timeout_socket: float = 10.0, timeout_transport: float = 30.0, logging_uid: str = &#39;&#39;)
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>BaseTransportArgs(transport_options: Dict[str, Any], host: str, port: int = 22, timeout_socket: float = 10.0, timeout_transport: float = 30.0, logging_uid: str = &#39;&#39;)
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
     </summary>
     <pre>
         <code class="python">
+@dataclass()
 class BaseTransportArgs:
     transport_options: Dict[str, Any]
     host: str

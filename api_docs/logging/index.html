@@ -2140,6 +2140,7 @@ def enable_basic_logging(
     level: str = "info",
     caller_info: bool = False,
     buffer_log: bool = True,
+    mode: str = "write",
 ) -> None:
     """
     Enable opinionated logging for scrapli
@@ -2150,6 +2151,7 @@ def enable_basic_logging(
         level: string name of logging level to use, i.e. "info", "debug", etc.
         caller_info: add info about module/function/line in the log entry
         buffer_log: buffer log read outputs
+        mode: string of "write" or "append"
 
     Returns:
         None
@@ -2163,6 +2165,13 @@ def enable_basic_logging(
 
     scrapli_formatter = ScrapliFormatter(caller_info=caller_info)
 
+    if mode.lower() not in (
+        "write",
+        "append",
+    ):
+        raise ScrapliException("logging file 'mode' must be 'write' or 'append'!")
+    file_mode = "a" if mode.lower() == "append" else "w"
+
     if file:
         if isinstance(file, bool):
             filename = "scrapli.log"
@@ -2170,9 +2179,9 @@ def enable_basic_logging(
             filename = file
 
         if not buffer_log:
-            fh = FileHandler(filename=filename, mode="w")
+            fh = FileHandler(filename=filename, mode=file_mode)
         else:
-            fh = ScrapliFileHandler(filename=filename, mode="w")
+            fh = ScrapliFileHandler(filename=filename, mode=file_mode)
 
         fh.setFormatter(scrapli_formatter)
 
@@ -2189,8 +2198,22 @@ logger.addHandler(NullHandler())
 
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <h4 id="enable_basic_logging">enable_basic_logging<a class="headerlink" href="#enable_basic_logging" title="Permanent link">&para;</a></h4>
-<p><code>enable_basic_logging(file: Union[str, bool] = False, level: str = 'info', caller_info: bool = False, buffer_log: bool = True) ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Enable opinionated logging for scrapli
+<p><code>enable_basic_logging(file: Union[str, bool] = False, level: str = 'info', caller_info: bool = False, buffer_log: bool = True, mode: str = 'write') ‑&gt; NoneType</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Enable opinionated logging for scrapli
 
 Args:
     file: True to output to default log path (&quot;scrapli.log&quot;), otherwise string path to write log
@@ -2198,6 +2221,7 @@ Args:
     level: string name of logging level to use, i.e. &quot;info&quot;, &quot;debug&quot;, etc.
     caller_info: add info about module/function/line in the log entry
     buffer_log: buffer log read outputs
+    mode: string of &quot;write&quot; or &quot;append&quot;
 
 Returns:
     None
@@ -2205,10 +2229,22 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h4 id="get_instance_logger">get_instance_logger<a class="headerlink" href="#get_instance_logger" title="Permanent link">&para;</a></h4>
 <p><code>get_instance_logger(instance_name: str, host: str = '', port: int = 0, uid: str = '') ‑&gt; logging.LoggerAdapter</code></p>
-<div class="codehilite"><pre><span></span><code>Get an adapted logger instance for a given instance (driver/channel/transport)
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Get an adapted logger instance for a given instance (driver/channel/transport)
 
 Args:
     instance_name: logger/instance name, i.e. &quot;scrapli.driver&quot;
@@ -2222,10 +2258,24 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <h3 id="scraplifilehandler">ScrapliFileHandler<a class="headerlink" href="#scraplifilehandler" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>A handler class which writes formatted logging records to disk files.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>A handler class which writes formatted logging records to disk files.
 
 Handle &quot;buffering&quot; log read messages for logging.FileHandler
 
@@ -2241,7 +2291,7 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2356,7 +2406,16 @@ class ScrapliFileHandler(FileHandler):
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
 <h5 id="emit">emit<a class="headerlink" href="#emit" title="Permanent link">&para;</a></h5>
 <p><code>emit(self, record: logging.LogRecord) ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Override standard library FileHandler.emit to &quot;buffer&quot; subsequent read messages
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Override standard library FileHandler.emit to &quot;buffer&quot; subsequent read messages
 
 Args:
     record: log record to check
@@ -2367,10 +2426,19 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="emit_buffered">emit_buffered<a class="headerlink" href="#emit_buffered" title="Permanent link">&para;</a></h5>
 <p><code>emit_buffered(self) ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Emit a buffered read message to the FileHandler
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Emit a buffered read message to the FileHandler
 
 Args:
     N/A
@@ -2381,15 +2449,68 @@ Returns:
 Raises:
     ScrapliException: should never be raised!
 </code></pre></div>
-
+</td></tr></table>
 <h3 id="scrapliformatter">ScrapliFormatter<a class="headerlink" href="#scrapliformatter" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Formatter instances are used to convert a LogRecord to text.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Formatter instances are used to convert a LogRecord to text.
 
 Formatters need to know how a LogRecord is constructed. They are
 responsible for converting a LogRecord to (usually) a string which can
 be interpreted by either a human or an external system. The base Formatter
 allows a formatting string to be specified. If none is supplied, the
-the style-dependent default value, &quot;%(message)s&quot;, &quot;{message}&quot;, or
+style-dependent default value, &quot;%(message)s&quot;, &quot;{message}&quot;, or
 &quot;${message}&quot;, is used.
 
 The Formatter can be initialized with a format string which makes use of
@@ -2438,7 +2559,7 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2568,7 +2689,16 @@ class ScrapliFormatter(Formatter):
 <h4 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link">&para;</a></h4>
 <h5 id="formatmessage">formatMessage<a class="headerlink" href="#formatmessage" title="Permanent link">&para;</a></h5>
 <p><code>formatMessage(self, record: logging.LogRecord) ‑&gt; str</code></p>
-<div class="codehilite"><pre><span></span><code>Override standard library logging Formatter.formatMessage
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Override standard library logging Formatter.formatMessage
 
 Args:
     record: LogRecord to format
@@ -2579,9 +2709,19 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h3 id="scraplilogrecord">ScrapliLogRecord<a class="headerlink" href="#scraplilogrecord" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>A LogRecord instance represents an event being logged.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>A LogRecord instance represents an event being logged.
 
 LogRecord instances are created every time something is logged. They
 contain all the information pertinent to the event being logged. The
@@ -2593,7 +2733,7 @@ information to be logged.
 
 Initialize a logging record with interesting information.
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>

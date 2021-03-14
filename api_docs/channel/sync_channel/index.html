@@ -2369,7 +2369,17 @@ class Channel(BaseChannel):
 
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <h3 id="channel">Channel<a class="headerlink" href="#channel" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>BaseChannel Object -- provides convenience methods to both sync and async Channels
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>BaseChannel Object -- provides convenience methods to both sync and async Channels
 
 Args:
     transport: initialized scrapli Transport/AsyncTransport object
@@ -2381,7 +2391,7 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <details class="source">
     <summary>
         <span>Expand source code</span>
@@ -2987,7 +2997,18 @@ class Channel(BaseChannel):
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
 <h5 id="channel_authenticate_ssh">channel_authenticate_ssh<a class="headerlink" href="#channel_authenticate_ssh" title="Permanent link">&para;</a></h5>
 <p><code>channel_authenticate_ssh(self, auth_password: str, auth_private_key_passphrase: str) ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Handle SSH Authentication for transports that only operate &quot;in the channel&quot; (i.e. system)
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Handle SSH Authentication for transports that only operate &quot;in the channel&quot; (i.e. system)
 
 Args:
     auth_password: password to authenticate with
@@ -3000,10 +3021,21 @@ Raises:
     ScrapliAuthenticationFailed: if password prompt seen more than twice
     ScrapliAuthenticationFailed: if passphrase prompt seen more than twice
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="channel_authenticate_telnet">channel_authenticate_telnet<a class="headerlink" href="#channel_authenticate_telnet" title="Permanent link">&para;</a></h5>
 <p><code>channel_authenticate_telnet(self, auth_username: str = '', auth_password: str = '') ‑&gt; NoneType</code></p>
-<div class="codehilite"><pre><span></span><code>Handle Telnet Authentication
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Handle Telnet Authentication
 
 Args:
     auth_username: username to use for telnet authentication
@@ -3016,10 +3048,19 @@ Raises:
     ScrapliAuthenticationFailed: if password prompt seen more than twice
     ScrapliAuthenticationFailed: if login prompt seen more than twice
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="get_prompt">get_prompt<a class="headerlink" href="#get_prompt" title="Permanent link">&para;</a></h5>
 <p><code>get_prompt(self) ‑&gt; str</code></p>
-<div class="codehilite"><pre><span></span><code>Get current channel prompt
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Get current channel prompt
 
 Args:
     N/A
@@ -3030,10 +3071,22 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="read">read<a class="headerlink" href="#read" title="Permanent link">&para;</a></h5>
 <p><code>read(self) ‑&gt; bytes</code></p>
-<div class="codehilite"><pre><span></span><code>Read chunks of output from the channel
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Read chunks of output from the channel
 
 Replaces any r&quot;
 &quot; characters that sometimes get stuffed into the output from the devices
@@ -3047,10 +3100,23 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_input">send_input<a class="headerlink" href="#send_input" title="Permanent link">&para;</a></h5>
 <p><code>send_input(self, channel_input: str, *, strip_prompt: bool = True, eager: bool = False) ‑&gt; Tuple[bytes, bytes]</code></p>
-<div class="codehilite"><pre><span></span><code>Primary entry point to send data to devices in shell mode; accept input and returns result
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Primary entry point to send data to devices in shell mode; accept input and returns result
 
 Args:
     channel_input: string input to send to channel
@@ -3065,10 +3131,23 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_input_and_read">send_input_and_read<a class="headerlink" href="#send_input_and_read" title="Permanent link">&para;</a></h5>
-<p><code>send_input_and_read(self, channel_input: str, *, strip_prompt: bool = True, expected_outputs: Union[List[str], NoneType] = None, read_duration: Union[float, NoneType] = None) ‑&gt; Tuple[bytes, bytes]</code></p>
-<div class="codehilite"><pre><span></span><code>Send a command and read until expected prompt is seen, outputs are seen, or for duration
+<p><code>send_input_and_read(self, channel_input: str, *, strip_prompt: bool = True, expected_outputs: Optional[List[str]] = None, read_duration: Optional[float] = None) ‑&gt; Tuple[bytes, bytes]</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Send a command and read until expected prompt is seen, outputs are seen, or for duration
 
 Args:
     channel_input: string input to send to channel
@@ -3083,10 +3162,66 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
-
+</td></tr></table>
 <h5 id="send_inputs_interact">send_inputs_interact<a class="headerlink" href="#send_inputs_interact" title="Permanent link">&para;</a></h5>
-<p><code>send_inputs_interact(self, interact_events: List[Tuple[str, str, Union[bool, NoneType]]]) ‑&gt; Tuple[bytes, bytes]</code></p>
-<div class="codehilite"><pre><span></span><code>Interact with a device with changing prompts per input.
+<p><code>send_inputs_interact(self, interact_events: List[Tuple[str, str, Optional[bool]]]) ‑&gt; Tuple[bytes, bytes]</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Interact with a device with changing prompts per input.
 
 Used to interact with devices where prompts change per input, and where inputs may be hidden
 such as in the case of a password input. This can be used to respond to challenges from
@@ -3144,6 +3279,7 @@ Returns:
 Raises:
     N/A
 </code></pre></div>
+</td></tr></table>
                 
               
               

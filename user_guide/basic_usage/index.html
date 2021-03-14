@@ -1730,13 +1730,13 @@
   <code>EOSDriver</code>. You can select this driver "manually" or using the scrapli factory <code>Scrapli</code> (or the async scrapli
    factory <code>AsyncScrapli</code>).</p>
 <p>Importing your driver manually looks like this:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">EOSDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">EOSDriver</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>If you are using asyncio, you can use the async variant of the driver:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">AsyncEOSDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">AsyncEOSDriver</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>The core drivers and associated platforms are outlined below:</p>
 <table>
 <thead>
@@ -1783,7 +1783,19 @@
 <p>All drivers can be imported from <code>scrapli.driver.core</code>.</p>
 <p>If you would rather use the factory class to dynamically select the appropriate driver based on a platform string (as
  seen in the above table), you can do so as follows:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli</span> <span class="kn">import</span> <span class="n">Scrapli</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli</span> <span class="kn">import</span> <span class="n">Scrapli</span>
 
 <span class="n">device</span> <span class="o">=</span> <span class="p">{</span>
    <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -1797,7 +1809,7 @@
 <span class="n">conn</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">get_prompt</span><span class="p">())</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>Note that the <code>Scrapli</code> and <code>AsyncScrapli</code> classes inherit from the <code>NetworkDriver</code> and <code>AsyncNetworkDriver</code> classes
  respectively, so all editor code completion and type indicating behavior should work nicely! For non "core
  " platforms please see the <a href="https://github.com/scrapli/scrapli_community">scrapli_community project</a>.</p>
@@ -1860,7 +1872,17 @@
 </table>
 <p>These arguments may be passed as keyword arguments to the driver of your choice, or, commonly are passed via
  dictionary unpacking as show below:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXRDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXRDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -1872,7 +1894,7 @@
 <span class="n">conn</span> <span class="o">=</span> <span class="n">IOSXRDriver</span><span class="p">(</span><span class="o">**</span><span class="n">my_device</span><span class="p">)</span>
 <span class="n">conn</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 </code></pre></div>
-
+</td></tr></table>
 <p><em>NOTE</em> that scrapli enables strict host key checking by default!</p>
 <h2 id="opening-and-closing-a-connection">Opening and Closing a Connection<a class="headerlink" href="#opening-and-closing-a-connection" title="Permanent link">&para;</a></h2>
 <p>scrapli does <em>not</em> open the connection for you when creating your scrapli connection object in normal operations, you
@@ -1887,16 +1909,29 @@ from scrapli.driver.core import IOSXRDriver</p>
 }</p>
 <p>conn = IOSXRDriver(**my_device)
 conn.open()
-response = conn.send_command("show version")</p>
-<div class="codehilite"><pre><span></span><code><span class="n">Connections</span> <span class="n">can</span> <span class="n">be</span> <span class="n">closed</span> <span class="k">by</span> <span class="n">calling</span> <span class="n">the</span> <span class="n n-Quoted">`close`</span> <span class="n">method</span><span class="o">:</span>
+response = conn.send_command("show version")
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Connections can be closed by calling the `close` method:
 
-<span class="n n-Quoted">`</span><span class="n n-Quoted n-Quoted-Escape">``</span><span class="n n-Quoted">python</span>
-<span class="n n-Quoted">conn.close()</span>
+```python
+conn.close()
 </code></pre></div>
-
+</td></tr></table></p>
 <p>scrapli also supports using a context manager (<code>with</code> block), when using the context manager the connection will be
  automatically opened and closed for you. </p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -1908,7 +1943,7 @@ response = conn.send_command("show version")</p>
 <span class="k">with</span> <span class="n">IOSXEDriver</span><span class="p">(</span><span class="o">**</span><span class="n">my_device</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">send_command</span><span class="p">(</span><span class="s2">&quot;show version&quot;</span><span class="p">)</span>
 </code></pre></div>
-
+</td></tr></table>
 <h2 id="sending-commands">Sending Commands<a class="headerlink" href="#sending-commands" title="Permanent link">&para;</a></h2>
 <p>When using any of the core network drivers (<code>JunosDriver</code>, <code>EOSDriver</code>, etc.) or the <code>GenericDriver</code>, the <code>send_command</code> and <code>send_commands</code> methods will respectively send a single command or list of commands to the device.</p>
 <p>When using the core network drivers, the command(s) will be sent at the <code>default_desired_privilege_level</code> level which is
@@ -1917,7 +1952,19 @@ response = conn.send_command("show version")</p>
   care about privilege levels you would need to manually handle acquiring the appropriate privilege level for you
    command yourself if using that driver.</p>
 <p>Note the different methods for sending a single command versus a list of commands!</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -1931,14 +1978,27 @@ response = conn.send_command("show version")</p>
 <span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">send_command</span><span class="p">(</span><span class="s2">&quot;show version&quot;</span><span class="p">)</span>
 <span class="n">responses</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">send_commands</span><span class="p">([</span><span class="s2">&quot;show run&quot;</span><span class="p">,</span> <span class="s2">&quot;show ip int brief&quot;</span><span class="p">])</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>Finally, if you prefer to have a file containing a list of commands to send, there is a <code>send_commands_from_file</code> method
 . This method excepts the provided file to have a single command to send per line in the file.</p>
 <h2 id="response-object">Response Object<a class="headerlink" href="#response-object" title="Permanent link">&para;</a></h2>
 <p>All command/config operations that happen in the <code>GenericDriver</code> or any of the drivers inheriting from the
  <code>NetworkDriver</code> result in a <code>Response</code> object being created. The <code>Response</code> object contains attributes for the
   command sent (<code>channel_input</code>), start/end/elapsed time, and of course the result of the command sent.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -1953,7 +2013,7 @@ response = conn.send_command("show version")</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>If using <code>send_commands</code> (plural!) then scrapli will return a <code>MultiResponse</code> object containing multiple <code>Response</code>
  objects. The <code>MultiResponse</code> object is for all intents and purposes just a list of <code>Response</code> objects (with a few
   very minor differences).</p>
@@ -1962,11 +2022,13 @@ response = conn.send_command("show version")</p>
  <a href="#textfsmntc-templates-integration">Textfsm/NTC-Templates Integration</a>) which will attempt to parse and return the
   received output. If parsing fails, the value returned will be an empty list -- meaning you will <em>always</em> get
    "structured data" returned, however it will just be an empty object if parsing fails.</p>
-<div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">structured_result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">textfsm_parse_output</span><span class="p">()</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">structured_result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">textfsm_parse_output</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">structured_result</span><span class="p">)</span>
 <span class="p">[[</span><span class="s1">&#39;16.4.1&#39;</span><span class="p">,</span> <span class="s1">&#39;IOS-XE&#39;</span><span class="p">,</span> <span class="s1">&#39;csr1000v&#39;</span><span class="p">,</span> <span class="s1">&#39;2 days, 22 hours, 10 minutes&#39;</span><span class="p">,</span> <span class="s1">&#39;reload&#39;</span><span class="p">,</span> <span class="s1">&#39;packages.conf&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;CSR1000V&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;9FKLJWM5EB0&#39;</span><span class="p">],</span> <span class="s1">&#39;0x2102&#39;</span><span class="p">,</span> <span class="p">[]]]</span>
 </code></pre></div>
-
+</td></tr></table>
 <h2 id="sending-configurations">Sending Configurations<a class="headerlink" href="#sending-configurations" title="Permanent link">&para;</a></h2>
 <p>When using any of the core drivers, you can send configurations via the <code>send_config</code>, <code>send_configs</code> or
  <code>send_configs_from_file</code> methods which will handle privilege escalation for you. <code>send_config</code> accepts a single
@@ -1977,7 +2039,17 @@ response = conn.send_command("show version")</p>
  into lines -- this means that the underlying behavior is the same as <code>send_configs</code>, however this method returns a
   single <code>Response</code> object. This <code>send_config</code> method can be used to send entire configurations to devices in a
    reliable fashion.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -1989,7 +2061,7 @@ response = conn.send_command("show version")</p>
 <span class="k">with</span> <span class="n">IOSXEDriver</span><span class="p">(</span><span class="o">**</span><span class="n">my_device</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
     <span class="n">conn</span><span class="o">.</span><span class="n">send_configs</span><span class="p">([</span><span class="s2">&quot;interface loopback123&quot;</span><span class="p">,</span> <span class="s2">&quot;description configured by scrapli&quot;</span><span class="p">])</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>If you need to get into any kind of "special" configuration mode, such as "configure exclusive", "configure private
 ", or "configure session XYZ", you can pass the name of the corresponding privilege level via the <code>privilege_level</code> argument. Please see the <a href="/user_guide/advanced_usage/#driver-privilege-levels">Driver Privilege Levels</a> section for more details!</p>
 <p>Lastly, note that scrapli does <em>not</em> exit configuration mode at completion of a "configuration" event -- this is
@@ -2003,7 +2075,19 @@ response = conn.send_command("show version")</p>
   <code>textfsm_parse_output</code> method of the response object. This method will attempt to find the template for you
    -- based on the textfsm-platform and the channel-input (the command sent). If textfsm parsing succeeds, the
     structured result is returned. If textfsm parsing fails, an empty list is returned.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -2017,12 +2101,24 @@ response = conn.send_command("show version")</p>
     <span class="n">structured_result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">textfsm_parse_output</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">structured_result</span><span class="p">)</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>scrapli also supports passing in templates manually (meaning not using the pip installed ntc-templates directory to
  find templates) if desired. The <code>scrapli.helper.textfsm_parse</code> function accepts a string or loaded (TextIOWrapper
  ) template and output to parse. This can be useful if you have custom or one off templates or don't want to pip
   install ntc-templates.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 <span class="kn">from</span> <span class="nn">scrapli.helper</span> <span class="kn">import</span> <span class="n">textfsm_parse</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
@@ -2036,7 +2132,7 @@ response = conn.send_command("show version")</p>
     <span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">send_command</span><span class="p">(</span><span class="s2">&quot;show version&quot;</span><span class="p">)</span>
     <span class="n">structured_result</span> <span class="o">=</span> <span class="n">textfsm_parse</span><span class="p">(</span><span class="s2">&quot;/path/to/my/template&quot;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
 </code></pre></div>
-
+</td></tr></table>
 <p><em>NOTE</em>: If a template does not return structured data an empty list will be returned!</p>
 <p><em>NOTE</em>: Textfsm and ntc-templates is an optional extra for scrapli; you can install these modules manually or using
  the optional extras install via pip:</p>
@@ -2045,7 +2141,19 @@ response = conn.send_command("show version")</p>
 <p>Very much the same as the textfsm/ntc-templates integration, scrapli has optional integration with Cisco's PyATS
 /Genie parsing library for parsing show command output. While there are parsers for non-Cisco platforms, this is
  currently just an option for Cisco platforms within scrapli.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -2059,7 +2167,7 @@ response = conn.send_command("show version")</p>
     <span class="n">structured_result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">genie_parse_output</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">structured_result</span><span class="p">)</span>
 </code></pre></div>
-
+</td></tr></table>
 <p><em>NOTE</em>: If a parser does not return structured data an empty list will be returned!</p>
 <p><em>NOTE</em>: PyATS and Genie is an optional extra for scrapli; you can install these modules manually or using
  the optional extras install via pip:</p>
@@ -2073,12 +2181,26 @@ response = conn.send_command("show version")</p>
     is with TextFSM/ntc-templates and genie.</p>
 <p>An example ttp file (slightly modified from the great ttp quickstart guide) - in this case we'll pretend this file is
  called "my_template.ttp":</p>
-<div class="codehilite"><pre><span></span><code>interface {{ interface }}
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>interface {{ interface }}
  ip address {{ ip }} {{ mask }}
  description {{ description }}
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+</td></tr></table>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -2092,7 +2214,7 @@ response = conn.send_command("show version")</p>
     <span class="n">structured_result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">ttp_parse_output</span><span class="p">(</span><span class="n">template</span><span class="o">=</span><span class="s2">&quot;my_template.ttp&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">structured_result</span><span class="p">)</span>
 </code></pre></div>
-
+</td></tr></table>
 <p><em>NOTE</em>: If a parser does parse data, ttp will return an empty list (as with the other parser methods)</p>
 <p><em>NOTE</em>: ttp is an optional extra for scrapli; you can install these modules manually or using the optional extras
  install via pip:</p>
@@ -2110,7 +2232,25 @@ response = conn.send_command("show version")</p>
  argument should be the name of the privilege level that you would like to execute the interactive command at
  . This is an optional argument, with a default of the <code>default_desired_privilege_level</code> attribute which is normally
   "privilege exec" or similar depending on the platform. </p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -2130,7 +2270,7 @@ response = conn.send_command("show version")</p>
         <span class="p">]</span>
     <span class="p">)</span>
 </code></pre></div>
-
+</td></tr></table>
 <h2 id="telnet">Telnet<a class="headerlink" href="#telnet" title="Permanent link">&para;</a></h2>
 <p>scrapli supports telnet as a transport driver via the standard library module <code>telnetlib</code>. Telnet is a bit of a
  special case for scrapli, here are the things you need to know if you wish to use Telnet:</p>
@@ -2157,7 +2297,18 @@ scrapli search in system default locations for an ssh config file (<code>~/.ssh/
 <p><em>NOTE</em> -- scrapli does NOT disable strict host checking by default. Obviously this is the "smart" behavior, but it
  can be overridden on a per host basis in your SSH config file, or by passing <code>False</code> to the "auth_strict_key
  " argument on object instantiation.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXEDriver</span>
 
 <span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
@@ -2170,6 +2321,7 @@ scrapli search in system default locations for an ssh config file (<code>~/.ssh/
 <span class="k">with</span> <span class="n">IOSXEDriver</span><span class="p">(</span><span class="o">**</span><span class="n">my_device</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">get_prompt</span><span class="p">())</span>
 </code></pre></div>
+</td></tr></table>
                 
               
               
