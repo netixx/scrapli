@@ -2291,9 +2291,12 @@ conn.close()
 <h2 id="ssh-config-support">SSH Config Support<a class="headerlink" href="#ssh-config-support" title="Permanent link">&para;</a></h2>
 <p>scrapli supports using OpenSSH configuration files in a few ways. For "system" SSH transport (default setting
 ), passing a path to a config file will simply make scrapli "point" to that file, and therefore use that
- configuration files attributes (because it is just exec'ing system SSH!). See the <a href="/user_guide/caveats_known_issues/#transport-notes-caveats-and-known-issues">Transport Notes</a> 
-section for details about what Transport supports what configuration options. You can also pass <code>True</code> to let 
-scrapli search in system default locations for an ssh config file (<code>~/.ssh/config</code> and <code>/etc/ssh/ssh_config</code>.)</p>
+ configuration files attributes (because it is just exec'ing system SSH!). You can also pass <code>True</code> to let 
+scrapli search in system default locations for a ssh config file (<code>~/.ssh/config</code> and <code>/etc/ssh/ssh_config</code>).</p>
+<p>SSH transports other than "system" transport may support <em>some</em> subset of the OpenSSH configuration files, but will 
+not provide full support. Asyncssh, for example, will automatically pick up and handle proxy-jumps, SSH keys, and 
+some other items -- this is a 100% asyncssh feature and has nothing to do with scrapli (other than the fact that 
+scrapli allows you to use asyncssh).</p>
 <p><em>NOTE</em> -- scrapli does NOT disable strict host checking by default. Obviously this is the "smart" behavior, but it
  can be overridden on a per host basis in your SSH config file, or by passing <code>False</code> to the "auth_strict_key
  " argument on object instantiation.</p>
