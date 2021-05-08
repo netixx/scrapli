@@ -1833,6 +1833,9 @@
 <li>Improved typing for <code>send_interactive</code></li>
 <li>Remove napalm dev requirement -- switch to scrapli-cfg for dev environment config management; something something 
   eating dog food or whatever.</li>
+<li>Deprecate <code>comms_ansi</code> -- if there is an ANSI escape sequence we will now just strip it out automagically; this is 
+  <em>not</em> currently a breaking change, but will be -- there is a deprecation warning now and <code>comms_ansi</code> will be 
+  fully removed in the 2022.01.30 release (and pre-releases).</li>
 </ul>
 <h2 id="20210130">2021.01.30<a class="headerlink" href="#20210130" title="Permanent link">&para;</a></h2>
 <ul>

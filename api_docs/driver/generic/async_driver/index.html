@@ -1821,7 +1821,7 @@ class AsyncGenericDriver(AsyncDriver, BaseGenericDriver):
         timeout_ops: float = 30.0,
         comms_prompt_pattern: str = r"^\S{0,48}[#>$~@:\]]\s*$",
         comms_return_char: str = "\n",
-        comms_ansi: bool = False,
+        comms_ansi: Optional[bool] = None,
         ssh_config_file: Union[str, bool] = False,
         ssh_known_hosts_file: Union[str, bool] = False,
         on_init: Optional[Callable[..., Any]] = None,
@@ -2329,9 +2329,7 @@ Password:
 <span class="normal">76</span>
 <span class="normal">77</span>
 <span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>BaseDriver Object
+<span class="normal">79</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>BaseDriver Object
 
 BaseDriver is the root for all Scrapli driver classes. The synchronous and asyncio driver
 base driver classes can be used to provide a semi-pexpect like experience over top of
@@ -2361,8 +2359,6 @@ Args:
         should be mostly sorted for you if using network drivers (i.e. `IOSXEDriver`).
         Lastly, the case insensitive is just a convenience factor so i can be lazy.
     comms_return_char: character to use to send returns to host
-    comms_ansi: True/False strip comms_ansi characters from output, generally the default
-        value of False should be fine
     ssh_config_file: string to path for ssh config file, True to use default ssh config file
         or False to ignore default ssh config file
     ssh_known_hosts_file: string to path for ssh known hosts file, True to use default known
@@ -2436,7 +2432,7 @@ class AsyncGenericDriver(AsyncDriver, BaseGenericDriver):
         timeout_ops: float = 30.0,
         comms_prompt_pattern: str = r"^\S{0,48}[#>$~@:\]]\s*$",
         comms_return_char: str = "\n",
-        comms_ansi: bool = False,
+        comms_ansi: Optional[bool] = None,
         ssh_config_file: Union[str, bool] = False,
         ssh_known_hosts_file: Union[str, bool] = False,
         on_init: Optional[Callable[..., Any]] = None,
