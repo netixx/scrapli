@@ -13,8 +13,10 @@
         <meta name="author" content="Carl Montanari">
       
       
+        <link rel="canonical" href="https://carlmontanari.github.io/api_docs/driver/core/arista_eos/base_driver/">
+      
       <link rel="icon" href="../../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.5">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.5">
     
     
       
@@ -1311,16 +1313,7 @@
   
 
           
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
+            
   
   
   
@@ -1331,11 +1324,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1346,11 +1336,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1361,11 +1348,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1376,11 +1360,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1391,11 +1372,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1406,11 +1384,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1418,6 +1393,12 @@
       <a href="../../../../ssh_config/" class="md-nav__link">
         SSH Config
       </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -1448,14 +1429,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
-      <label class="md-nav__link" for="__nav_12">
+      <label class="md-nav__link" for="__nav_5">
         More Scrapli
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="More Scrapli" data-md-level="1">
-        <label class="md-nav__title" for="__nav_12">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           More Scrapli
         </label>
@@ -1538,14 +1519,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" type="checkbox" id="__nav_13" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
       
-      <label class="md-nav__link" for="__nav_13">
+      <label class="md-nav__link" for="__nav_6">
         Other
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Other" data-md-level="1">
-        <label class="md-nav__title" for="__nav_13">
+        <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           Other
         </label>
@@ -1695,12 +1676,7 @@ from scrapli.exceptions import ScrapliValueError
 PRIVS = {
     "exec": (
         PrivilegeLevel(
-            # pattern has... gotten a bit out of hand. it seems some eos devices can have things in
-            # parenthesis in a "normal" (non config) prompt... something like `my(eos)#`. To make
-            # sure we account for that but do *not* include config modes we need this negative
-            # lookahead to *not* match "config"... the remaining pattern is the "normal" scrapli
-            # eos pattern basically
-            pattern=r"^((?!config)[a-z0-9.\-@()/: ]){1,63}>\s?$",
+            pattern=r"^[\w.\-@()/: ]{1,63}>\s?$",
             name="exec",
             previous_priv="",
             deescalate="",
@@ -1711,24 +1687,26 @@ PRIVS = {
     ),
     "privilege_exec": (
         PrivilegeLevel(
-            pattern=r"^((?!config)[a-z0-9.\-@()/: ]){1,63}#\s?$",
+            pattern=r"^[\w.\-@()/: ]{1,63}#\s?$",
             name="privilege_exec",
             previous_priv="exec",
             deescalate="disable",
             escalate="enable",
             escalate_auth=True,
             escalate_prompt=r"^[pP]assword:\s?$",
+            not_contains=["(config"],
         )
     ),
     "configuration": (
         PrivilegeLevel(
-            pattern=r"^[a-z0-9.\-@()/: ]{1,63}\(config(?!\-s\-)[a-z0-9_.\-@/:]{0,32}\)#\s?$",
+            pattern=r"^[\w.\-@()/: ]{1,63}\(config[\w.\-@/:]{0,32}\)#\s?$",
             name="configuration",
             previous_priv="privilege_exec",
             deescalate="end",
             escalate="configure terminal",
             escalate_auth=False,
             escalate_prompt="",
+            not_contains=["(config-s-"],
         )
     ),
 }

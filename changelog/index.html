@@ -13,8 +13,10 @@
         <meta name="author" content="Carl Montanari">
       
       
+        <link rel="canonical" href="https://carlmontanari.github.io/changelog/">
+      
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.5">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.5">
     
     
       
@@ -1230,16 +1232,7 @@
   
 
           
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
+            
   
   
   
@@ -1250,11 +1243,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1265,11 +1255,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1280,11 +1267,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1295,11 +1279,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1310,11 +1291,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1325,11 +1303,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1337,6 +1312,12 @@
       <a href="../api_docs/ssh_config/" class="md-nav__link">
         SSH Config
       </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -1512,14 +1493,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
-      <label class="md-nav__link" for="__nav_12">
+      <label class="md-nav__link" for="__nav_5">
         More Scrapli
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="More Scrapli" data-md-level="1">
-        <label class="md-nav__title" for="__nav_12">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           More Scrapli
         </label>
@@ -1602,14 +1583,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" type="checkbox" id="__nav_13" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
       
-      <label class="md-nav__link" for="__nav_13">
+      <label class="md-nav__link" for="__nav_6">
         Other
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Other" data-md-level="1">
-        <label class="md-nav__title" for="__nav_13">
+        <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           Other
         </label>
@@ -1848,6 +1829,13 @@
 <li>Simplify the <code>collect</code> bits for integration tests... this is still not used heavily but hopefully will be soon!</li>
 <li>Replace vrnetlab creds in examples with scrapli (felt confusing to have vrnetlab creds everywhere, plus functional 
   testing is moving away from (but still supporting) vrnetlab test environment)</li>
+<li>Crank up the rows/cols for system transport -&gt; 80 rows, 256 cols -- this to align with scrapligo and to make it 
+  less common that users need to modify these values.</li>
+<li>BUGFIX: fixed blocking read in async channel telnet authentication (thank you Dmitry Figol!)</li>
+<li>Added <code>not_contains</code> field to privilege levels... this will help greatly simplify the necessary regex patterns, as 
+  well as allow us to ditch look arounds which go does not support... step one to a standardized community platform 
+  that works with python -or- go!</li>
+<li>Simplified (at least a little... more would be good) patterns for privilege levels for core platforms.</li>
 </ul>
 <h2 id="20210130">2021.01.30<a class="headerlink" href="#20210130" title="Permanent link">&para;</a></h2>
 <ul>

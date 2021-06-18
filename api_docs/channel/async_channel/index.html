@@ -13,8 +13,10 @@
         <meta name="author" content="Carl Montanari">
       
       
+        <link rel="canonical" href="https://carlmontanari.github.io/api_docs/channel/async_channel/">
+      
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.5">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.5">
     
     
       
@@ -1362,16 +1364,7 @@
   
 
           
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
+            
   
   
   
@@ -1382,11 +1375,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1397,11 +1387,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1412,11 +1399,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1427,11 +1411,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1442,11 +1423,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1457,11 +1435,8 @@
     </li>
   
 
-    
-      
-      
-      
-
+          
+            
   
   
   
@@ -1469,6 +1444,12 @@
       <a href="../../ssh_config/" class="md-nav__link">
         SSH Config
       </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -1499,14 +1480,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
-      <label class="md-nav__link" for="__nav_12">
+      <label class="md-nav__link" for="__nav_5">
         More Scrapli
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="More Scrapli" data-md-level="1">
-        <label class="md-nav__title" for="__nav_12">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           More Scrapli
         </label>
@@ -1589,14 +1570,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" type="checkbox" id="__nav_13" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
       
-      <label class="md-nav__link" for="__nav_13">
+      <label class="md-nav__link" for="__nav_6">
         Other
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Other" data-md-level="1">
-        <label class="md-nav__title" for="__nav_13">
+        <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           Other
         </label>
@@ -2078,7 +2059,7 @@ class AsyncChannel(BaseChannel):
                     return
 
     @ChannelTimeout(message="timed out during in channel telnet authentication")
-    async def channel_authenticate_telnet(
+    async def channel_authenticate_telnet(  # noqa: C901
         self, auth_username: str = "", auth_password: str = ""
     ) -> None:
         """
@@ -2116,12 +2097,16 @@ class AsyncChannel(BaseChannel):
         # there is no output on the channel. we do this because sometimes telnet needs a kick to get
         # it to prompt for auth -- particularity when connecting to terminal server/console port
         auth_start_time = datetime.now().timestamp()
+        read_interval = self._base_channel_args.timeout_ops / 20
         return_interval = self._base_channel_args.timeout_ops / 10
         return_attempts = 1
 
         async with self._channel_lock():
             while True:
-                buf = await self.read()
+                try:
+                    buf = await asyncio.wait_for(self.read(), timeout=read_interval)
+                except asyncio.TimeoutError:
+                    buf = b""
 
                 if not buf:
                     current_iteration_time = datetime.now().timestamp()
@@ -2703,7 +2688,7 @@ class AsyncChannel(BaseChannel):
                     return
 
     @ChannelTimeout(message="timed out during in channel telnet authentication")
-    async def channel_authenticate_telnet(
+    async def channel_authenticate_telnet(  # noqa: C901
         self, auth_username: str = "", auth_password: str = ""
     ) -> None:
         """
@@ -2741,12 +2726,16 @@ class AsyncChannel(BaseChannel):
         # there is no output on the channel. we do this because sometimes telnet needs a kick to get
         # it to prompt for auth -- particularity when connecting to terminal server/console port
         auth_start_time = datetime.now().timestamp()
+        read_interval = self._base_channel_args.timeout_ops / 20
         return_interval = self._base_channel_args.timeout_ops / 10
         return_attempts = 1
 
         async with self._channel_lock():
             while True:
-                buf = await self.read()
+                try:
+                    buf = await asyncio.wait_for(self.read(), timeout=read_interval)
+                except asyncio.TimeoutError:
+                    buf = b""
 
                 if not buf:
                     current_iteration_time = datetime.now().timestamp()
