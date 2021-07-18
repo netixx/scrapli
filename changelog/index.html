@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://carlmontanari.github.io/changelog/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.5">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.10">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.bde7dde4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.1fe995fd.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
         
           
           
@@ -48,6 +48,8 @@
     
     
       
+
+
     
     
   </head>
@@ -1836,6 +1838,15 @@
   well as allow us to ditch look arounds which go does not support... step one to a standardized community platform 
   that works with python -or- go!</li>
 <li>Simplified (at least a little... more would be good) patterns for privilege levels for core platforms.</li>
+<li>Added <code>_generic_driver_mode</code> to  the <code>NetworkDriver</code> classes -- this is a private mode as it should probably be used
+   cautiously -- the idea here is that you can send any strings you want and scrapli will not care about privilege
+  levels at all. See the discussion about this <a href="https://github.com/carlmontanari/scrapli/discussions/128">here</a>.</li>
+<li>BUGFIX: fixed asynctelnet issue with control character handling, thank you to <a href="https://github.com/davaeron">@davaeron</a> 
+  -- see <a class="gh-link gh-issue" href="https://github.com/mkdocs/mkdocs/issues/147" title="GitHub Issue mkdocs/mkdocs #147">#147</a></li>
+<li><em>BREAKING CHANGE</em> removed the <code>transport.username_prompt</code> and <code>transport.password_prompt</code> attributes of the telnet 
+  transports. All authentication has been moved into the channel, so it made no sense to leave these attributes on 
+  the transports. This may cause an issue for users that had explicitly set their prompts to something non-standard.</li>
+<li>Finally added logic to auto set port to 23 for telnet :)</li>
 </ul>
 <h2 id="20210130">2021.01.30<a class="headerlink" href="#20210130" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2233,7 +2244,8 @@
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href="../api_docs/ssh_config/" class="md-footer__link md-footer__link--prev" rel="prev">
+        
+        <a href="../api_docs/ssh_config/" class="md-footer__link md-footer__link--prev" aria-label="Previous: SSH Config" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -2248,7 +2260,8 @@
         </a>
       
       
-        <a href="../more_scrapli/scrapli_netconf/" class="md-footer__link md-footer__link--next" rel="next">
+        
+        <a href="../more_scrapli/scrapli_netconf/" class="md-footer__link md-footer__link--next" aria-label="Next: Scrapli Netconf" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
@@ -2323,10 +2336,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.d351de03.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.a1609d9a.min.js"></script>
+      <script src="../assets/javascripts/bundle.ddd52ceb.min.js"></script>
       
     
   </body>

@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://carlmontanari.github.io/api_docs/driver/network/sync_driver/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.5">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.10">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.bde7dde4.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.1fe995fd.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ef6f36e2.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.f1a3b89f.min.css">
         
           
           
@@ -48,6 +48,8 @@
     
     
       
+
+
     
     
   </head>
@@ -1819,7 +1821,7 @@ class NetworkDriver(GenericDriver, BaseNetworkDriver):
         host: str,
         privilege_levels: Dict[str, PrivilegeLevel],
         default_desired_privilege_level: str,
-        port: int = 22,
+        port: Optional[int] = None,
         auth_username: str = "",
         auth_password: str = "",
         auth_private_key: str = "",
@@ -1966,6 +1968,41 @@ class NetworkDriver(GenericDriver, BaseNetworkDriver):
                 msg = f"Failed to acquire requested privilege level {desired_priv}"
                 raise ScrapliPrivilegeError(msg)
 
+    def _acquire_appropriate_privilege_level(self, privilege_level: str = "") -> None:
+        """
+        Acquire the appropriate priv level
+
+        Acquires the "right" priv level based on generic_driver_mode, provided privilege level,
+        and default desired privilege level. If in "generic_driver_mode" and no priv level is
+        provided, we simply return as we are already at the "right" priv level (since we don't care
+        about priv levels in this mode). If we are in "generic_driver_mode" and we are provided a
+        priv level (this is only applicable in `send_interactive`) we will try to acquire that
+        provided priv level. If a priv name is passed we try to resolve it and use that as the
+        privilege level to acquire, otherwise if no priv leve is provided we will acquire the
+        default_desired_privilege_level.
+
+        Args:
+            privilege_level: optional name of privilege level to acquire
+
+        Returns:
+            None
+
+        Raises:
+            N/A
+
+        """
+        if not privilege_level and self._generic_driver_mode is True:
+            return
+
+        if privilege_level:
+            self._validate_privilege_level_name(privilege_level_name=privilege_level)
+            resolved_privilege_level = privilege_level
+        else:
+            resolved_privilege_level = self.default_desired_privilege_level
+
+        if self._current_priv_level.name != resolved_privilege_level:
+            self.acquire_priv(desired_priv=resolved_privilege_level)
+
     def send_command(
         self,
         command: str,
@@ -1994,8 +2031,7 @@ class NetworkDriver(GenericDriver, BaseNetworkDriver):
             N/A
 
         """
-        if self._current_priv_level.name != self.default_desired_privilege_level:
-            self.acquire_priv(desired_priv=self.default_desired_privilege_level)
+        self._acquire_appropriate_privilege_level()
 
         if failed_when_contains is None:
             failed_when_contains = self.failed_when_contains
@@ -2046,8 +2082,7 @@ class NetworkDriver(GenericDriver, BaseNetworkDriver):
             N/A
 
         """
-        if self._current_priv_level.name != self.default_desired_privilege_level:
-            self.acquire_priv(desired_priv=self.default_desired_privilege_level)
+        self._acquire_appropriate_privilege_level()
 
         if failed_when_contains is None:
             failed_when_contains = self.failed_when_contains
@@ -2100,8 +2135,7 @@ class NetworkDriver(GenericDriver, BaseNetworkDriver):
             N/A
 
         """
-        if self._current_priv_level.name != self.default_desired_privilege_level:
-            self.acquire_priv(desired_priv=self.default_desired_privilege_level)
+        self._acquire_appropriate_privilege_level()
 
         if failed_when_contains is None:
             failed_when_contains = self.failed_when_contains
@@ -2189,14 +2223,7 @@ class NetworkDriver(GenericDriver, BaseNetworkDriver):
             N/A
 
         """
-        if privilege_level:
-            self._validate_privilege_level_name(privilege_level_name=privilege_level)
-            resolved_privilege_level = privilege_level
-        else:
-            resolved_privilege_level = self.default_desired_privilege_level
-
-        if self._current_priv_level.name != resolved_privilege_level:
-            self.acquire_priv(desired_priv=resolved_privilege_level)
+        self._acquire_appropriate_privilege_level(privilege_level=privilege_level)
 
         if failed_when_contains is None:
             failed_when_contains = self.failed_when_contains
@@ -2578,7 +2605,7 @@ class NetworkDriver(GenericDriver, BaseNetworkDriver):
         host: str,
         privilege_levels: Dict[str, PrivilegeLevel],
         default_desired_privilege_level: str,
-        port: int = 22,
+        port: Optional[int] = None,
         auth_username: str = "",
         auth_password: str = "",
         auth_private_key: str = "",
@@ -2725,6 +2752,41 @@ class NetworkDriver(GenericDriver, BaseNetworkDriver):
                 msg = f"Failed to acquire requested privilege level {desired_priv}"
                 raise ScrapliPrivilegeError(msg)
 
+    def _acquire_appropriate_privilege_level(self, privilege_level: str = "") -> None:
+        """
+        Acquire the appropriate priv level
+
+        Acquires the "right" priv level based on generic_driver_mode, provided privilege level,
+        and default desired privilege level. If in "generic_driver_mode" and no priv level is
+        provided, we simply return as we are already at the "right" priv level (since we don't care
+        about priv levels in this mode). If we are in "generic_driver_mode" and we are provided a
+        priv level (this is only applicable in `send_interactive`) we will try to acquire that
+        provided priv level. If a priv name is passed we try to resolve it and use that as the
+        privilege level to acquire, otherwise if no priv leve is provided we will acquire the
+        default_desired_privilege_level.
+
+        Args:
+            privilege_level: optional name of privilege level to acquire
+
+        Returns:
+            None
+
+        Raises:
+            N/A
+
+        """
+        if not privilege_level and self._generic_driver_mode is True:
+            return
+
+        if privilege_level:
+            self._validate_privilege_level_name(privilege_level_name=privilege_level)
+            resolved_privilege_level = privilege_level
+        else:
+            resolved_privilege_level = self.default_desired_privilege_level
+
+        if self._current_priv_level.name != resolved_privilege_level:
+            self.acquire_priv(desired_priv=resolved_privilege_level)
+
     def send_command(
         self,
         command: str,
@@ -2753,8 +2815,7 @@ class NetworkDriver(GenericDriver, BaseNetworkDriver):
             N/A
 
         """
-        if self._current_priv_level.name != self.default_desired_privilege_level:
-            self.acquire_priv(desired_priv=self.default_desired_privilege_level)
+        self._acquire_appropriate_privilege_level()
 
         if failed_when_contains is None:
             failed_when_contains = self.failed_when_contains
@@ -2805,8 +2866,7 @@ class NetworkDriver(GenericDriver, BaseNetworkDriver):
             N/A
 
         """
-        if self._current_priv_level.name != self.default_desired_privilege_level:
-            self.acquire_priv(desired_priv=self.default_desired_privilege_level)
+        self._acquire_appropriate_privilege_level()
 
         if failed_when_contains is None:
             failed_when_contains = self.failed_when_contains
@@ -2859,8 +2919,7 @@ class NetworkDriver(GenericDriver, BaseNetworkDriver):
             N/A
 
         """
-        if self._current_priv_level.name != self.default_desired_privilege_level:
-            self.acquire_priv(desired_priv=self.default_desired_privilege_level)
+        self._acquire_appropriate_privilege_level()
 
         if failed_when_contains is None:
             failed_when_contains = self.failed_when_contains
@@ -2948,14 +3007,7 @@ class NetworkDriver(GenericDriver, BaseNetworkDriver):
             N/A
 
         """
-        if privilege_level:
-            self._validate_privilege_level_name(privilege_level_name=privilege_level)
-            resolved_privilege_level = privilege_level
-        else:
-            resolved_privilege_level = self.default_desired_privilege_level
-
-        if self._current_priv_level.name != resolved_privilege_level:
-            self.acquire_priv(desired_priv=resolved_privilege_level)
+        self._acquire_appropriate_privilege_level(privilege_level=privilege_level)
 
         if failed_when_contains is None:
             failed_when_contains = self.failed_when_contains
@@ -3624,7 +3676,8 @@ Raises:
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href="../base_driver/" class="md-footer__link md-footer__link--prev" rel="prev">
+        
+        <a href="../base_driver/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Base Driver" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -3639,7 +3692,8 @@ Raises:
         </a>
       
       
-        <a href="../async_driver/" class="md-footer__link md-footer__link--next" rel="next">
+        
+        <a href="../async_driver/" class="md-footer__link md-footer__link--next" aria-label="Next: Async Driver" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
@@ -3714,10 +3768,10 @@ Raises:
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../../assets/javascripts/workers/search.d351de03.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.a1609d9a.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.ddd52ceb.min.js"></script>
       
     
   </body>
