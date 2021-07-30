@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://carlmontanari.github.io/user_guide/basic_usage/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.10">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.1">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.1fe995fd.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.1118c9be.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ba0d045b.min.css">
         
           
           
@@ -118,14 +118,18 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -2289,23 +2293,26 @@ conn.close()
 async telnet transport (creatively called "asynctelnet") built on the standard library <code>asycnio</code>.</p>
 <p>A few things worth noting:</p>
 <ul>
-<li>You can set the username and password prompt expect string after your connection object instantiation
+<li>
+<p>You can set the username and password prompt expect string after your connection object instantiation
  and before calling the <code>open</code> method -- this means if you have non-default prompts you cannot use scrapli with a
   context manager and Telnet (because the context manager calls open for you). You can set the prompts using the
-   following attributes of the <code>Channel</code> (or <code>AsyncChannel</code>) object:</li>
-<li><code>telnet_username_prompt</code></li>
-<li><code>telnet_password_prompt</code>
- You can set these values like: <code>conn.channel.telnet_username_prompt</code>. The default values are:</li>
-<li><code>^(.*username:)|(.*login:)\s?$</code></li>
-<li><code>^password:\s?$</code>
- If you wish to provide custom values you can provide a string to look for "in" the output from the device, or a 
-    regular expression pattern that starts with <code>^</code> and ends with <code>$</code> -- if you don't use the line anchors the 
-    pattern will be <code>re.escape</code>'d.</li>
+   following attributes of the <code>Channel</code> (or <code>AsyncChannel</code>) object:</p>
+<ul>
+<li><code>telnet_username_prompt</code> which defaults to <code>^(.*username:)|(.*login:)\s?$</code></li>
+<li><code>telnet_password_prompt</code> which defaults to <code>^password:\s?$</code></li>
+</ul>
+<p>You can set these values by updating the appropriate attribute, for example: <code>conn.channel.telnet_username_prompt = "somethingneat"</code>. </p>
+</li>
+<li>
+<p>If you wish to provide custom prompt values you can provide a string to look for "in" the output from the device, 
+  or a regular expression pattern that starts with <code>^</code> and ends with <code>$</code> -- if you don't use the line anchors the 
+    pattern will be <code>re.escape</code>'d.</p>
+</li>
 <li>When using telnet you may need to set the <code>comms_return_char</code> to <code>\r\n</code> the tests against the core platforms pass
  without this, however it seems that some console server type devices are looking for this <code>\r\n</code> pattern instead of
   the default <code>\n</code> pattern.</li>
 </ul>
-<p>If telnet for some reason becomes an important use case, the telnet Transport layer can be improved/augmented.</p>
 <h2 id="ssh-config-support">SSH Config Support<a class="headerlink" href="#ssh-config-support" title="Permanent link">&para;</a></h2>
 <p>scrapli supports using OpenSSH configuration files in a few ways. For "system" SSH transport (default setting
 ), passing a path to a config file will simply make scrapli "point" to that file, and therefore use that
@@ -2453,10 +2460,10 @@ scrapli allows you to use asyncssh).</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.53c85856.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.ddd52ceb.min.js"></script>
+      <script src="../../assets/javascripts/bundle.716f8af4.min.js"></script>
       
     
   </body>

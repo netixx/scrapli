@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://carlmontanari.github.io/api_docs/channel/async_channel/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.10">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.1">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.1fe995fd.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.1118c9be.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.f1a3b89f.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ba0d045b.min.css">
         
           
           
@@ -118,14 +118,18 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -1891,13 +1895,16 @@ class AsyncChannel(BaseChannel):
             if processed_channel_input in b"".join(buf.lower().replace(b"\x08", b"").split()):
                 return buf
 
-    async def _read_until_prompt(self, buf: bytes = b"", prompt: str = "") -> bytes:
+    async def _read_until_prompt(self, buf: bytes = b"") -> bytes:
         """
-        Read until expected prompt is seen
+        Read until expected prompt is seen.
+
+        This reads until the "normal" `_base_channel_args.comms_prompt_pattern` is seen. The
+        `_read_until_explicit_prompt` method can be used to read until some pattern in an arbitrary
+        list of patterns is seen.
 
         Args:
-            buf: output from previous reads if needed (used in scrapli netconf)
-            prompt: prompt to look for if not looking for base prompt (comms_prompt_pattern)
+            buf: output from previous reads if needed (used by scrapli netconf)
 
         Returns:
             bytes: output read from channel
@@ -1907,7 +1914,7 @@ class AsyncChannel(BaseChannel):
 
         """
         search_pattern = self._get_prompt_pattern(
-            class_pattern=self._base_channel_args.comms_prompt_pattern, pattern=prompt
+            class_pattern=self._base_channel_args.comms_prompt_pattern
         )
 
         read_buf = BytesIO(buf)
@@ -1926,6 +1933,49 @@ class AsyncChannel(BaseChannel):
 
             if channel_match:
                 return read_buf.getvalue()
+
+    async def _read_until_explicit_prompt(self, prompts: List[str]) -> bytes:
+        """
+        Read until expected prompt is seen.
+
+        This method is for *explicit* prompt patterns instead of the "standard" prompt patterns
+        contained in the `_base_channel_args.comms_prompt_pattern` attribute. Generally this is
+        only used for `send_interactive` though it could be used elsewhere as well.
+
+        Args:
+            prompts: list of prompt patterns to look for, will return upon seeing any match
+
+        Returns:
+            bytes: output read from channel
+
+        Raises:
+            N/A
+
+        """
+        search_patterns = [
+            self._get_prompt_pattern(
+                class_pattern=self._base_channel_args.comms_prompt_pattern, pattern=prompt
+            )
+            for prompt in prompts
+        ]
+
+        read_buf = BytesIO(b"")
+
+        while True:
+            b = await self.read()
+            read_buf.write(b)
+
+            read_buf.seek(-self._base_channel_args.comms_prompt_search_depth, SEEK_END)
+            search_buf = read_buf.read()
+
+            for search_pattern in search_patterns:
+                channel_match = re.search(
+                    pattern=search_pattern,
+                    string=search_buf,
+                )
+
+                if channel_match:
+                    return read_buf.getvalue()
 
     async def _read_until_prompt_or_time(
         self,
@@ -2290,7 +2340,10 @@ class AsyncChannel(BaseChannel):
 
     @ChannelTimeout(message="timed out sending interactive input to device")
     async def send_inputs_interact(
-        self, interact_events: List[Tuple[str, str, Optional[bool]]]
+        self,
+        interact_events: List[Tuple[str, str, Optional[bool]]],
+        *,
+        interaction_complete_patterns: Optional[List[str]] = None,
     ) -> Tuple[bytes, bytes]:
         """
         Interact with a device with changing prompts per input.
@@ -2343,6 +2396,8 @@ class AsyncChannel(BaseChannel):
                 optional bool for the third and final element -- the optional bool specifies if the
                 input that is sent to the device is "hidden" (ex: password), if the hidden param is
                 not provided it is assumed the input is "normal" (not hidden)
+            interaction_complete_patterns: list of patterns, that if seen, indicate the interactive
+                "session" has ended and we should exit the interactive session.
 
         Returns:
             Tuple[bytes, bytes]: output read from the channel with no whitespace trimming/cleaning,
@@ -2362,6 +2417,11 @@ class AsyncChannel(BaseChannel):
                 channel_input = interact_event[0]
                 bytes_channel_input = channel_input.encode()
                 channel_response = interact_event[1]
+                prompts = [channel_response]
+
+                if interaction_complete_patterns is not None:
+                    prompts.extend(interaction_complete_patterns)
+
                 try:
                     hidden_input = interact_event[2]
                 except IndexError:
@@ -2380,7 +2440,7 @@ class AsyncChannel(BaseChannel):
                 else:
                     buf += await self._read_until_input(channel_input=bytes_channel_input)
                     self.send_return()
-                buf += await self._read_until_prompt(prompt=channel_response)
+                buf += await self._read_until_explicit_prompt(prompts=prompts)
 
         processed_buf += self._process_output(
             buf=buf,
@@ -2519,13 +2579,16 @@ class AsyncChannel(BaseChannel):
             if processed_channel_input in b"".join(buf.lower().replace(b"\x08", b"").split()):
                 return buf
 
-    async def _read_until_prompt(self, buf: bytes = b"", prompt: str = "") -> bytes:
+    async def _read_until_prompt(self, buf: bytes = b"") -> bytes:
         """
-        Read until expected prompt is seen
+        Read until expected prompt is seen.
+
+        This reads until the "normal" `_base_channel_args.comms_prompt_pattern` is seen. The
+        `_read_until_explicit_prompt` method can be used to read until some pattern in an arbitrary
+        list of patterns is seen.
 
         Args:
-            buf: output from previous reads if needed (used in scrapli netconf)
-            prompt: prompt to look for if not looking for base prompt (comms_prompt_pattern)
+            buf: output from previous reads if needed (used by scrapli netconf)
 
         Returns:
             bytes: output read from channel
@@ -2535,7 +2598,7 @@ class AsyncChannel(BaseChannel):
 
         """
         search_pattern = self._get_prompt_pattern(
-            class_pattern=self._base_channel_args.comms_prompt_pattern, pattern=prompt
+            class_pattern=self._base_channel_args.comms_prompt_pattern
         )
 
         read_buf = BytesIO(buf)
@@ -2554,6 +2617,49 @@ class AsyncChannel(BaseChannel):
 
             if channel_match:
                 return read_buf.getvalue()
+
+    async def _read_until_explicit_prompt(self, prompts: List[str]) -> bytes:
+        """
+        Read until expected prompt is seen.
+
+        This method is for *explicit* prompt patterns instead of the "standard" prompt patterns
+        contained in the `_base_channel_args.comms_prompt_pattern` attribute. Generally this is
+        only used for `send_interactive` though it could be used elsewhere as well.
+
+        Args:
+            prompts: list of prompt patterns to look for, will return upon seeing any match
+
+        Returns:
+            bytes: output read from channel
+
+        Raises:
+            N/A
+
+        """
+        search_patterns = [
+            self._get_prompt_pattern(
+                class_pattern=self._base_channel_args.comms_prompt_pattern, pattern=prompt
+            )
+            for prompt in prompts
+        ]
+
+        read_buf = BytesIO(b"")
+
+        while True:
+            b = await self.read()
+            read_buf.write(b)
+
+            read_buf.seek(-self._base_channel_args.comms_prompt_search_depth, SEEK_END)
+            search_buf = read_buf.read()
+
+            for search_pattern in search_patterns:
+                channel_match = re.search(
+                    pattern=search_pattern,
+                    string=search_buf,
+                )
+
+                if channel_match:
+                    return read_buf.getvalue()
 
     async def _read_until_prompt_or_time(
         self,
@@ -2918,7 +3024,10 @@ class AsyncChannel(BaseChannel):
 
     @ChannelTimeout(message="timed out sending interactive input to device")
     async def send_inputs_interact(
-        self, interact_events: List[Tuple[str, str, Optional[bool]]]
+        self,
+        interact_events: List[Tuple[str, str, Optional[bool]]],
+        *,
+        interaction_complete_patterns: Optional[List[str]] = None,
     ) -> Tuple[bytes, bytes]:
         """
         Interact with a device with changing prompts per input.
@@ -2971,6 +3080,8 @@ class AsyncChannel(BaseChannel):
                 optional bool for the third and final element -- the optional bool specifies if the
                 input that is sent to the device is "hidden" (ex: password), if the hidden param is
                 not provided it is assumed the input is "normal" (not hidden)
+            interaction_complete_patterns: list of patterns, that if seen, indicate the interactive
+                "session" has ended and we should exit the interactive session.
 
         Returns:
             Tuple[bytes, bytes]: output read from the channel with no whitespace trimming/cleaning,
@@ -2990,6 +3101,11 @@ class AsyncChannel(BaseChannel):
                 channel_input = interact_event[0]
                 bytes_channel_input = channel_input.encode()
                 channel_response = interact_event[1]
+                prompts = [channel_response]
+
+                if interaction_complete_patterns is not None:
+                    prompts.extend(interaction_complete_patterns)
+
                 try:
                     hidden_input = interact_event[2]
                 except IndexError:
@@ -3008,7 +3124,7 @@ class AsyncChannel(BaseChannel):
                 else:
                     buf += await self._read_until_input(channel_input=bytes_channel_input)
                     self.send_return()
-                buf += await self._read_until_prompt(prompt=channel_response)
+                buf += await self._read_until_explicit_prompt(prompts=prompts)
 
         processed_buf += self._process_output(
             buf=buf,
@@ -3192,7 +3308,7 @@ Raises:
 </code></pre></div>
 </td></tr></table>
 <h5 id="send_inputs_interact">send_inputs_interact<a class="headerlink" href="#send_inputs_interact" title="Permanent link">&para;</a></h5>
-<p><code>send_inputs_interact(self, interact_events: List[Tuple[str, str, Optional[bool]]]) ‑&gt; Tuple[bytes, bytes]</code></p>
+<p><code>send_inputs_interact(self, interact_events: List[Tuple[str, str, Optional[bool]]], *, interaction_complete_patterns: Optional[List[str]] = None) ‑&gt; Tuple[bytes, bytes]</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -3249,7 +3365,9 @@ Raises:
 <span class="normal">54</span>
 <span class="normal">55</span>
 <span class="normal">56</span>
-<span class="normal">57</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Interact with a device with changing prompts per input.
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Interact with a device with changing prompts per input.
 
 Used to interact with devices where prompts change per input, and where inputs may be hidden
 such as in the case of a password input. This can be used to respond to challenges from
@@ -3299,6 +3417,8 @@ Args:
         optional bool for the third and final element -- the optional bool specifies if the
         input that is sent to the device is &quot;hidden&quot; (ex: password), if the hidden param is
         not provided it is assumed the input is &quot;normal&quot; (not hidden)
+    interaction_complete_patterns: list of patterns, that if seen, indicate the interactive
+        &quot;session&quot; has ended and we should exit the interactive session.
 
 Returns:
     Tuple[bytes, bytes]: output read from the channel with no whitespace trimming/cleaning,
@@ -3418,10 +3538,10 @@ Raises:
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.53c85856.min.js", "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.ddd52ceb.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.716f8af4.min.js"></script>
       
     
   </body>
