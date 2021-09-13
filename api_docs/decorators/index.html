@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://carlmontanari.github.io/api_docs/decorators/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.1">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.1118c9be.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f7f47774.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
@@ -1293,26 +1293,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#deprecatecommsansi" class="md-nav__link">
-    DeprecateCommsAnsi
-  </a>
-  
-    <nav class="md-nav" aria-label="DeprecateCommsAnsi">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#class-variables" class="md-nav__link">
-    Class variables
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#timeoutopsmodifier" class="md-nav__link">
     TimeoutOpsModifier
   </a>
@@ -1629,26 +1609,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#deprecatecommsansi" class="md-nav__link">
-    DeprecateCommsAnsi
-  </a>
-  
-    <nav class="md-nav" aria-label="DeprecateCommsAnsi">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#class-variables" class="md-nav__link">
-    Class variables
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#timeoutopsmodifier" class="md-nav__link">
     TimeoutOpsModifier
   </a>
@@ -1703,7 +1663,6 @@ from concurrent.futures import ThreadPoolExecutor, wait
 from functools import update_wrapper
 from logging import LoggerAdapter
 from typing import TYPE_CHECKING, Any, Callable
-from warnings import warn
 
 from scrapli.exceptions import ScrapliTimeout
 
@@ -2118,44 +2077,6 @@ class TimeoutOpsModifier:
         # necessary for introspection for the auto gen docs to work!
         update_wrapper(wrapper=decorate, wrapped=wrapped_func)
         return decorate
-
-
-class DeprecateCommsAnsi:  # pragma: no cover
-    warning = (
-        "`comms_ansi` argument will be deprecated at the 2022.01.30 release (and any pre-releases),"
-        "please modify your code to no longer pass this argument. The stripping of ANSI characters "
-        "will now happen automatically if an ANSI escape is seen in device output."
-    )
-
-    def __call__(self, wrapped_func: Callable[..., Any]) -> Callable[..., Any]:
-        """
-        Decorate driver creation to warn users that `comms_ansi` will be deprecated
-
-        Args:
-            wrapped_func: function being decorated
-
-        Returns:
-            decorate: decorated func
-
-        Raises:
-            N/A
-
-        """
-
-        def decorate(*args: Any, **kwargs: Any) -> Any:
-            comms_ansi = kwargs.pop("comms_ansi", None)
-
-            if comms_ansi is None:
-                return wrapped_func(*args, **kwargs)
-
-            warn(self.warning, FutureWarning)
-
-            return wrapped_func(*args, **kwargs)
-
-        # ensures that the wrapped function is updated w/ the original functions docs/etc. --
-        # necessary for introspection for the auto gen docs to work!
-        update_wrapper(wrapper=decorate, wrapped=wrapped_func)
-        return decorate
         </code>
     </pre>
 </details>
@@ -2357,55 +2278,6 @@ class ChannelTimeout:
     </pre>
 </details>
 
-<h3 id="deprecatecommsansi">DeprecateCommsAnsi<a class="headerlink" href="#deprecatecommsansi" title="Permanent link">&para;</a></h3>
-<details class="source">
-    <summary>
-        <span>Expand source code</span>
-    </summary>
-    <pre>
-        <code class="python">
-class DeprecateCommsAnsi:  # pragma: no cover
-    warning = (
-        "`comms_ansi` argument will be deprecated at the 2022.01.30 release (and any pre-releases),"
-        "please modify your code to no longer pass this argument. The stripping of ANSI characters "
-        "will now happen automatically if an ANSI escape is seen in device output."
-    )
-
-    def __call__(self, wrapped_func: Callable[..., Any]) -> Callable[..., Any]:
-        """
-        Decorate driver creation to warn users that `comms_ansi` will be deprecated
-
-        Args:
-            wrapped_func: function being decorated
-
-        Returns:
-            decorate: decorated func
-
-        Raises:
-            N/A
-
-        """
-
-        def decorate(*args: Any, **kwargs: Any) -> Any:
-            comms_ansi = kwargs.pop("comms_ansi", None)
-
-            if comms_ansi is None:
-                return wrapped_func(*args, **kwargs)
-
-            warn(self.warning, FutureWarning)
-
-            return wrapped_func(*args, **kwargs)
-
-        # ensures that the wrapped function is updated w/ the original functions docs/etc. --
-        # necessary for introspection for the auto gen docs to work!
-        update_wrapper(wrapper=decorate, wrapped=wrapped_func)
-        return decorate
-        </code>
-    </pre>
-</details>
-
-<h4 id="class-variables">Class variables<a class="headerlink" href="#class-variables" title="Permanent link">&para;</a></h4>
-<p><code>warning</code></p>
 <h3 id="timeoutopsmodifier">TimeoutOpsModifier<a class="headerlink" href="#timeoutopsmodifier" title="Permanent link">&para;</a></h3>
 <details class="source">
     <summary>
@@ -2797,10 +2669,10 @@ class TransportTimeout:
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.53c85856.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.716f8af4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.febc23d1.min.js"></script>
       
     
   </body>

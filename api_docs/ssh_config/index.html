@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://carlmontanari.github.io/api_docs/ssh_config/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.1">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.1118c9be.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f7f47774.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
@@ -1422,6 +1422,32 @@
     SSHKnownHosts
   </a>
   
+    <nav class="md-nav" aria-label="SSHKnownHosts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lookup_1" class="md-nav__link">
+    lookup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1712,6 +1738,32 @@
     SSHKnownHosts
   </a>
   
+    <nav class="md-nav" aria-label="SSHKnownHosts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lookup_1" class="md-nav__link">
+    lookup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1747,6 +1799,8 @@
     <pre>
         <code class="python">
 """scrapli.ssh_config"""
+import base64
+import hmac
 import os
 import re
 import shlex
@@ -1822,7 +1876,7 @@ class SSHConfig:
 
         self.ssh_config_file = os.path.expanduser(ssh_config_file)
         if self.ssh_config_file:
-            with open(self.ssh_config_file, "r") as f:
+            with open(self.ssh_config_file, "r", encoding="utf-8") as f:
                 self.ssh_config = f.read()
             self.hosts = self._parse()
             if not self.hosts:
@@ -2183,7 +2237,7 @@ class SSHKnownHosts:
 
         self.ssh_known_hosts_file = os.path.expanduser(ssh_known_hosts_file)
         if self.ssh_known_hosts_file:
-            with open(self.ssh_known_hosts_file, "r") as f:
+            with open(self.ssh_known_hosts_file, "r", encoding="utf-8") as f:
                 self.ssh_known_hosts = f.read()
             self.hosts = self._parse()
             if not self.hosts:
@@ -2193,13 +2247,13 @@ class SSHKnownHosts:
 
     def _parse(self) -> Dict[str, Dict[str, str]]:
         """
-        Parse SSH configuration file
+        Parse OpenSSH known hosts file
 
         Args:
             N/A
 
         Returns:
-            discovered_hosts: dict of host objects discovered in known hosts file
+            known_hosts: dict of host public keys discovered in known hosts file
 
         Raises:
             N/A
@@ -2222,6 +2276,36 @@ class SSHKnownHosts:
                 known_hosts[individual_host]["public_key"] = public_key
 
         return known_hosts
+
+    def lookup(self, host: str) -> Dict[str, str]:
+        """
+        Lookup a given host's public key
+
+        Args:
+            host: host to lookup in known_hosts dict
+
+        Returns:
+            host_public_key: matched host public key from parsed ssh known hosts file,
+                empty dict if not found
+
+        Raises:
+            N/A
+
+        """
+        # return exact 1:1 match if exists
+        if host in self.hosts.keys():
+            return self.hosts[host]
+        # return match if given host is an exact match for a hashed host entry
+        raw_host = host.encode(encoding="utf-8")
+        for host_id, host_public_key in self.hosts.items():
+            if host_id.startswith("|1|"):
+                _, _, encoded_salt, encoded_hashed_host = host_id.split("|")
+                raw_salt = base64.b64decode(encoded_salt)
+                raw_hashed_host = base64.b64decode(encoded_hashed_host)
+                if hmac.HMAC(raw_salt, raw_host, "sha1").digest() == raw_hashed_host:
+                    return host_public_key
+        # otherwise return empty dict
+        return {}
 
 
 def ssh_config_factory(ssh_config_file: str) -> SSHConfig:
@@ -2494,7 +2578,7 @@ class SSHConfig:
 
         self.ssh_config_file = os.path.expanduser(ssh_config_file)
         if self.ssh_config_file:
-            with open(self.ssh_config_file, "r") as f:
+            with open(self.ssh_config_file, "r", encoding="utf-8") as f:
                 self.ssh_config = f.read()
             self.hosts = self._parse()
             if not self.hosts:
@@ -2869,7 +2953,7 @@ class SSHKnownHosts:
 
         self.ssh_known_hosts_file = os.path.expanduser(ssh_known_hosts_file)
         if self.ssh_known_hosts_file:
-            with open(self.ssh_known_hosts_file, "r") as f:
+            with open(self.ssh_known_hosts_file, "r", encoding="utf-8") as f:
                 self.ssh_known_hosts = f.read()
             self.hosts = self._parse()
             if not self.hosts:
@@ -2879,13 +2963,13 @@ class SSHKnownHosts:
 
     def _parse(self) -> Dict[str, Dict[str, str]]:
         """
-        Parse SSH configuration file
+        Parse OpenSSH known hosts file
 
         Args:
             N/A
 
         Returns:
-            discovered_hosts: dict of host objects discovered in known hosts file
+            known_hosts: dict of host public keys discovered in known hosts file
 
         Raises:
             N/A
@@ -2908,9 +2992,66 @@ class SSHKnownHosts:
                 known_hosts[individual_host]["public_key"] = public_key
 
         return known_hosts
+
+    def lookup(self, host: str) -> Dict[str, str]:
+        """
+        Lookup a given host's public key
+
+        Args:
+            host: host to lookup in known_hosts dict
+
+        Returns:
+            host_public_key: matched host public key from parsed ssh known hosts file,
+                empty dict if not found
+
+        Raises:
+            N/A
+
+        """
+        # return exact 1:1 match if exists
+        if host in self.hosts.keys():
+            return self.hosts[host]
+        # return match if given host is an exact match for a hashed host entry
+        raw_host = host.encode(encoding="utf-8")
+        for host_id, host_public_key in self.hosts.items():
+            if host_id.startswith("|1|"):
+                _, _, encoded_salt, encoded_hashed_host = host_id.split("|")
+                raw_salt = base64.b64decode(encoded_salt)
+                raw_hashed_host = base64.b64decode(encoded_hashed_host)
+                if hmac.HMAC(raw_salt, raw_host, "sha1").digest() == raw_hashed_host:
+                    return host_public_key
+        # otherwise return empty dict
+        return {}
         </code>
     </pre>
 </details>
+
+<h4 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link">&para;</a></h4>
+<h5 id="lookup_1">lookup<a class="headerlink" href="#lookup_1" title="Permanent link">&para;</a></h5>
+<p><code>lookup(self, host: str) ‑&gt; Dict[str, str]</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Lookup a given host&#39;s public key
+
+Args:
+    host: host to lookup in known_hosts dict
+
+Returns:
+    host_public_key: matched host public key from parsed ssh known hosts file,
+        empty dict if not found
+
+Raises:
+    N/A
+</code></pre></div>
+</td></tr></table>
                 
               
               
@@ -3021,10 +3162,10 @@ class SSHKnownHosts:
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.53c85856.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.716f8af4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.febc23d1.min.js"></script>
       
     
   </body>

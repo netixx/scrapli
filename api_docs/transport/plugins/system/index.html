@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://carlmontanari.github.io/api_docs/transport/plugins/system/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.1">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.1118c9be.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.f7f47774.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
@@ -1738,6 +1738,33 @@ class SystemTransport(Transport):
     def __init__(
         self, base_transport_args: BaseTransportArgs, plugin_transport_args: PluginTransportArgs
     ):
+        """
+        System (i.e. /bin/ssh) transport plugin.
+
+        This transport supports some additional `transport_options` to control behavior --
+
+        `ptyprocess` is a dictionary that has the following options:
+            rows: integer number of rows for ptyprocess "window"
+            cols: integer number of cols for ptyprocess "window"
+            echo: defaults to `True`, passing `False` disables echo in the ptyprocess; should only
+                be used with scrapli-netconf, will break scrapli!
+
+        `netconf_force_pty` is a scrapli-netconf only argument. This setting defaults to `True` and
+            allows you to *not* force a pty. This setting seems to only be necessary when connecting
+            to juniper devices on port 830 as junos decides to not allocate a pty on that port for
+            some reason!
+
+        Args:
+            base_transport_args: scrapli base transport plugin arguments
+            plugin_transport_args: system ssh specific transport plugin arguments
+
+        Returns:
+            N/A
+
+        Raises:
+            ScrapliUnsupportedPlatform: if system is windows
+
+        """
         super().__init__(base_transport_args=base_transport_args)
         self.plugin_transport_args = plugin_transport_args
 
@@ -1745,7 +1772,6 @@ class SystemTransport(Transport):
             raise ScrapliUnsupportedPlatform("system transport is not supported on windows devices")
 
         self.open_cmd: List[str] = []
-        self._build_open_cmd()
         self.session: Optional[PtyProcess] = None
 
     def _build_open_cmd(self) -> None:
@@ -1805,8 +1831,14 @@ class SystemTransport(Transport):
     def open(self) -> None:
         self._pre_open_closing_log(closing=False)
 
+        if not self.open_cmd:
+            self._build_open_cmd()
+
         self.session = PtyProcess.spawn(
             self.open_cmd,
+            echo=self._base_transport_args.transport_options.get("ptyprocess", {}).get(
+                "echo", True
+            ),
             rows=self._base_transport_args.transport_options.get("ptyprocess", {}).get("rows", 80),
             cols=self._base_transport_args.transport_options.get("ptyprocess", {}).get("cols", 256),
         )
@@ -1887,9 +1919,59 @@ class PluginTransportArgs(BasePluginTransportArgs):
 <p><code>ssh_config_file: str</code></p>
 <p><code>ssh_known_hosts_file: str</code></p>
 <h3 id="systemtransport">SystemTransport<a class="headerlink" href="#systemtransport" title="Permanent link">&para;</a></h3>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Helper class that provides a standard way to create an ABC using
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Helper class that provides a standard way to create an ABC using
 inheritance.
+
+System (i.e. /bin/ssh) transport plugin.
+
+This transport supports some additional `transport_options` to control behavior --
+
+`ptyprocess` is a dictionary that has the following options:
+    rows: integer number of rows for ptyprocess &quot;window&quot;
+    cols: integer number of cols for ptyprocess &quot;window&quot;
+    echo: defaults to `True`, passing `False` disables echo in the ptyprocess; should only
+        be used with scrapli-netconf, will break scrapli!
+
+`netconf_force_pty` is a scrapli-netconf only argument. This setting defaults to `True` and
+    allows you to *not* force a pty. This setting seems to only be necessary when connecting
+    to juniper devices on port 830 as junos decides to not allocate a pty on that port for
+    some reason!
+
+Args:
+    base_transport_args: scrapli base transport plugin arguments
+    plugin_transport_args: system ssh specific transport plugin arguments
+
+Returns:
+    N/A
+
+Raises:
+    ScrapliUnsupportedPlatform: if system is windows
 </code></pre></div>
 </td></tr></table>
 <details class="source">
@@ -1902,6 +1984,33 @@ class SystemTransport(Transport):
     def __init__(
         self, base_transport_args: BaseTransportArgs, plugin_transport_args: PluginTransportArgs
     ):
+        """
+        System (i.e. /bin/ssh) transport plugin.
+
+        This transport supports some additional `transport_options` to control behavior --
+
+        `ptyprocess` is a dictionary that has the following options:
+            rows: integer number of rows for ptyprocess "window"
+            cols: integer number of cols for ptyprocess "window"
+            echo: defaults to `True`, passing `False` disables echo in the ptyprocess; should only
+                be used with scrapli-netconf, will break scrapli!
+
+        `netconf_force_pty` is a scrapli-netconf only argument. This setting defaults to `True` and
+            allows you to *not* force a pty. This setting seems to only be necessary when connecting
+            to juniper devices on port 830 as junos decides to not allocate a pty on that port for
+            some reason!
+
+        Args:
+            base_transport_args: scrapli base transport plugin arguments
+            plugin_transport_args: system ssh specific transport plugin arguments
+
+        Returns:
+            N/A
+
+        Raises:
+            ScrapliUnsupportedPlatform: if system is windows
+
+        """
         super().__init__(base_transport_args=base_transport_args)
         self.plugin_transport_args = plugin_transport_args
 
@@ -1909,7 +2018,6 @@ class SystemTransport(Transport):
             raise ScrapliUnsupportedPlatform("system transport is not supported on windows devices")
 
         self.open_cmd: List[str] = []
-        self._build_open_cmd()
         self.session: Optional[PtyProcess] = None
 
     def _build_open_cmd(self) -> None:
@@ -1969,8 +2077,14 @@ class SystemTransport(Transport):
     def open(self) -> None:
         self._pre_open_closing_log(closing=False)
 
+        if not self.open_cmd:
+            self._build_open_cmd()
+
         self.session = PtyProcess.spawn(
             self.open_cmd,
+            echo=self._base_transport_args.transport_options.get("ptyprocess", {}).get(
+                "echo", True
+            ),
             rows=self._base_transport_args.transport_options.get("ptyprocess", {}).get("rows", 80),
             cols=self._base_transport_args.transport_options.get("ptyprocess", {}).get("cols", 256),
         )
@@ -2134,10 +2248,10 @@ class SystemTransport(Transport):
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.53c85856.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.716f8af4.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.febc23d1.min.js"></script>
       
     
   </body>

@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://carlmontanari.github.io/api_docs/response/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.1">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.1118c9be.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f7f47774.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
@@ -2355,7 +2355,7 @@ Raises:
 </td></tr></table>
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
 <h5 id="raise_for_status">raise_for_status<a class="headerlink" href="#raise_for_status" title="Permanent link">&para;</a></h5>
-<p><code>raise_for_status(self) ‑&gt; NoneType</code></p>
+<p><code>raise_for_status(self) ‑&gt; None</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2643,7 +2643,7 @@ class Response:
 
 <h4 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link">&para;</a></h4>
 <h5 id="genie_parse_output">genie_parse_output<a class="headerlink" href="#genie_parse_output" title="Permanent link">&para;</a></h5>
-<p><code>genie_parse_output(self) ‑&gt; Union[Dict[str, Any], List[Any]]</code></p>
+<p><code>genie_parse_output(self) ‑&gt; Union[List[Any], Dict[str, Any]]</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2670,7 +2670,7 @@ Raises:
 </code></pre></div>
 </td></tr></table>
 <h5 id="raise_for_status_1">raise_for_status<a class="headerlink" href="#raise_for_status_1" title="Permanent link">&para;</a></h5>
-<p><code>raise_for_status(self) ‑&gt; NoneType</code></p>
+<p><code>raise_for_status(self) ‑&gt; None</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2693,7 +2693,7 @@ Raises:
 </code></pre></div>
 </td></tr></table>
 <h5 id="record_response">record_response<a class="headerlink" href="#record_response" title="Permanent link">&para;</a></h5>
-<p><code>record_response(self, result: bytes) ‑&gt; NoneType</code></p>
+<p><code>record_response(self, result: bytes) ‑&gt; None</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2716,7 +2716,7 @@ Raises:
 </code></pre></div>
 </td></tr></table>
 <h5 id="textfsm_parse_output">textfsm_parse_output<a class="headerlink" href="#textfsm_parse_output" title="Permanent link">&para;</a></h5>
-<p><code>textfsm_parse_output(self, to_dict: bool = True) ‑&gt; Union[Dict[str, Any], List[Any]]</code></p>
+<p><code>textfsm_parse_output(self, to_dict: bool = True) ‑&gt; Union[List[Any], Dict[str, Any]]</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2745,7 +2745,7 @@ Raises:
 </code></pre></div>
 </td></tr></table>
 <h5 id="ttp_parse_output">ttp_parse_output<a class="headerlink" href="#ttp_parse_output" title="Permanent link">&para;</a></h5>
-<p><code>ttp_parse_output(self, template: Union[str, _io.TextIOWrapper]) ‑&gt; Union[Dict[str, Any], List[Any]]</code></p>
+<p><code>ttp_parse_output(self, template: Union[str, _io.TextIOWrapper]) ‑&gt; Union[List[Any], Dict[str, Any]]</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2881,10 +2881,10 @@ Raises:
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.53c85856.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.716f8af4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.febc23d1.min.js"></script>
       
     
   </body>

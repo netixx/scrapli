@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://carlmontanari.github.io/api_docs/driver/generic/async_driver/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.1">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.1118c9be.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.f7f47774.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
@@ -1807,7 +1807,6 @@ class AsyncGenericDriver(AsyncDriver, BaseGenericDriver):
         timeout_ops: float = 30.0,
         comms_prompt_pattern: str = r"^\S{0,48}[#>$~@:\]]\s*$",
         comms_return_char: str = "\n",
-        comms_ansi: Optional[bool] = None,
         ssh_config_file: Union[str, bool] = False,
         ssh_known_hosts_file: Union[str, bool] = False,
         on_init: Optional[Callable[..., Any]] = None,
@@ -1833,7 +1832,6 @@ class AsyncGenericDriver(AsyncDriver, BaseGenericDriver):
             timeout_ops=timeout_ops,
             comms_prompt_pattern=comms_prompt_pattern,
             comms_return_char=comms_return_char,
-            comms_ansi=comms_ansi,
             ssh_config_file=ssh_config_file,
             ssh_known_hosts_file=ssh_known_hosts_file,
             on_init=on_init,
@@ -2422,7 +2420,6 @@ class AsyncGenericDriver(AsyncDriver, BaseGenericDriver):
         timeout_ops: float = 30.0,
         comms_prompt_pattern: str = r"^\S{0,48}[#>$~@:\]]\s*$",
         comms_return_char: str = "\n",
-        comms_ansi: Optional[bool] = None,
         ssh_config_file: Union[str, bool] = False,
         ssh_known_hosts_file: Union[str, bool] = False,
         on_init: Optional[Callable[..., Any]] = None,
@@ -2448,7 +2445,6 @@ class AsyncGenericDriver(AsyncDriver, BaseGenericDriver):
             timeout_ops=timeout_ops,
             comms_prompt_pattern=comms_prompt_pattern,
             comms_return_char=comms_return_char,
-            comms_ansi=comms_ansi,
             ssh_config_file=ssh_config_file,
             ssh_known_hosts_file=ssh_known_hosts_file,
             on_init=on_init,
@@ -2889,7 +2885,7 @@ Raises:
 </code></pre></div>
 </td></tr></table>
 <h5 id="send_and_read">send_and_read<a class="headerlink" href="#send_and_read" title="Permanent link">&para;</a></h5>
-<p><code>send_and_read(self, channel_input: str, *, expected_outputs: Optional[List[str]] = None, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, timeout_ops: Optional[float] = None, read_duration: float = 2.5) ‑&gt; scrapli.response.Response</code></p>
+<p><code>send_and_read(self, channel_input: str, *, expected_outputs: Optional[List[str]] = None, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], ForwardRef(None)] = None, timeout_ops: Optional[float] = None, read_duration: float = 2.5) ‑&gt; scrapli.response.Response</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2940,7 +2936,7 @@ Raises:
 </code></pre></div>
 </td></tr></table>
 <h5 id="send_command">send_command<a class="headerlink" href="#send_command" title="Permanent link">&para;</a></h5>
-<p><code>send_command(self, command: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.Response</code></p>
+<p><code>send_command(self, command: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], ForwardRef(None)] = None, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.Response</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2973,7 +2969,7 @@ Raises:
 </code></pre></div>
 </td></tr></table>
 <h5 id="send_commands">send_commands<a class="headerlink" href="#send_commands" title="Permanent link">&para;</a></h5>
-<p><code>send_commands(self, commands: List[str], *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, eager: bool = False, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
+<p><code>send_commands(self, commands: List[str], *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], ForwardRef(None)] = None, stop_on_failed: bool = False, eager: bool = False, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -3018,7 +3014,7 @@ Raises:
 </code></pre></div>
 </td></tr></table>
 <h5 id="send_commands_from_file">send_commands_from_file<a class="headerlink" href="#send_commands_from_file" title="Permanent link">&para;</a></h5>
-<p><code>send_commands_from_file(self, file: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], NoneType] = None, stop_on_failed: bool = False, eager: bool = False, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
+<p><code>send_commands_from_file(self, file: str, *, strip_prompt: bool = True, failed_when_contains: Union[str, List[str], ForwardRef(None)] = None, stop_on_failed: bool = False, eager: bool = False, timeout_ops: Optional[float] = None) ‑&gt; scrapli.response.MultiResponse</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -3063,7 +3059,7 @@ Raises:
 </code></pre></div>
 </td></tr></table>
 <h5 id="send_interactive">send_interactive<a class="headerlink" href="#send_interactive" title="Permanent link">&para;</a></h5>
-<p><code>send_interactive(self, interact_events: Union[List[Tuple[str, str]], List[Tuple[str, str, bool]]], *, failed_when_contains: Union[str, List[str], NoneType] = None, privilege_level: str = '', timeout_ops: Optional[float] = None, interaction_complete_patterns: Optional[List[str]] = None) ‑&gt; scrapli.response.Response</code></p>
+<p><code>send_interactive(self, interact_events: Union[List[Tuple[str, str]], List[Tuple[str, str, bool]]], *, failed_when_contains: Union[str, List[str], ForwardRef(None)] = None, privilege_level: str = '', timeout_ops: Optional[float] = None, interaction_complete_patterns: Optional[List[str]] = None) ‑&gt; scrapli.response.Response</code></p>
 <p><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -3269,10 +3265,10 @@ Raises:
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.53c85856.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.716f8af4.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.febc23d1.min.js"></script>
       
     
   </body>

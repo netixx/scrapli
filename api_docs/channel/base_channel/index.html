@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://carlmontanari.github.io/api_docs/channel/base_channel/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.1">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.1118c9be.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f7f47774.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
@@ -1060,6 +1060,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#instance-variables" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#methods" class="md-nav__link">
     Methods
   </a>
@@ -1679,6 +1686,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#instance-variables" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#methods" class="md-nav__link">
     Methods
   </a>
@@ -1888,10 +1902,129 @@ class BaseChannel:
 
         self.channel_log: Optional[BinaryIO] = None
 
-        # prompt needs to be broad enough to match ansi and any other junk that shows up prior to
-        # the username/login prompt showing up
-        self.telnet_username_prompt = r"^(.*username:)|(.*login:)\s?$"
-        self.telnet_password_prompt = r"^password:\s?$"
+        self._auth_telnet_login_pattern = r"^(.*username:)|(.*login:)\s?$"
+        self._auth_password_pattern = r"^password:\s?$"
+        self._auth_passphrase_pattern = r"enter passphrase for key"
+
+    @property
+    def auth_telnet_login_pattern(self) -> Pattern[bytes]:
+        """
+        Getter for `auth_telnet_login_pattern` attribute
+
+        Args:
+            N/A
+
+        Returns:
+            Pattern: compiled pattern of the set auth_telnet_login_pattern value
+
+        Raises:
+            N/A
+
+        """
+        return re.compile(self._auth_telnet_login_pattern.encode(), flags=re.I | re.M)
+
+    @auth_telnet_login_pattern.setter
+    def auth_telnet_login_pattern(self, value: str) -> None:
+        """
+        Setter for `auth_telnet_login_pattern` attribute
+
+        Args:
+            value: str value for auth_telnet_login_pattern; this value will be compiled withe re.I
+                and re.M flags when the getter is called.
+
+        Returns:
+            None
+
+        Raises:
+            ScrapliTypeError: if value is not of type str
+
+        """
+        self.logger.debug(f"setting 'auth_telnet_login_pattern' value to '{value}'")
+
+        if not isinstance(value, str):
+            raise ScrapliTypeError
+
+        self._auth_telnet_login_pattern = value
+
+    @property
+    def auth_password_pattern(self) -> Pattern[bytes]:
+        """
+        Getter for `auth_password_pattern` attribute
+
+        Args:
+            N/A
+
+        Returns:
+            Pattern: compiled pattern of the set auth_password_pattern value
+
+        Raises:
+            N/A
+
+        """
+        return re.compile(self._auth_password_pattern.encode(), flags=re.I | re.M)
+
+    @auth_password_pattern.setter
+    def auth_password_pattern(self, value: str) -> None:
+        """
+        Setter for `auth_password_pattern` attribute
+
+        Args:
+            value: str value for auth_password_pattern; this value will be compiled withe re.I
+                and re.M flags when the getter is called.
+
+        Returns:
+            None
+
+        Raises:
+            ScrapliTypeError: if value is not of type str
+
+        """
+        self.logger.debug(f"setting 'auth_password_pattern' value to '{value}'")
+
+        if not isinstance(value, str):
+            raise ScrapliTypeError
+
+        self._auth_password_pattern = value
+
+    @property
+    def auth_passphrase_pattern(self) -> Pattern[bytes]:
+        """
+        Getter for `auth_passphrase_pattern` attribute
+
+        Args:
+            N/A
+
+        Returns:
+            Pattern: compiled pattern of the set auth_passphrase_pattern value
+
+        Raises:
+            N/A
+
+        """
+        return re.compile(self._auth_passphrase_pattern.encode(), flags=re.I | re.M)
+
+    @auth_passphrase_pattern.setter
+    def auth_passphrase_pattern(self, value: str) -> None:
+        """
+        Setter for `auth_passphrase_pattern` attribute
+
+        Args:
+            value: str value for auth_passphrase_pattern; this value will be compiled withe re.I
+                and re.M flags when the getter is called.
+
+        Returns:
+            None
+
+        Raises:
+            ScrapliTypeError: if value is not of type str
+
+        """
+        self.logger.debug(f"setting '_auth_passphrase_pattern' value to '{value}'")
+
+        if not isinstance(value, str):
+            raise ScrapliTypeError
+
+        self._auth_passphrase_pattern = value
 
     def open(self) -> None:
         """
@@ -1924,6 +2057,7 @@ class BaseChannel:
                 self.channel_log = open(  # pylint: disable=R1732
                     channel_log_destination,
                     mode=f"{self._base_channel_args.channel_log_mode}b",  # type: ignore
+                    encoding="utf-8",
                 )
 
     def close(self) -> None:
@@ -2053,6 +2187,8 @@ class BaseChannel:
             msg = "Permissions for private key are too open, authentication failed!"
         elif b"could not resolve hostname" in output.lower():
             msg = "Could not resolve address for host"
+        elif b"permission denied" in output.lower():
+            msg = str(output)
         if msg:
             self.logger.critical(msg)
             raise ScrapliAuthenticationFailed(msg)
@@ -2086,6 +2222,28 @@ class BaseChannel:
             return re.compile(bytes_pattern, flags=re.M | re.I)
         return re.compile(re.escape(bytes_pattern))
 
+    def _pre_channel_authenticate_ssh(
+        self,
+    ) -> Tuple[Pattern[bytes], Pattern[bytes], Pattern[bytes]]:
+        """
+        Handle pre ssh authentication work for parity between sync and sync versions.
+
+        Args:
+            N/A
+
+        Returns:
+            tuple: tuple of pass/passphrase/prompt patterns
+
+        Raises:
+            N/A
+
+        """
+        prompt_pattern = self._get_prompt_pattern(
+            class_pattern=self._base_channel_args.comms_prompt_pattern
+        )
+
+        return self.auth_password_pattern, self.auth_passphrase_pattern, prompt_pattern
+
     def _pre_channel_authenticate_telnet(
         self,
     ) -> Tuple[Pattern[bytes], Pattern[bytes], Pattern[bytes], float, float]:
@@ -2102,12 +2260,6 @@ class BaseChannel:
             N/A
 
         """
-        username_pattern = self._get_prompt_pattern(
-            class_pattern="", pattern=self.telnet_username_prompt
-        )
-        password_pattern = self._get_prompt_pattern(
-            class_pattern="", pattern=self.telnet_password_prompt
-        )
         prompt_pattern = self._get_prompt_pattern(
             class_pattern=self._base_channel_args.comms_prompt_pattern
         )
@@ -2119,7 +2271,13 @@ class BaseChannel:
         auth_start_time = datetime.now().timestamp()
         return_interval = self._base_channel_args.timeout_ops / 10
 
-        return username_pattern, password_pattern, prompt_pattern, auth_start_time, return_interval
+        return (
+            self.auth_telnet_login_pattern,
+            self.auth_password_pattern,
+            prompt_pattern,
+            auth_start_time,
+            return_interval,
+        )
 
     def _process_output(self, buf: bytes, strip_prompt: bool) -> bytes:
         """
@@ -2271,10 +2429,129 @@ class BaseChannel:
 
         self.channel_log: Optional[BinaryIO] = None
 
-        # prompt needs to be broad enough to match ansi and any other junk that shows up prior to
-        # the username/login prompt showing up
-        self.telnet_username_prompt = r"^(.*username:)|(.*login:)\s?$"
-        self.telnet_password_prompt = r"^password:\s?$"
+        self._auth_telnet_login_pattern = r"^(.*username:)|(.*login:)\s?$"
+        self._auth_password_pattern = r"^password:\s?$"
+        self._auth_passphrase_pattern = r"enter passphrase for key"
+
+    @property
+    def auth_telnet_login_pattern(self) -> Pattern[bytes]:
+        """
+        Getter for `auth_telnet_login_pattern` attribute
+
+        Args:
+            N/A
+
+        Returns:
+            Pattern: compiled pattern of the set auth_telnet_login_pattern value
+
+        Raises:
+            N/A
+
+        """
+        return re.compile(self._auth_telnet_login_pattern.encode(), flags=re.I | re.M)
+
+    @auth_telnet_login_pattern.setter
+    def auth_telnet_login_pattern(self, value: str) -> None:
+        """
+        Setter for `auth_telnet_login_pattern` attribute
+
+        Args:
+            value: str value for auth_telnet_login_pattern; this value will be compiled withe re.I
+                and re.M flags when the getter is called.
+
+        Returns:
+            None
+
+        Raises:
+            ScrapliTypeError: if value is not of type str
+
+        """
+        self.logger.debug(f"setting 'auth_telnet_login_pattern' value to '{value}'")
+
+        if not isinstance(value, str):
+            raise ScrapliTypeError
+
+        self._auth_telnet_login_pattern = value
+
+    @property
+    def auth_password_pattern(self) -> Pattern[bytes]:
+        """
+        Getter for `auth_password_pattern` attribute
+
+        Args:
+            N/A
+
+        Returns:
+            Pattern: compiled pattern of the set auth_password_pattern value
+
+        Raises:
+            N/A
+
+        """
+        return re.compile(self._auth_password_pattern.encode(), flags=re.I | re.M)
+
+    @auth_password_pattern.setter
+    def auth_password_pattern(self, value: str) -> None:
+        """
+        Setter for `auth_password_pattern` attribute
+
+        Args:
+            value: str value for auth_password_pattern; this value will be compiled withe re.I
+                and re.M flags when the getter is called.
+
+        Returns:
+            None
+
+        Raises:
+            ScrapliTypeError: if value is not of type str
+
+        """
+        self.logger.debug(f"setting 'auth_password_pattern' value to '{value}'")
+
+        if not isinstance(value, str):
+            raise ScrapliTypeError
+
+        self._auth_password_pattern = value
+
+    @property
+    def auth_passphrase_pattern(self) -> Pattern[bytes]:
+        """
+        Getter for `auth_passphrase_pattern` attribute
+
+        Args:
+            N/A
+
+        Returns:
+            Pattern: compiled pattern of the set auth_passphrase_pattern value
+
+        Raises:
+            N/A
+
+        """
+        return re.compile(self._auth_passphrase_pattern.encode(), flags=re.I | re.M)
+
+    @auth_passphrase_pattern.setter
+    def auth_passphrase_pattern(self, value: str) -> None:
+        """
+        Setter for `auth_passphrase_pattern` attribute
+
+        Args:
+            value: str value for auth_passphrase_pattern; this value will be compiled withe re.I
+                and re.M flags when the getter is called.
+
+        Returns:
+            None
+
+        Raises:
+            ScrapliTypeError: if value is not of type str
+
+        """
+        self.logger.debug(f"setting '_auth_passphrase_pattern' value to '{value}'")
+
+        if not isinstance(value, str):
+            raise ScrapliTypeError
+
+        self._auth_passphrase_pattern = value
 
     def open(self) -> None:
         """
@@ -2307,6 +2584,7 @@ class BaseChannel:
                 self.channel_log = open(  # pylint: disable=R1732
                     channel_log_destination,
                     mode=f"{self._base_channel_args.channel_log_mode}b",  # type: ignore
+                    encoding="utf-8",
                 )
 
     def close(self) -> None:
@@ -2436,6 +2714,8 @@ class BaseChannel:
             msg = "Permissions for private key are too open, authentication failed!"
         elif b"could not resolve hostname" in output.lower():
             msg = "Could not resolve address for host"
+        elif b"permission denied" in output.lower():
+            msg = str(output)
         if msg:
             self.logger.critical(msg)
             raise ScrapliAuthenticationFailed(msg)
@@ -2469,6 +2749,28 @@ class BaseChannel:
             return re.compile(bytes_pattern, flags=re.M | re.I)
         return re.compile(re.escape(bytes_pattern))
 
+    def _pre_channel_authenticate_ssh(
+        self,
+    ) -> Tuple[Pattern[bytes], Pattern[bytes], Pattern[bytes]]:
+        """
+        Handle pre ssh authentication work for parity between sync and sync versions.
+
+        Args:
+            N/A
+
+        Returns:
+            tuple: tuple of pass/passphrase/prompt patterns
+
+        Raises:
+            N/A
+
+        """
+        prompt_pattern = self._get_prompt_pattern(
+            class_pattern=self._base_channel_args.comms_prompt_pattern
+        )
+
+        return self.auth_password_pattern, self.auth_passphrase_pattern, prompt_pattern
+
     def _pre_channel_authenticate_telnet(
         self,
     ) -> Tuple[Pattern[bytes], Pattern[bytes], Pattern[bytes], float, float]:
@@ -2485,12 +2787,6 @@ class BaseChannel:
             N/A
 
         """
-        username_pattern = self._get_prompt_pattern(
-            class_pattern="", pattern=self.telnet_username_prompt
-        )
-        password_pattern = self._get_prompt_pattern(
-            class_pattern="", pattern=self.telnet_password_prompt
-        )
         prompt_pattern = self._get_prompt_pattern(
             class_pattern=self._base_channel_args.comms_prompt_pattern
         )
@@ -2502,7 +2798,13 @@ class BaseChannel:
         auth_start_time = datetime.now().timestamp()
         return_interval = self._base_channel_args.timeout_ops / 10
 
-        return username_pattern, password_pattern, prompt_pattern, auth_start_time, return_interval
+        return (
+            self.auth_telnet_login_pattern,
+            self.auth_password_pattern,
+            prompt_pattern,
+            auth_start_time,
+            return_interval,
+        )
 
     def _process_output(self, buf: bytes, strip_prompt: bool) -> bytes:
         """
@@ -2596,9 +2898,76 @@ class BaseChannel:
 <li>scrapli.channel.async_channel.AsyncChannel</li>
 <li>scrapli.channel.sync_channel.Channel</li>
 </ul>
+<h4 id="instance-variables">Instance variables<a class="headerlink" href="#instance-variables" title="Permanent link">&para;</a></h4>
+<p><code>auth_passphrase_pattern: Pattern[bytes]</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Getter for `auth_passphrase_pattern` attribute
+
+Args:
+    N/A
+
+Returns:
+    Pattern: compiled pattern of the set auth_passphrase_pattern value
+
+Raises:
+    N/A
+</code></pre></div>
+</td></tr></table>
+<p><code>auth_password_pattern: Pattern[bytes]</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Getter for `auth_password_pattern` attribute
+
+Args:
+    N/A
+
+Returns:
+    Pattern: compiled pattern of the set auth_password_pattern value
+
+Raises:
+    N/A
+</code></pre></div>
+</td></tr></table>
+<p><code>auth_telnet_login_pattern: Pattern[bytes]</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Getter for `auth_telnet_login_pattern` attribute
+
+Args:
+    N/A
+
+Returns:
+    Pattern: compiled pattern of the set auth_telnet_login_pattern value
+
+Raises:
+    N/A
+</code></pre></div>
+</td></tr></table>
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
 <h5 id="close">close<a class="headerlink" href="#close" title="Permanent link">&para;</a></h5>
-<p><code>close(self) ‑&gt; NoneType</code></p>
+<p><code>close(self) ‑&gt; None</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2621,7 +2990,7 @@ Raises:
 </code></pre></div>
 </td></tr></table>
 <h5 id="open">open<a class="headerlink" href="#open" title="Permanent link">&para;</a></h5>
-<p><code>open(self) ‑&gt; NoneType</code></p>
+<p><code>open(self) ‑&gt; None</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2644,7 +3013,7 @@ Raises:
 </code></pre></div>
 </td></tr></table>
 <h5 id="send_return">send_return<a class="headerlink" href="#send_return" title="Permanent link">&para;</a></h5>
-<p><code>send_return(self) ‑&gt; NoneType</code></p>
+<p><code>send_return(self) ‑&gt; None</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2667,7 +3036,7 @@ Raises:
 </code></pre></div>
 </td></tr></table>
 <h5 id="write">write<a class="headerlink" href="#write" title="Permanent link">&para;</a></h5>
-<p><code>write(self, channel_input: str, redacted: bool = False) ‑&gt; NoneType</code></p>
+<p><code>write(self, channel_input: str, redacted: bool = False) ‑&gt; None</code></p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2928,10 +3297,10 @@ class BaseChannelArgs:
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.53c85856.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.716f8af4.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.febc23d1.min.js"></script>
       
     
   </body>
