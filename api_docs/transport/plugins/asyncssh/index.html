@@ -1761,6 +1761,38 @@ class AsyncsshTransport(AsyncTransport):
         Thank you to @davaeron [https://github.com/davaeron] for reporting this in #173, see also
         asyncssh #323 here: https://github.com/ronf/asyncssh/issues/323.
 
+        This transport supports some additional `transport_options` to control behavior --
+        `asyncssh` is a dictionary that contains options that are passed directly to asyncssh during
+        connection creation, you can find the SSH Client options of asyncssh here:
+        https://asyncssh.readthedocs.io/en/latest/api.html#sshclientconnectionoptions. Below is an
+        example of passing in options to modify kex and encryption algorithms
+
+        <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>device = {
+    &quot;host&quot;: &quot;localhost&quot;,
+    &quot;transport_options&quot;: {
+        &quot;asyncssh&quot;: {
+            &quot;kex_algs&quot;: [&quot;diffie-hellman-group14-sha1&quot;, &quot;diffie-hellman-group1-sha1&quot;],
+            &quot;encryption_algs&quot;: [&quot;aes256-cbc&quot;, &quot;aes192-cbc&quot;, &quot;aes256-ctr&quot;, &quot;aes192-ctr&quot;],
+        }
+    },
+    &quot;platform&quot;: &quot;cisco_iosxe&quot;
+}
+
+conn = Scrapli(**device)
+</code></pre></div>
+</td></tr></table>
+
         Args:
             base_transport_args: scrapli base transport plugin arguments
             plugin_transport_args: asyncssh ssh specific transport plugin arguments
@@ -1851,6 +1883,9 @@ class AsyncsshTransport(AsyncTransport):
             "agent_path": None,
             "config": self.plugin_transport_args.ssh_config_file,
         }
+
+        # Allow passing `transport_options` to asyncssh
+        common_args.update(self._base_transport_args.transport_options.get("asyncssh", {}))
 
         try:
             self.session = await asyncio.wait_for(
@@ -1976,21 +2011,43 @@ number of ssh host key algorithms to work around this like so:
 </td></tr></table>
 Host *
     HostKeyAlgorithms ssh-rsa
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Thank you to @davaeron [https://github.com/davaeron] for reporting this in #173, see also
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Thank you to @davaeron [https://github.com/davaeron] for reporting this in #173, see also
 asyncssh #323 here: https://github.com/ronf/asyncssh/issues/323.
 
-Args:
+This transport supports some additional `transport_options` to control behavior --
+`asyncssh` is a dictionary that contains options that are passed directly to asyncssh during
+connection creation, you can find the SSH Client options of asyncssh here:
+https://asyncssh.readthedocs.io/en/latest/api.html#sshclientconnectionoptions. Below is an
+example of passing in options to modify kex and encryption algorithms
+</code></pre></div>
+</td></tr></table>
+device = {
+    "host": "localhost",
+    "transport_options": {
+        "asyncssh": {
+            "kex_algs": ["diffie-hellman-group14-sha1", "diffie-hellman-group1-sha1"],
+            "encryption_algs": ["aes256-cbc", "aes192-cbc", "aes256-ctr", "aes192-ctr"],
+        }
+    },
+    "platform": "cisco_iosxe"
+}</p>
+<p>conn = Scrapli(**device)
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Args:
     base_transport_args: scrapli base transport plugin arguments
     plugin_transport_args: asyncssh ssh specific transport plugin arguments
 
@@ -2027,6 +2084,38 @@ class AsyncsshTransport(AsyncTransport):
 
         Thank you to @davaeron [https://github.com/davaeron] for reporting this in #173, see also
         asyncssh #323 here: https://github.com/ronf/asyncssh/issues/323.
+
+        This transport supports some additional `transport_options` to control behavior --
+        `asyncssh` is a dictionary that contains options that are passed directly to asyncssh during
+        connection creation, you can find the SSH Client options of asyncssh here:
+        https://asyncssh.readthedocs.io/en/latest/api.html#sshclientconnectionoptions. Below is an
+        example of passing in options to modify kex and encryption algorithms
+
+        <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>device = {
+    &quot;host&quot;: &quot;localhost&quot;,
+    &quot;transport_options&quot;: {
+        &quot;asyncssh&quot;: {
+            &quot;kex_algs&quot;: [&quot;diffie-hellman-group14-sha1&quot;, &quot;diffie-hellman-group1-sha1&quot;],
+            &quot;encryption_algs&quot;: [&quot;aes256-cbc&quot;, &quot;aes192-cbc&quot;, &quot;aes256-ctr&quot;, &quot;aes192-ctr&quot;],
+        }
+    },
+    &quot;platform&quot;: &quot;cisco_iosxe&quot;
+}
+
+conn = Scrapli(**device)
+</code></pre></div>
+</td></tr></table>
 
         Args:
             base_transport_args: scrapli base transport plugin arguments
@@ -2118,6 +2207,9 @@ class AsyncsshTransport(AsyncTransport):
             "agent_path": None,
             "config": self.plugin_transport_args.ssh_config_file,
         }
+
+        # Allow passing `transport_options` to asyncssh
+        common_args.update(self._base_transport_args.transport_options.get("asyncssh", {}))
 
         try:
             self.session = await asyncio.wait_for(

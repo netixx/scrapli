@@ -1815,6 +1815,14 @@
 <li>Improved error handling/error message for insufficient permissions when opening ssh config/known hosts file 
   (system transport)</li>
 <li>Added support for hashed entries in known hosts file thanks to <a class="gh-link gh-mention" href="https://github.com/kangtastic" title="GitHub User: @kangtastic">@kangtastic</a> work in <a class="gh-link gh-issue" href="https://github.com/mkdocs/mkdocs/issues/174" title="GitHub Issue mkdocs/mkdocs #174">#174</a></li>
+<li>Improved "in channel" SSH and Telnet authentication handling; better consistency between sync and async, patterns 
+  are now compiled only if/when needed</li>
+<li>Added option to <em>enable</em> echo in PTYProcess (was originally removed from vendor'd code) -- should only be 
+  useful/necessary with netconf <a class="gh-link gh-issue" href="https://github.com/mkdocs/mkdocs/issues/165" title="GitHub Issue mkdocs/mkdocs #165">#165</a></li>
+<li>Allow users to build their own <code>open_cmd</code> for system transport -- users can override this to do things like 
+  <code>kubectl exec -it args args args</code> or <code>docker exec -it args args args</code> to connect to containers in k8s/docker <a class="gh-link gh-issue" href="https://github.com/mkdocs/mkdocs/issues/166" title="GitHub Issue mkdocs/mkdocs #166">#166</a></li>
+<li>Updated/fixed(?) Juniper shell patterns for "normal" and root shells <a class="gh-link gh-issue" href="https://github.com/mkdocs/mkdocs/issues/170" title="GitHub Issue mkdocs/mkdocs #170">#170</a></li>
+<li>Support transport options being passed to asyncssh transport thanks to <a class="gh-link gh-mention" href="https://github.com/cuong-nguyenduy" title="GitHub User: @cuong-nguyenduy">@cuong-nguyenduy</a> work in <a class="gh-link gh-issue" href="https://github.com/mkdocs/mkdocs/issues/178" title="GitHub Issue mkdocs/mkdocs #178">#178</a> and <a class="gh-link gh-issue" href="https://github.com/mkdocs/mkdocs/issues/183" title="GitHub Issue mkdocs/mkdocs #183">#183</a></li>
 </ul>
 <h2 id="20210730">2021.07.30<a class="headerlink" href="#20210730" title="Permanent link">&para;</a></h2>
 <ul>

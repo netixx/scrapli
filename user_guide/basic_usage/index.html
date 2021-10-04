@@ -1916,26 +1916,35 @@
 <h2 id="opening-and-closing-a-connection">Opening and Closing a Connection<a class="headerlink" href="#opening-and-closing-a-connection" title="Permanent link">&para;</a></h2>
 <p>scrapli does <em>not</em> open the connection for you when creating your scrapli connection object in normal operations, you
  must manually call the <code>open</code> method prior to sending any commands to the device as shown below.</p>
-<p>```python
-from scrapli.driver.core import IOSXRDriver</p>
-<p>my_device = {
-    "host": "172.18.0.11",
-    "auth_username": "scrapli",
-    "auth_password": "scrapli",
-    "auth_strict_key": False,
-}</p>
-<p>conn = IOSXRDriver(**my_device)
-conn.open()
-response = conn.send_command("show version")
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Connections can be closed by calling the `close` method:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scrapli.driver.core</span> <span class="kn">import</span> <span class="n">IOSXRDriver</span>
 
-```python
-conn.close()
+<span class="n">my_device</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;172.18.0.11&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;auth_username&quot;</span><span class="p">:</span> <span class="s2">&quot;scrapli&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;auth_password&quot;</span><span class="p">:</span> <span class="s2">&quot;scrapli&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;auth_strict_key&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">IOSXRDriver</span><span class="p">(</span><span class="o">**</span><span class="n">my_device</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">send_command</span><span class="p">(</span><span class="s2">&quot;show version&quot;</span><span class="p">)</span>
 </code></pre></div>
-</td></tr></table></p>
+</td></tr></table>
+<p>Connections can be closed by calling the <code>close</code> method:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+</td></tr></table>
 <p>scrapli also supports using a context manager (<code>with</code> block), when using the context manager the connection will be
  automatically opened and closed for you. </p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1964,7 +1973,7 @@ conn.close()
 <h2 id="sending-commands">Sending Commands<a class="headerlink" href="#sending-commands" title="Permanent link">&para;</a></h2>
 <p>When using any of the core network drivers (<code>JunosDriver</code>, <code>EOSDriver</code>, etc.) or the <code>GenericDriver</code>, the <code>send_command</code> and <code>send_commands</code> methods will respectively send a single command or list of commands to the device.</p>
 <p>When using the core network drivers, the command(s) will be sent at the <code>default_desired_privilege_level</code> level which is
- typically "privilege exec" (or equivalent) privilege level. Please see <a href="/user_guide/advanced_usage/#driver-privilege-levels">Driver Privilege Levels</a>
+ typically "privilege exec" (or equivalent) privilege level. Please see <a href="/scrapli/user_guide/advanced_usage/#driver-privilege-levels">Driver Privilege Levels</a>
   in the advanced usage section for more details on privilege levels. As the <code>GenericDriver</code> doesn't know or
   care about privilege levels you would need to manually handle acquiring the appropriate privilege level for you
    command yourself if using that driver.</p>
@@ -2080,7 +2089,7 @@ conn.close()
 </code></pre></div>
 </td></tr></table>
 <p>If you need to get into any kind of "special" configuration mode, such as "configure exclusive", "configure private
-", or "configure session XYZ", you can pass the name of the corresponding privilege level via the <code>privilege_level</code> argument. Please see the <a href="/user_guide/advanced_usage/#driver-privilege-levels">Driver Privilege Levels</a> section for more details!</p>
+", or "configure session XYZ", you can pass the name of the corresponding privilege level via the <code>privilege_level</code> argument. Please see the <a href="/scrapli/user_guide/advanced_usage/#driver-privilege-levels">Driver Privilege Levels</a> section for more details!</p>
 <p>Lastly, note that scrapli does <em>not</em> exit configuration mode at completion of a "configuration" event -- this is
  because scrapli (with the Network drivers) will automatically acquire <code>default_desired_privilege_level</code> before
   sending a "command" -- so there is no need, from a scrapli perspective, to explicitly exit config mode at end of

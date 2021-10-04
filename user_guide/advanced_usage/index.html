@@ -2128,7 +2128,7 @@ my-config-session
  uses the ssh binary on your system (<code>/usr/bin/ssh</code>). This "system" transport means that scrapli has no external
   dependencies as it just relies on what is available on the machine running the scrapli script.</p>
 <p>In the spirit of being highly flexible, scrapli allows users to swap out this "system" transport with another
- transport mechanism. The other supported transport plugins are <code>paramiko</code>, <code>ssh2-python</code> and <code>telnetlib</code>, <code>paramiko</code>, <code>ssh2-python</code>, and <code>asynctelnet</code>. The transport selection can be made  when instantiating the 
+ transport mechanism. The other supported transport plugins are <code>paramiko</code>, <code>ssh2-python</code>, <code>telnetlib</code>, <code>asyncssh</code>, and <code>asynctelnet</code>. The transport selection can be made  when instantiating the 
 scrapli connection object by passing in <code>paramiko</code>, <code>ssh2</code>, <code>telnet</code>, <code>asyncssh</code>, or <code>asynctelnet</code> to force  scrapli 
 to use the corresponding transport mechanism. If you are using one of the async transports you must use an async driver!</p>
 <p>While it will be a goal to ensure that these other transport mechanisms are supported and useful, the focus of
