@@ -1973,7 +1973,7 @@
 <h2 id="sending-commands">Sending Commands<a class="headerlink" href="#sending-commands" title="Permanent link">&para;</a></h2>
 <p>When using any of the core network drivers (<code>JunosDriver</code>, <code>EOSDriver</code>, etc.) or the <code>GenericDriver</code>, the <code>send_command</code> and <code>send_commands</code> methods will respectively send a single command or list of commands to the device.</p>
 <p>When using the core network drivers, the command(s) will be sent at the <code>default_desired_privilege_level</code> level which is
- typically "privilege exec" (or equivalent) privilege level. Please see <a href="/scrapli/user_guide/advanced_usage/#driver-privilege-levels">Driver Privilege Levels</a>
+ typically "privilege exec" (or equivalent) privilege level. Please see <a href="https://carlmontanari.github.io/scrapli/user_guide/advanced_usage/#driver-privilege-levels">Driver Privilege Levels</a>
   in the advanced usage section for more details on privilege levels. As the <code>GenericDriver</code> doesn't know or
   care about privilege levels you would need to manually handle acquiring the appropriate privilege level for you
    command yourself if using that driver.</p>
@@ -2089,7 +2089,7 @@
 </code></pre></div>
 </td></tr></table>
 <p>If you need to get into any kind of "special" configuration mode, such as "configure exclusive", "configure private
-", or "configure session XYZ", you can pass the name of the corresponding privilege level via the <code>privilege_level</code> argument. Please see the <a href="/scrapli/user_guide/advanced_usage/#driver-privilege-levels">Driver Privilege Levels</a> section for more details!</p>
+", or "configure session XYZ", you can pass the name of the corresponding privilege level via the <code>privilege_level</code> argument. Please see the <a href="https://carlmontanari.github.io/scrapli/user_guide/advanced_usage/#driver-privilege-levels">Driver Privilege Levels</a> section for more details!</p>
 <p>Lastly, note that scrapli does <em>not</em> exit configuration mode at completion of a "configuration" event -- this is
  because scrapli (with the Network drivers) will automatically acquire <code>default_desired_privilege_level</code> before
   sending a "command" -- so there is no need, from a scrapli perspective, to explicitly exit config mode at end of
