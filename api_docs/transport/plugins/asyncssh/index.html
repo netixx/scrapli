@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Fast, flexible, sync/async, Python 3.6+ screen scraping client specifically for network devices">
+        <meta name="description" content="Fast, flexible, sync/async, Python 3.7+ screen scraping client specifically for network devices">
       
       
         <meta name="author" content="Carl Montanari">
@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://carlmontanari.github.io/api_docs/transport/plugins/asyncssh/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.edf004c2.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6e60f8b8.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -1945,7 +1945,7 @@ import asyncio
 from dataclasses import dataclass
 from typing import Optional
 
-from asyncssh import connect
+from asyncssh import connect  # type: ignore
 from asyncssh.connection import SSHClientConnection
 from asyncssh.misc import ConnectionLost, PermissionDenied
 from asyncssh.stream import SSHReader, SSHWriter
@@ -2038,8 +2038,8 @@ conn = Scrapli(**device)
         self.plugin_transport_args = plugin_transport_args
 
         self.session: Optional[SSHClientConnection] = None
-        self.stdout: Optional[SSHReader] = None
-        self.stdin: Optional[SSHWriter] = None
+        self.stdout: Optional[SSHReader] = None  # type: ignore
+        self.stdin: Optional[SSHWriter] = None  # type: ignore
 
     def _verify_key(self) -> None:
         """
@@ -2075,7 +2075,8 @@ conn = Scrapli(**device)
 
         Raises:
             ScrapliConnectionNotOpened: if session is unopened/None
-            ScrapliAuthenticationFailed: if host is in known hosts but public key does not match
+            ScrapliAuthenticationFailed: if host is in known hosts but public key does not match or
+                cannot glean remote server key from session.
 
         """
         if not self.session:
@@ -2085,6 +2086,11 @@ conn = Scrapli(**device)
         known_host_public_key = known_hosts.lookup(self._base_transport_args.host)
 
         remote_server_key = self.session.get_server_host_key()
+        if remote_server_key is None:
+            raise ScrapliAuthenticationFailed(
+                f"failed gleaning remote server ssh key for host {self._base_transport_args.host}"
+            )
+
         remote_public_key = remote_server_key.export_public_key().split()[1].decode()
 
         if known_host_public_key["public_key"] != remote_public_key:
@@ -2186,6 +2192,7 @@ conn = Scrapli(**device)
         try:
             if (
                 self.session._auth_complete  # pylint:  disable=W0212
+                and self.session._transport is not None  # pylint:  disable=W0212
                 and self.session._transport.is_closing() is False  # pylint:  disable=W0212
             ):
                 return True
@@ -2362,8 +2369,8 @@ conn = Scrapli(**device)
         self.plugin_transport_args = plugin_transport_args
 
         self.session: Optional[SSHClientConnection] = None
-        self.stdout: Optional[SSHReader] = None
-        self.stdin: Optional[SSHWriter] = None
+        self.stdout: Optional[SSHReader] = None  # type: ignore
+        self.stdin: Optional[SSHWriter] = None  # type: ignore
 
     def _verify_key(self) -> None:
         """
@@ -2399,7 +2406,8 @@ conn = Scrapli(**device)
 
         Raises:
             ScrapliConnectionNotOpened: if session is unopened/None
-            ScrapliAuthenticationFailed: if host is in known hosts but public key does not match
+            ScrapliAuthenticationFailed: if host is in known hosts but public key does not match or
+                cannot glean remote server key from session.
 
         """
         if not self.session:
@@ -2409,6 +2417,11 @@ conn = Scrapli(**device)
         known_host_public_key = known_hosts.lookup(self._base_transport_args.host)
 
         remote_server_key = self.session.get_server_host_key()
+        if remote_server_key is None:
+            raise ScrapliAuthenticationFailed(
+                f"failed gleaning remote server ssh key for host {self._base_transport_args.host}"
+            )
+
         remote_public_key = remote_server_key.export_public_key().split()[1].decode()
 
         if known_host_public_key["public_key"] != remote_public_key:
@@ -2510,6 +2523,7 @@ conn = Scrapli(**device)
         try:
             if (
                 self.session._auth_complete  # pylint:  disable=W0212
+                and self.session._transport is not None  # pylint:  disable=W0212
                 and self.session._transport.is_closing() is False  # pylint:  disable=W0212
             ):
                 return True
@@ -2686,10 +2700,10 @@ class PluginTransportArgs(BasePluginTransportArgs):
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.960e086b.min.js"></script>
       
     
   </body>
